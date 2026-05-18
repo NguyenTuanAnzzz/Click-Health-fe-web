@@ -1,13 +1,148 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* PHARMA CLEAN THEME (Light) */
+  --color-primary: 25 118 210;      /* #1976D2 */
+  --color-primary-light: 66 165 245;
+  --color-primary-dark: 21 101 192;  
+  --color-accent: 25 118 210;       
+  --color-accent-light: 66 165 245;
+  --color-accent-dark: 21 101 192;
+  --color-danger: 211 47 47;       
+  --color-danger-light: 239 83 80;
+  --color-danger-dark: 198 40 40;
+  --color-neutral: 245 248 252;      
+  --color-info: 2 136 209;         
+  
+  --color-surface: 255 255 255;
+  --color-background: 245 248 252;
+  --color-border: 94 111 136;
+  --color-text: 11 30 58;         
+  
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-teal-glow: none;
+  --shadow-accent-glow: none;
+  --shadow-danger-glow: none;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.dark {
+  --color-primary: 66 165 245;      
+  --color-primary-light: 100 181 246;
+  --color-primary-dark: 30 30 30;  
+  
+  --color-surface: 30 30 30;
+  --color-background: 18 18 18;
+  --color-border: 94 111 136;
+  --color-text: 245 248 252;         
+  --color-neutral: 30 30 30;
+  
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  --shadow-teal-glow: none;
+  --shadow-accent-glow: none;
+  --shadow-danger-glow: none;
+}
+
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: rgb(var(--color-background));
+    color: rgb(var(--color-text));
+    scroll-behavior: smooth;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: rgb(var(--color-text));
+  }
+
+  button, input, select, textarea {
+    background-color: transparent;
+    color: inherit;
+  }
+}
+
+@layer components {
+  .btn-pill {
+    @apply rounded px-5 py-3 font-semibold transition-all active:scale-95 shadow-sm flex items-center justify-center gap-2;
+  }
+  
+  .btn-primary-game {
+    @apply btn-pill bg-primary text-white hover:bg-primary-dark;
+  }
+
+  .btn-secondary-game {
+    @apply btn-pill bg-white text-primary border border-primary hover:bg-neutral;
+  }
+
+  .game-card {
+    @apply bg-surface rounded-lg p-6 border border-border/20 shadow-sm transition-all text-main;
+  }
+
+  .ribbon-banner {
+    @apply relative bg-primary border border-primary-dark px-6 py-2 font-semibold text-white shadow-sm;
+  }
+}
+
+@layer utilities {
+  .dashed-divider {
+    border-bottom: 1px dashed rgb(var(--color-border));
+  }
+
+  @keyframes bounce-small {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+  }
+
+  .animate-bounce-small {
+    animation: bounce-small 2s infinite;
+  }
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 12s linear infinite;
+  }
+
+  .pattern-grid-lg {
+    background-image: radial-gradient(rgb(var(--color-text) / 0.02) 1px, transparent 0);
+    background-size: 32px 32px;
+  }
+
+  @keyframes scan {
+    0% { top: 0; opacity: 0; }
+    10% { opacity: 0.5; }
+    90% { opacity: 0.5; }
+    100% { top: 100%; opacity: 0; }
+  }
+
+  .animate-scan {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgb(var(--color-primary));
+    box-shadow: 0 0 10px 1px rgb(var(--color-primary));
+    animation: scan 4s ease-in-out infinite;
+    z-index: 10;
+  }
 }
