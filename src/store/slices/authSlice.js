@@ -10,9 +10,18 @@ export const register = createAsyncThunk(
   "auth/register",
   async (userData, thunkAPI) => {
     try {
+      console.log("[REGISTER_API] Sending request to:", `${API_URL}/users/signup`);
       const res = await axios.post(`${API_URL}/users/signup`, userData);
+      console.log("[REGISTER_API] Success response:", res.data);
       return res.data;
     } catch (error) {
+      console.error("[REGISTER_API] FAILED! Full error object:", error);
+      if (error?.response) {
+        console.error("[REGISTER_API] Server responded with status:", error.response.status);
+        console.error("[REGISTER_API] Server response data:", error.response.data);
+      } else {
+        console.error("[REGISTER_API] No server response (network error/timeout):", error.message);
+      }
       return thunkAPI.rejectWithValue(
         getErrorMessage(error, "Register failed"),
       );
