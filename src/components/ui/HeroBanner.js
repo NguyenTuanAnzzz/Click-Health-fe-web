@@ -6,74 +6,91 @@ const HeroBanner = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative w-full overflow-hidden bg-white pt-32 pb-16 md:pt-40 md:pb-24 px-4 md:px-8 lg:px-12 transition-colors border-b border-border/10">
-      {/* Subtle background decoration */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-neutral/50 -skew-x-12 transform translate-x-1/4 -z-0" />
+    <div className="relative w-full overflow-hidden bg-[#244d54] pt-32 pb-20 md:pt-40 md:pb-28 px-6 transition-colors">
+      {/* 2.AG grid decoration */}
+      <div className="absolute inset-0 pattern-grid-lg opacity-35 pointer-events-none" />
       
-      <div className="relative z-10 w-full lg:flex lg:items-center lg:justify-between max-w-[1600px] mx-auto">
+      {/* Light Lagoon Mist radial glow */}
+      <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-[#6dddbd]/10 blur-[130px] pointer-events-none" />
+      <div className="absolute bottom-[-100px] right-[-100px] w-[500px] h-[500px] rounded-full bg-[#2ecea0]/5 blur-[120px] pointer-events-none" />
+      
+      <div className="relative z-10 w-full lg:flex lg:items-center lg:justify-between max-w-[1200px] mx-auto gap-12">
         <div className="w-full lg:w-3/5">
           <div className="inline-block mb-6">
-            <div className="flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-sm">
-              <ShieldCheck size={16} className="text-primary" />
-              <span className="uppercase tracking-[0.1em] text-[0.72rem] font-semibold text-primary">Hệ thống Tầm soát Thông minh</span>
+            <div className="flex items-center gap-2 px-3.5 py-1 bg-white/5 border border-white/10 rounded-full">
+              <ShieldCheck size={14} className="text-[#2ecea0]" />
+              <span className="uppercase tracking-[0.12em] text-[10px] font-bold text-[#6dddbd] font-inter-tight-small">
+                Hệ thống Tầm soát Thông minh AI
+              </span>
             </div>
           </div>
           
-          <h1 className="text-5xl md:text-6.5xl text-main mb-8 leading-[1.1] font-medium tracking-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-[54px] text-white mb-6 leading-[1.15] font-medium tracking-tight font-inter">
             Tầm soát đột quỵ <br />
-            <span className="text-primary">Chính xác & Nhanh chóng</span>
+            <span className="text-[#2ecea0]">Chính xác & Nhanh chóng</span>
           </h1>
           
-          <p className="text-secondary text-lg md:text-xl mb-12 max-w-2xl leading-relaxed font-normal">
-            Sử dụng trí tuệ nhân tạo tiên tiến để phân tích dấu hiệu và cảnh báo nguy cơ đột quỵ sớm. Click Health mang đến giải pháp y tế số tin cậy cho mọi nhà.
+          <p className="text-white/70 text-[15px] md:text-[16px] mb-10 max-w-2xl leading-relaxed font-normal font-inter-tight-small">
+            Sử dụng trí tuệ nhân tạo tiên tiến để phân tích dấu hiệu và cảnh báo nguy cơ đột quỵ sớm. Click Health mang đến giải pháp y tế số tin cậy cho sức khỏe của bạn và gia đình.
           </p>
           
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-12">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-12">
             <button 
               onClick={() => navigate('/befast')}
-              className="bg-primary text-white text-lg py-4 px-8 rounded-md font-semibold shadow-sm hover:bg-primary-dark transition-colors flex items-center justify-center gap-3"
+              className="bg-[#2ecea0] text-white text-[15px] py-3.5 px-8 rounded-full font-bold shadow-md hover:bg-[#26b38a] hover:shadow-[#2ecea0]/20 hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2.5 font-inter-tight-small animate-bounce-small"
             >
-              <Camera size={24} />
+              <Camera size={18} strokeWidth={2.5} />
               BẮT ĐẦU KIỂM TRA
             </button>
             
             <button 
               onClick={() => navigate('/knowledge')}
-              className="bg-white text-primary border border-primary text-lg py-4 px-8 rounded-md font-semibold hover:bg-neutral transition-colors flex items-center justify-center gap-3"
+              className="bg-transparent text-white border border-white/30 text-[15px] py-3.5 px-8 rounded-full font-bold hover:bg-white/10 hover:border-white/50 transition-all duration-300 flex items-center justify-center gap-2.5 font-inter-tight-small"
             >
-              <Info size={24} />
+              <Info size={18} strokeWidth={2.5} />
               TÌM HIỂU THÊM
             </button>
           </div>
 
-          <div className="flex flex-wrap gap-8 pt-8 border-t border-border/20">
+          <div className="flex flex-wrap gap-8 pt-8 border-t border-white/10">
             <div className="flex items-center space-x-3">
-              <Activity className="text-primary" size={20} />
-              <span className="font-semibold text-main text-sm">Kết quả trong 30 giây</span>
+              <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+                <Activity className="text-[#6dddbd]" size={16} />
+              </div>
+              <span className="font-semibold text-white/90 text-[13px] font-inter-tight-small">Kết quả trong 30 giây</span>
             </div>
             <div className="flex items-center space-x-3">
-              <HeartPulse className="text-danger" size={20} />
-              <span className="font-semibold text-main text-sm">Cảnh báo tức thì</span>
+              <div className="w-8 h-8 rounded-full bg-[#d32f2f]/10 flex items-center justify-center border border-[#d32f2f]/20">
+                <HeartPulse className="text-red-400" size={16} />
+              </div>
+              <span className="font-semibold text-white/90 text-[13px] font-inter-tight-small">Cảnh báo tức thì</span>
             </div>
             <div className="flex items-center space-x-3">
-              <ShieldCheck className="text-info" size={20} />
-              <span className="font-semibold text-main text-sm">Bảo mật thông tin</span>
+              <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+                <ShieldCheck className="text-[#2ecea0]" size={16} />
+              </div>
+              <span className="font-semibold text-white/90 text-[13px] font-inter-tight-small">Bảo mật thông tin</span>
             </div>
           </div>
         </div>
 
         <div className="hidden lg:block w-1/3 relative">
-          <div className="relative w-full aspect-[4/5] bg-white border border-border/30 rounded-lg shadow-lg flex items-center justify-center overflow-hidden group">
-            <div className="absolute inset-0 bg-neutral/30 pattern-grid-lg opacity-40" />
-            <div className="text-center p-8 z-10">
-              <div className="w-24 h-24 bg-primary rounded-md flex items-center justify-center mx-auto mb-8 shadow-md">
-                <Camera size={48} className="text-white" />
+          <div className="relative w-full aspect-[4/5] bg-white/[0.03] border border-white/10 rounded-[20px] shadow-2xl flex items-center justify-center overflow-hidden group">
+            {/* Embedded grid decoration */}
+            <div className="absolute inset-0 bg-[#244d54]/25 pattern-grid-lg opacity-60" />
+            
+            <div className="text-center p-8 z-10 font-inter-tight-small">
+              <div className="w-20 h-20 bg-[#2ecea0]/10 border border-[#2ecea0]/30 rounded-[16px] flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-105 transition-transform duration-500">
+                <Camera size={36} className="text-[#2ecea0]" strokeWidth={2} />
               </div>
-              <h3 className="text-2xl font-semibold text-main mb-4">AI SCANNER</h3>
-              <p className="text-secondary font-normal text-md">Đứng trước camera để <br/> phân tích dấu hiệu</p>
+              <h3 className="text-xl font-bold font-inter text-white mb-2 tracking-wide">AI SCANNER</h3>
+              <p className="text-white/50 font-medium text-[13px] leading-relaxed">
+                Đứng trước camera để<br/>phân tích cử động cơ mặt
+              </p>
             </div>
             
-            <div className="absolute top-0 left-0 w-full h-1 bg-primary/30 animate-scan" />
+            {/* Glowing scanning laser bar */}
+            <div className="absolute top-0 left-0 w-full h-0.5 bg-[#2ecea0]/50 animate-scan" />
           </div>
         </div>
       </div>

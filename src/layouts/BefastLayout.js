@@ -1,28 +1,104 @@
 import React from 'react';
-import { ArrowLeft } from 'lucide-react';
-import { useNavigate, Outlet } from 'react-router-dom';
+import { ArrowLeft, Check } from 'lucide-react';
+import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 
 const BefastLayout = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const steps = [
+    { key: 'balance', label: 'Balance', short: 'B', desc: 'Thăng bằng' },
+    { key: 'eyes', label: 'Eyes', short: 'E', desc: 'Thị lực' },
+    { key: 'face', label: 'Face', short: 'F', desc: 'Cơ mặt' },
+    { key: 'arm', label: 'Arm', short: 'A', desc: 'Cánh tay' },
+    { key: 'speech', label: 'Speech', short: 'S', desc: 'Giọng nói' },
+    { key: 'result', label: 'Result', short: 'T', desc: 'Kết quả' }
+  ];
+
+  // Get current active index
+  const getCurrentStepIndex = () => {
+    const path = location.pathname.split('/').pop();
+    const index = steps.findIndex(s => s.key === path);
+    return index !== -1 ? index : 0;
+  };
+
+  const currentIdx = getCurrentStepIndex();
 
   return (
-    <div className="min-h-screen bg-background flex flex-col font-sans overflow-x-hidden">
-      {/* Header */}
-      <header className="bg-surface border-b border-border py-4 px-4 md:px-8">
-        <div className="max-w-[1200px] mx-auto flex items-center">
-          <button 
-            onClick={() => navigate('/')}
-            className="w-10 h-10 rounded-md bg-neutral flex items-center justify-center text-primary hover:border-tertiary border border-transparent transition-colors mr-4"
-          >
-            <ArrowLeft size={20} />
-          </button>
-          <h1 className="text-h1 text-primary text-xl">Tầm soát Đột quỵ (BEFAST)</h1>
+    <div className="min-h-screen bg-[#ffffff] flex flex-col font-sans overflow-x-hidden transition-colors duration-300">
+      {/* Premium Header */}
+      <header className="sticky top-0 z-50 bg-[#ffffff]/90 backdrop-blur-md border-b border-[#e5e7eb] py-4 px-6">
+        <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div className="flex items-center">
+            <button 
+              onClick={() => navigate('/')}
+              className="w-10 h-10 rounded-full bg-[#f0f1f2] flex items-center justify-center text-[#244d54] hover:bg-[#e5e7eb] transition-all mr-4 shadow-2xs"
+            >
+              <ArrowLeft size={18} strokeWidth={2.5} />
+            </button>
+            <div>
+              <h1 className="text-xl font-bold font-inter text-black tracking-tight leading-none mb-1">
+                Tầm soát Đột quỵ <span className="text-[#2ecea0]">BEFAST</span>
+              </h1>
+              <p className="text-[11px] font-bold text-[#858585] uppercase tracking-wider font-inter-tight-small">
+                Hệ thống AI phân tích cử động lâm sàng
+              </p>
+            </div>
+          </div>
+
+          {/* Glowing BEFAST Stepper */}
+          <div className="flex items-center font-inter-tight-small w-full md:w-auto overflow-x-auto pb-2 md:pb-0 scrollbar-none">
+            <div className="flex items-center gap-2 md:gap-4 pr-4">
+              {steps.map((step, idx) => {
+                const isCompleted = idx < currentIdx;
+                const isActive = idx === currentIdx;
+                const isFuture = idx > currentIdx;
+
+                return (
+                  <React.Fragment key={step.key}>
+                    <div className="flex items-center gap-2 group shrink-0">
+                      <div 
+                        className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-[13px] border transition-all duration-500
+                          ${isCompleted 
+                            ? 'bg-[#2ecea0] border-[#2ecea0] text-white shadow-sm' 
+                            : isActive 
+                            ? 'bg-white border-[#2ecea0] text-[#2ecea0] ring-4 ring-[#2ecea0]/15 shadow-sm' 
+                            : 'bg-white border-[#e5e7eb] text-[#999999]'}`}
+                      >
+                        {isCompleted ? <Check size={14} strokeWidth={3} /> : step.short}
+                      </div>
+                      
+                      <div className="hidden lg:block text-left">
+                        <p className={`text-[10px] font-extrabold uppercase tracking-wider leading-none mb-0.5
+                          ${isActive ? 'text-[#2ecea0]' : isCompleted ? 'text-black/80' : 'text-[#999999]'}`}>
+                          {step.label}
+                        </p>
+                        <p className={`text-[11px] font-bold leading-none
+                          ${isActive ? 'text-black' : isCompleted ? 'text-[#858585]' : 'text-[#999999]'}`}>
+                          {step.desc}
+                        </p>
+                      </div>
+                    </div>
+
+                    {idx < steps.length - 1 && (
+                      <div 
+                        className={`h-0.5 w-6 md:w-8 transition-colors duration-500 shrink-0
+                          ${idx < currentIdx ? 'bg-[#2ecea0]' : 'bg-[#e5e7eb]'}`} 
+                      />
+                    )}
+                  </React.Fragment>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </header>
 
-      {/* Content */}
-      <div className="flex-1 max-w-[1200px] w-full mx-auto p-4 md:p-8">
-        <Outlet />
+      {/* Content Container */}
+      <div className="flex-1 bg-[#ffffff]">
+        <div className="max-w-[1200px] w-full mx-auto px-6 py-12 md:py-16">
+          <Outlet />
+        </div>
       </div>
     </div>
   );

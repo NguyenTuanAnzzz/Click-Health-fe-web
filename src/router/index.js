@@ -12,6 +12,7 @@ import ProfileScreen from '../screens/User/Profile/ProfileScreen';
 import HistoryScreen from '../screens/User/Profile/HistoryScreen';
 import PaymentResultScreen from '../screens/User/Profile/PaymentResultScreen';
 import RecoveryExerciseScreen from '../screens/User/Features/RecoveryExerciseScreen';
+import StrokeRiskScreen from '../screens/User/Features/StrokeRiskScreen';
 
 import BefastLayout from '../layouts/BefastLayout';
 import BalanceScreen from '../screens/User/BeFast/BalanceScreen';
@@ -38,6 +39,7 @@ const AppRouter = () => {
         <Route path="/history" element={<HistoryScreen />} />
         <Route path="/payment-result" element={<PaymentResultScreen />} />
         <Route path="/recovery-exercise" element={<RecoveryExerciseScreen />} />
+        <Route path="/stroke-risk-score" element={<StrokeRiskScreen />} />
         
         {/* BEFAST AI Check Flow */}
         <Route path="/befast" element={<BefastLayout />}>

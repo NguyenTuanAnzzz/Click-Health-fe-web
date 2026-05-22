@@ -1,10 +1,11 @@
 import React from 'react';
-import { Bell, User, Activity } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { User, Activity } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const UserHeader = () => {
   const { user } = useSelector((state) => state.auth);
+  const location = useLocation();
   
   const getShortName = (fullName) => {
     if (!fullName) return "Người dùng";
@@ -15,54 +16,92 @@ const UserHeader = () => {
     return fullName;
   };
 
+  const isActive = (path) => {
+    if (path === '/') return location.pathname === '/';
+    return location.pathname.startsWith(path);
+  };
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-border/10 py-3">
-      <div className="max-w-[1600px] mx-auto px-4 md:px-8 lg:px-12 flex items-center justify-between">
-        <div className="flex items-center gap-8 md:gap-12">
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 bg-primary rounded-md flex items-center justify-center shadow-sm transition-transform">
-               <Activity size={24} className="text-white" />
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-[#e5e7eb] py-4 transition-all duration-300">
+      <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
+        <div className="flex items-center gap-10">
+          <Link to="/" className="flex items-center gap-2.5 group">
+            <div className="w-9 h-9 bg-[#244d54] rounded-[10px] flex items-center justify-center shadow-sm transition-all duration-300 group-hover:bg-[#2ecea0] group-hover:scale-105">
+               <Activity size={20} className="text-white" />
             </div>
-            <span className="text-2xl font-semibold tracking-tight text-main">
-              Click<span className="text-primary">Health</span>
+            <span className="text-xl font-bold font-inter-heading tracking-tight text-black">
+              Click<span className="text-[#2ecea0]">Health</span>
             </span>
           </Link>
           
-          <nav className="hidden md:flex items-center gap-8">
-            <Link to="/" className="text-sm font-semibold text-main hover:text-primary transition-colors relative group">
+          <nav className="hidden md:flex items-center gap-6 font-inter-tight-small">
+            <Link 
+              to="/" 
+              className={`text-[12px] font-extrabold uppercase tracking-wider transition-colors duration-300 relative py-1 group
+                ${isActive('/') ? 'text-black' : 'text-[#858585] hover:text-black'}`}
+            >
               Trang chủ
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-[#2ecea0] transition-all duration-300
+                ${isActive('/') ? 'w-full' : 'w-0 group-hover:w-full'}`} 
+              />
             </Link>
-            <Link to="/features" className="text-sm font-semibold text-secondary hover:text-primary transition-colors relative group">
-              Chức năng
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+            <Link 
+              to="/befast" 
+              className={`text-[12px] font-extrabold uppercase tracking-wider transition-colors duration-300 relative py-1 group
+                ${isActive('/befast') ? 'text-black' : 'text-[#858585] hover:text-black'}`}
+            >
+              BeFast AI
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-[#2ecea0] transition-all duration-300
+                ${isActive('/befast') ? 'w-full' : 'w-0 group-hover:w-full'}`} 
+              />
             </Link>
-            <Link to="/knowledge" className="text-sm font-semibold text-secondary hover:text-primary transition-colors relative group">
-              Kiến thức
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+            <Link 
+              to="/stroke-risk-score" 
+              className={`text-[12px] font-extrabold uppercase tracking-wider transition-colors duration-300 relative py-1 group
+                ${isActive('/stroke-risk-score') ? 'text-black' : 'text-[#858585] hover:text-black'}`}
+            >
+              Tầm soát BMI
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-[#2ecea0] transition-all duration-300
+                ${isActive('/stroke-risk-score') ? 'w-full' : 'w-0 group-hover:w-full'}`} 
+              />
+            </Link>
+            <Link 
+              to="/recovery-exercise" 
+              className={`text-[12px] font-extrabold uppercase tracking-wider transition-colors duration-300 relative py-1 group
+                ${isActive('/recovery-exercise') ? 'text-black' : 'text-[#858585] hover:text-black'}`}
+            >
+              Bài tập Phục hồi
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-[#2ecea0] transition-all duration-300
+                ${isActive('/recovery-exercise') ? 'w-full' : 'w-0 group-hover:w-full'}`} 
+              />
+            </Link>
+            <Link 
+              to="/history" 
+              className={`text-[12px] font-extrabold uppercase tracking-wider transition-colors duration-300 relative py-1 group
+                ${isActive('/history') ? 'text-black' : 'text-[#858585] hover:text-black'}`}
+            >
+              Lịch sử
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-[#2ecea0] transition-all duration-300
+                ${isActive('/history') ? 'text-full' : 'w-0 group-hover:w-full'}`} 
+              />
             </Link>
           </nav>
         </div>
 
-        <div className="flex items-center gap-3 md:gap-6">
-          <button className="relative p-2.5 rounded-md bg-neutral border border-border/30 text-main hover:bg-primary/5 transition-all">
-            <Bell size={20} strokeWidth={2} />
-            <span className="absolute top-2 right-2 w-2 h-2 bg-danger rounded-full border border-white" />
-          </button>
-          
+        <div className="flex items-center gap-4">
           <Link 
             to="/profile" 
-            className="flex items-center gap-3 p-1 rounded-md border border-border/30 bg-white hover:bg-neutral transition-all group pr-4"
+            className="flex items-center gap-2.5 p-1 rounded-full border border-[#e5e7eb] bg-white hover:bg-[#f0f1f2] hover:border-[#244d54]/20 transition-all duration-300 group pr-4 shadow-sm"
           >
-            <div className="w-10 h-10 rounded-sm bg-primary/10 flex items-center justify-center text-primary overflow-hidden border border-primary/20">
+            <div className="w-8 h-8 rounded-full bg-[#244d54]/10 flex items-center justify-center text-[#244d54] overflow-hidden border border-[#e5e7eb] transition-all duration-300 group-hover:bg-[#2ecea0]/10 group-hover:text-[#2ecea0]">
               {user?.avatar ? (
                 <img src={user.avatar} alt="Avatar" className="w-full h-full object-cover" />
               ) : (
-                <User size={20} strokeWidth={2} />
+                <User size={16} strokeWidth={2.2} />
               )}
             </div>
-            <div className="hidden sm:block">
-              <p className="text-sm font-semibold text-main leading-none">
+            <div className="hidden sm:block font-inter-tight-small text-left">
+              <p className="text-[13px] font-bold text-[#151515] leading-none transition-colors duration-300 group-hover:text-[#244d54]">
                 {getShortName(user?.fullName || user?.email)}
               </p>
             </div>

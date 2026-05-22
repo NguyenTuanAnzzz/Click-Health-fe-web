@@ -50,6 +50,50 @@ export const saveHistory = createAsyncThunk(
   }
 );
 
+export const fetchMyBmiHistory = createAsyncThunk(
+  "history/fetchMyBmiHistory",
+  async (_, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+      if (!token) {
+        return thunkAPI.rejectWithValue("No authentication token found");
+      }
+
+      const res = await axios.get(`${API_URL}/history/bmi`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(getErrorMessage(error, "Fetch BMI history failed"));
+    }
+  }
+);
+
+export const saveBmiHistory = createAsyncThunk(
+  "history/saveBmiHistory",
+  async (bmiData, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+      if (!token) {
+        return thunkAPI.rejectWithValue("No authentication token found");
+      }
+
+      const res = await axios.post(`${API_URL}/history/bmi`, bmiData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(getErrorMessage(error, "Save BMI history failed"));
+    }
+  }
+);
+
 const historySlice = createSlice({
   name: "history",
   initialState: {
@@ -58,16 +102,25 @@ const historySlice = createSlice({
     saveLoading: false,
     error: null,
     saveError: null,
+
+    // BMI History States
+    bmiData: [],
+    bmiLoading: false,
+    bmiSaveLoading: false,
+    bmiError: null,
+    bmiSaveError: null,
   },
   reducers: {
     clearHistoryError: (state) => {
       state.error = null;
       state.saveError = null;
+      state.bmiError = null;
+      state.bmiSaveError = null;
     },
   },
   extraReducers: (builder) => {
     builder
-      // Fetch History
+      // Fetch BeFast History
       .addCase(fetchMyHistory.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -81,7 +134,7 @@ const historySlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      // Save History
+      // Save BeFast History
       .addCase(saveHistory.pending, (state) => {
         state.saveLoading = true;
         state.saveError = null;
@@ -89,7 +142,6 @@ const historySlice = createSlice({
       .addCase(saveHistory.fulfilled, (state, action) => {
         state.saveLoading = false;
         state.saveError = null;
-        // Optionally prepend the new history item to the list
         if (action.payload?.history) {
           state.data.unshift(action.payload.history);
         }
@@ -97,6 +149,37 @@ const historySlice = createSlice({
       .addCase(saveHistory.rejected, (state, action) => {
         state.saveLoading = false;
         state.saveError = action.payload;
+      })
+
+      // Fetch BMI History
+      .addCase(fetchMyBmiHistory.pending, (state) => {
+        state.bmiLoading = true;
+        state.bmiError = null;
+      })
+      .addCase(fetchMyBmiHistory.fulfilled, (state, action) => {
+        state.bmiLoading = false;
+        state.bmiData = action.payload?.history || [];
+        state.bmiError = null;
+      })
+      .addCase(fetchMyBmiHistory.rejected, (state, action) => {
+        state.bmiLoading = false;
+        state.bmiError = action.payload;
+      })
+      // Save BMI History
+      .addCase(saveBmiHistory.pending, (state) => {
+        state.bmiSaveLoading = true;
+        state.bmiSaveError = null;
+      })
+      .addCase(saveBmiHistory.fulfilled, (state, action) => {
+        state.bmiSaveLoading = false;
+        state.bmiSaveError = null;
+        if (action.payload?.history) {
+          state.bmiData.unshift(action.payload.history);
+        }
+      })
+      .addCase(saveBmiHistory.rejected, (state, action) => {
+        state.bmiSaveLoading = false;
+        state.bmiSaveError = action.payload;
       });
   },
 });

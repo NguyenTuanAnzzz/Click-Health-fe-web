@@ -76,48 +76,53 @@ const RegisterScreen = () => {
   };
 
   return (
-    <AuthLayout tagline="Gia nhập Đội ngũ Sức khỏe">
-      <div className="w-full space-y-8">
-        <h2 className="text-3xl font-black text-primary-dark uppercase italic border-b-4 border-dashed border-border pb-4">
-          Tạo <span className="text-primary">Tài khoản</span>
-        </h2>
+    <AuthLayout tagline="Gia nhập hệ thống Click Health">
+      <div className="w-full space-y-6">
+        <div>
+          <h2 className="text-2xl font-bold text-black font-inter tracking-tight mb-1">
+            Tạo tài khoản
+          </h2>
+          <p className="text-sm font-medium text-[#858585]">
+            Bắt đầu hành trình theo dõi sức khỏe chủ động của bạn.
+          </p>
+        </div>
 
-        <form onSubmit={handleRegister} className="space-y-6">
-          <div className="space-y-2">
-            <label className="text-sm font-black uppercase text-primary-dark tracking-widest ml-1">Họ và Tên</label>
+        <form onSubmit={handleRegister} className="space-y-5">
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold uppercase text-[#151515] tracking-wider ml-1">Họ và Tên</label>
             <div className="relative group">
-              <User className="absolute left-4 top-1/2 -translate-y-1/2 text-primary-dark/40 group-focus-within:text-primary transition-colors" size={20} />
+              <User className="absolute left-4 top-1/2 -translate-y-1/2 text-[#858585]/40 group-focus-within:text-[#2ecea0] transition-colors" size={18} />
               <input 
                 type="text" 
                 value={formData.fullName}
                 onChange={(e) => setFormData({...formData, fullName: e.target.value})}
-                className="w-full bg-background border-4 border-primary-dark rounded-2xl py-4 pl-12 pr-6 text-primary-dark font-bold focus:ring-4 focus:ring-accent/30 outline-none"
+                className="w-full bg-white border border-[#e5e7eb] rounded-full py-3.5 pl-12 pr-6 text-black text-sm font-medium focus:ring-2 focus:ring-[#2ecea0]/20 focus:border-[#2ecea0] outline-none transition-all placeholder-[#999999]"
                 placeholder="Nhập họ tên đầy đủ..."
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="text-sm font-black uppercase text-primary-dark tracking-widest ml-1">Tuổi</label>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold uppercase text-[#151515] tracking-wider ml-1">Tuổi</label>
               <div className="relative group">
-                <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-primary-dark/40 group-focus-within:text-primary transition-colors" size={20} />
+                <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-[#858585]/40 group-focus-within:text-[#2ecea0] transition-colors" size={18} />
                 <input 
                   type="number" 
                   value={formData.age}
                   onChange={(e) => setFormData({...formData, age: e.target.value})}
-                  className="w-full bg-background border-4 border-primary-dark rounded-2xl py-4 pl-12 pr-6 text-primary-dark font-bold focus:ring-4 focus:ring-accent/30 outline-none"
+                  className="w-full bg-white border border-[#e5e7eb] rounded-full py-3.5 pl-12 pr-6 text-black text-sm font-medium focus:ring-2 focus:ring-[#2ecea0]/20 focus:border-[#2ecea0] outline-none transition-all placeholder-[#999999]"
                   placeholder="Tuổi..."
                 />
               </div>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-black uppercase text-primary-dark tracking-widest ml-1">Giới tính</label>
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold uppercase text-[#151515] tracking-wider ml-1">Giới tính</label>
               <select 
                 value={formData.gender}
                 onChange={(e) => setFormData({...formData, gender: e.target.value})}
-                className="w-full bg-background border-4 border-primary-dark rounded-2xl py-4 px-6 text-primary-dark font-bold focus:ring-4 focus:ring-accent/30 outline-none appearance-none cursor-pointer"
+                className="w-full bg-white border border-[#e5e7eb] rounded-full py-3.5 px-6 text-black text-sm font-medium focus:ring-2 focus:ring-[#2ecea0]/20 focus:border-[#2ecea0] outline-none cursor-pointer"
               >
                 <option value="MALE">Nam</option>
                 <option value="FEMALE">Nữ</option>
@@ -126,51 +131,51 @@ const RegisterScreen = () => {
             </div>
           </div>
 
-          <div className="space-y-2">
-            <label className="text-sm font-black uppercase text-primary-dark tracking-widest ml-1">Email</label>
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold uppercase text-[#151515] tracking-wider ml-1">Email</label>
             <div className="relative group">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-primary-dark/40 group-focus-within:text-primary transition-colors" size={20} />
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-[#858585]/40 group-focus-within:text-[#2ecea0] transition-colors" size={18} />
               <input 
                 type="email" 
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
-                className="w-full bg-background border-4 border-primary-dark rounded-2xl py-4 pl-12 pr-6 text-primary-dark font-bold focus:ring-4 focus:ring-accent/30 outline-none"
+                className="w-full bg-white border border-[#e5e7eb] rounded-full py-3.5 pl-12 pr-6 text-black text-sm font-medium focus:ring-2 focus:ring-[#2ecea0]/20 focus:border-[#2ecea0] outline-none transition-all placeholder-[#999999]"
                 placeholder="email@example.com"
               />
             </div>
           </div>
 
-          <div className="space-y-2">
-            <label className="text-sm font-black uppercase text-primary-dark tracking-widest ml-1">Mật khẩu</label>
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold uppercase text-[#151515] tracking-wider ml-1">Mật khẩu</label>
             <div className="relative group">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-primary-dark/40 group-focus-within:text-primary transition-colors" size={20} />
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-[#858585]/40 group-focus-within:text-[#2ecea0] transition-colors" size={18} />
               <input 
                 type={showPassword ? "text" : "password"}
                 value={formData.password}
                 onChange={(e) => setFormData({...formData, password: e.target.value})}
-                className="w-full bg-background border-4 border-primary-dark rounded-2xl py-4 pl-12 pr-6 text-primary-dark font-bold focus:ring-4 focus:ring-accent/30 outline-none"
+                className="w-full bg-white border border-[#e5e7eb] rounded-full py-3.5 pl-12 pr-6 text-black text-sm font-medium focus:ring-2 focus:ring-[#2ecea0]/20 focus:border-[#2ecea0] outline-none transition-all placeholder-[#999999]"
                 placeholder="••••••••"
               />
             </div>
           </div>
 
-          <div className="space-y-2">
-            <label className="text-sm font-black uppercase text-primary-dark tracking-widest ml-1">Xác nhận mật khẩu</label>
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold uppercase text-[#151515] tracking-wider ml-1">Xác nhận mật khẩu</label>
             <div className="relative group">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-primary-dark/40 group-focus-within:text-primary transition-colors" size={20} />
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-[#858585]/40 group-focus-within:text-[#2ecea0] transition-colors" size={18} />
               <input 
                 type={showPassword ? "text" : "password"}
                 value={formData.confirmPassword}
                 onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
-                className="w-full bg-background border-4 border-primary-dark rounded-2xl py-4 pl-12 pr-6 text-primary-dark font-bold focus:ring-4 focus:ring-accent/30 outline-none"
+                className="w-full bg-white border border-[#e5e7eb] rounded-full py-3.5 pl-12 pr-6 text-black text-sm font-medium focus:ring-2 focus:ring-[#2ecea0]/20 focus:border-[#2ecea0] outline-none transition-all placeholder-[#999999]"
                 placeholder="Nhập lại mật khẩu..."
               />
             </div>
           </div>
 
           {/* Medical History Checklist */}
-          <div className="space-y-4">
-            <label className="text-sm font-black uppercase text-primary-dark tracking-widest ml-1 italic">Tiền sử bệnh lý (Checklist)</label>
+          <div className="space-y-2.5">
+            <label className="text-xs font-semibold uppercase text-[#151515] tracking-wider ml-1">Tiền sử bệnh lý</label>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
                 { key: 'hypertension', label: 'Huyết áp', icon: Activity },
@@ -181,59 +186,63 @@ const RegisterScreen = () => {
                   key={item.key}
                   type="button"
                   onClick={() => toggleMedicalHistory(item.key)}
-                  className={`p-3 rounded-xl border-2 font-bold text-xs uppercase italic transition-all flex items-center justify-between
-                    ${formData.medicalHistory[item.key] ? 'bg-primary text-white border-primary-dark shadow-teal-glow scale-105' : 'bg-background text-primary-dark/40 border-border'}
+                  className={`px-4 py-3 rounded-full border text-xs font-semibold transition-all flex items-center justify-between
+                    ${formData.medicalHistory[item.key] 
+                      ? 'bg-[#2ecea0]/10 text-[#244d54] border-[#2ecea0] shadow-2xs' 
+                      : 'bg-white text-[#858585] border-[#e5e7eb] hover:border-[#2ecea0]/30'}
                   `}
                 >
-                  <item.icon size={14} className="mr-2" />
-                  <span className="flex-1 text-left">{item.label}</span>
-                  {formData.medicalHistory[item.key] && <Check size={14} />}
+                  <div className="flex items-center">
+                    <item.icon size={13} className="mr-2" />
+                    <span>{item.label}</span>
+                  </div>
+                  {formData.medicalHistory[item.key] && <Check size={12} className="text-[#2ecea0]" strokeWidth={3} />}
                 </button>
               ))}
             </div>
           </div>
 
           {(localError || error) && (
-            <div className="bg-danger/10 border-4 border-danger rounded-2xl p-4 flex items-center gap-3 animate-bounce-small">
-              <Activity className="text-danger" size={24} />
-              <p className="text-danger font-black text-sm uppercase italic">{error || localError}</p>
+            <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-center gap-3">
+              <Activity className="text-red-500" size={18} />
+              <p className="text-red-600 font-semibold text-xs leading-normal">{error || localError}</p>
             </div>
           )}
 
           <button
             type="button"
-            className="flex items-center gap-3 group cursor-pointer"
+            className="flex items-center gap-3 group cursor-pointer text-left"
             onClick={() => setAgree(!agree)}
           >
-            <div className={`w-8 h-8 rounded-xl border-4 flex items-center justify-center transition-all shadow-sm
-              ${agree ? "bg-accent border-primary-dark" : "bg-background border-border"}`}
+            <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-all shadow-2xs shrink-0
+              ${agree ? "bg-[#2ecea0] border-[#2ecea0]" : "bg-white border-[#e5e7eb] group-hover:border-[#2ecea0]/60"}`}
             >
-              {agree && <Check size={18} className="text-primary-dark" strokeWidth={4} />}
+              {agree && <Check size={12} className="text-white" strokeWidth={3} />}
             </div>
-            <p className="text-sm font-bold text-primary-dark/60 italic leading-tight">
-              Tôi đồng ý với <span className="text-primary font-black uppercase underline decoration-accent">Điều khoản</span> và <span className="text-primary font-black uppercase underline decoration-accent">Bảo mật</span>
+            <p className="text-xs font-medium text-[#858585] leading-normal">
+              Tôi đồng ý với <span className="text-[#244d54] font-semibold underline hover:text-[#2ecea0]">Điều khoản dịch vụ</span> và <span className="text-[#244d54] font-semibold underline hover:text-[#2ecea0]">Chính sách bảo mật</span>
             </p>
           </button>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full btn-primary-game text-xl py-6 mt-4 flex items-center justify-center gap-3"
+            className="w-full btn-activation-filled py-4 mt-6 flex items-center justify-center gap-2 text-sm font-semibold tracking-tight shadow-md hover:shadow-lg transition-all"
           >
             {loading ? (
-              <div className="w-8 h-8 border-4 border-primary-dark/30 border-t-primary-dark rounded-full animate-spin" />
+              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
             ) : (
               <>
-                ĐĂNG KÝ NGAY! <ArrowRight size={24} strokeWidth={3} />
+                Đăng ký tài khoản <ArrowRight size={16} strokeWidth={2.5} />
               </>
             )}
           </button>
         </form>
 
-        <div className="text-center pt-6 border-t-4 border-dashed border-border">
-          <p className="text-primary-dark/60 font-bold italic">
+        <div className="text-center pt-6 border-t border-[#e5e7eb]">
+          <p className="text-[#858585] text-sm font-medium">
             Đã có tài khoản?{" "}
-            <Link to="/login" className="text-primary font-black uppercase underline decoration-accent decoration-4 underline-offset-4 hover:text-accent transition-colors">
+            <Link to="/login" className="text-[#2ecea0] font-semibold hover:underline">
               Đăng nhập ngay
             </Link>
           </p>

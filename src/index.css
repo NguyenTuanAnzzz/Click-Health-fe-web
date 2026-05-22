@@ -1,53 +1,53 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* PHARMA CLEAN THEME (Light) */
-  --color-primary: 25 118 210;      /* #1976D2 */
-  --color-primary-light: 66 165 245;
-  --color-primary-dark: 21 101 192;  
-  --color-accent: 25 118 210;       
-  --color-accent-light: 66 165 245;
-  --color-accent-dark: 21 101 192;
-  --color-danger: 211 47 47;       
+  /* 2.AG - Clinical Clarity, Soft Curves Theme (Light) */
+  --color-primary: 46 206 160;        /* #2ecea0 - Activation Green */
+  --color-primary-light: 109 221 189;  /* #6dddbd - Lagoon Mist */
+  --color-primary-dark: 36 77 84;     /* #244d54 - Midnight Teal */
+  
+  --color-accent: 36 77 84;           /* #244d54 - Midnight Teal */
+  --color-accent-light: 109 221 189;  /* #6dddbd - Lagoon Mist */
+  --color-accent-dark: 36 77 84;
+  
+  --color-danger: 211 47 47;          /* Soft clinical red for emergency */
   --color-danger-light: 239 83 80;
   --color-danger-dark: 198 40 40;
-  --color-neutral: 245 248 252;      
-  --color-info: 2 136 209;         
   
-  --color-surface: 255 255 255;
-  --color-background: 245 248 252;
-  --color-border: 94 111 136;
-  --color-text: 11 30 58;         
+  --color-neutral: 240 241 242;       /* #f0f1f2 - Light Pearl */
+  --color-info: 109 221 189;          /* #6dddbd */
   
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --shadow-teal-glow: none;
-  --shadow-accent-glow: none;
-  --shadow-danger-glow: none;
-}
+  --color-surface: 255 255 255;       /* #ffffff - Pure White */
+  --color-background: 255 255 255;    /* #ffffff - Pure White */
+  --color-border: 229 231 235;        /* #e5e7eb - Silver Cloud */
+  --color-text: 0 0 0;                /* #000000 - Deep Graphite */
 
-.dark {
-  --color-primary: 66 165 245;      
-  --color-primary-light: 100 181 246;
-  --color-primary-dark: 30 30 30;  
-  
-  --color-surface: 30 30 30;
-  --color-background: 18 18 18;
-  --color-border: 94 111 136;
-  --color-text: 245 248 252;         
-  --color-neutral: 30 30 30;
-  
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-  --shadow-teal-glow: none;
-  --shadow-accent-glow: none;
-  --shadow-danger-glow: none;
+  /* Specific Hex Colors for Non-Tailwind Styles */
+  --color-hex-midnight-teal: #244d54;
+  --color-hex-activation-green: #2ecea0;
+  --color-hex-lagoon-mist: #6dddbd;
+  --color-hex-deep-graphite: #000000;
+  --color-hex-medium-gray: #151515;
+  --color-hex-silver-cloud: #e5e7eb;
+  --color-hex-pure-white: #ffffff;
+  --color-hex-light-pearl: #f0f1f2;
+  --color-hex-sky-fog: #999999;
+  --color-hex-text-gray: #858585;
+
+  /* Typography Scales */
+  --tracking-tight-small: 0.005em;
+  --tracking-tight-medium: -0.042em;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 12px rgba(36, 77, 84, 0.04);
+  --shadow-lg: 0 12px 24px rgba(36, 77, 84, 0.06);
+  --shadow-teal-glow: 0 0 20px rgba(46, 206, 160, 0.25);
+  --shadow-accent-glow: 0 0 25px rgba(36, 77, 84, 0.15);
 }
 
 @layer base {
@@ -57,19 +57,25 @@
     width: 100%;
     min-height: 100vh;
     overflow-x: hidden;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: rgb(var(--color-background));
     color: rgb(var(--color-text));
     scroll-behavior: smooth;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  /* Command Heading Tracking Gravitas */
+  h1, h2, h3, h4 {
+    font-family: 'Inter', sans-serif;
     font-weight: 500;
-    letter-spacing: -0.01em;
-    color: rgb(var(--color-text));
+    letter-spacing: -0.042em;
+    color: #000000;
+  }
+
+  p, span, label, button, input {
+    font-family: 'Inter Tight', sans-serif;
   }
 
   button, input, select, textarea {
@@ -79,24 +85,149 @@
 }
 
 @layer components {
-  .btn-pill {
-    @apply rounded px-5 py-3 font-semibold transition-all active:scale-95 shadow-sm flex items-center justify-center gap-2;
-  }
+  /* 2.AG Main Design Buttons */
   
-  .btn-primary-game {
-    @apply btn-pill bg-primary text-white hover:bg-primary-dark;
+  /* Activation Button - Filled */
+  .btn-activation-filled {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    background-color: var(--color-hex-activation-green);
+    color: var(--color-hex-pure-white);
+    border: 1px solid var(--color-hex-activation-green);
+    border-radius: 50px;
+    padding-top: 10px;
+    padding-right: 30px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-sm);
+  }
+  .btn-activation-filled:hover {
+    background-color: #26b38a;
+    border-color: #26b38a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(46, 206, 160, 0.3);
+  }
+  .btn-activation-filled:active {
+    transform: translateY(0);
   }
 
-  .btn-secondary-game {
-    @apply btn-pill bg-white text-primary border border-primary hover:bg-neutral;
+  /* Ghost Outline Button - Dark */
+  .btn-ghost-outline-dark {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--color-hex-midnight-teal);
+    border: 1px solid var(--color-hex-midnight-teal);
+    border-radius: 30px;
+    padding-top: 10px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .btn-ghost-outline-dark:hover {
+    background-color: rgba(36, 77, 84, 0.05);
+    transform: translateY(-1px);
+  }
+  .btn-ghost-outline-dark:active {
+    transform: translateY(0);
   }
 
-  .game-card {
-    @apply bg-surface rounded-lg p-6 border border-border/20 shadow-sm transition-all text-main;
+  /* Pill Outline Button - Dark */
+  .btn-pill-outline-dark {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--color-hex-deep-graphite);
+    border: 1px solid var(--color-hex-deep-graphite);
+    border-radius: 250px;
+    padding-top: 10px;
+    padding-right: 20px;
+    padding-bottom: 12px;
+    padding-left: 20px;
+    transition: all 0.3s ease;
+  }
+  .btn-pill-outline-dark:hover {
+    background-color: rgba(0, 0, 0, 0.04);
   }
 
-  .ribbon-banner {
-    @apply relative bg-primary border border-primary-dark px-6 py-2 font-semibold text-white shadow-sm;
+  /* 2.AG Component Surfaces */
+  
+  /* Product Feature Card */
+  .card-product-feature {
+    background-color: var(--color-hex-light-pearl);
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card-product-feature:hover {
+    border-color: rgba(36, 77, 84, 0.15);
+    background-color: #e9eaec;
+  }
+
+  /* Review Card */
+  .card-review {
+    background-color: #f5f5f5;
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+  }
+  .card-review:hover {
+    border-color: rgba(0, 0, 0, 0.05);
+    background-color: #ececec;
+  }
+
+  /* Primary Hero Card */
+  .card-primary-hero {
+    background-color: var(--color-hex-midnight-teal);
+    border-radius: 20px;
+    padding: 35px;
+    color: var(--color-hex-pure-white);
+  }
+
+  /* Underlined Input Field */
+  .input-underlined {
+    font-family: 'Inter Tight', sans-serif;
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--color-hex-deep-graphite);
+    border-bottom: 1px solid var(--color-hex-midnight-teal);
+    border-radius: 5px;
+    padding-top: 12px;
+    padding-right: 40px;
+    padding-bottom: 12px;
+    padding-left: 17px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  .input-underlined:focus {
+    border-bottom-width: 2px;
+    border-bottom-color: var(--color-hex-activation-green);
+  }
+
+  /* Circular Input Field */
+  .input-circular {
+    font-family: 'Inter Tight', sans-serif;
+    background-color: var(--color-hex-pure-white);
+    color: var(--color-hex-deep-graphite);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 9999px;
+    padding-top: 14px;
+    padding-right: 20px;
+    padding-bottom: 14px;
+    padding-left: 20px;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+  }
+  .input-circular:focus {
+    border-color: var(--color-hex-activation-green);
+    box-shadow: 0 0 12px rgba(46, 206, 160, 0.15);
   }
 }
 
@@ -120,18 +251,18 @@
   }
 
   .animate-spin-slow {
-    animation: spin-slow 12s linear infinite;
+    animation: spin-slow 16s linear infinite;
   }
 
   .pattern-grid-lg {
-    background-image: radial-gradient(rgb(var(--color-text) / 0.02) 1px, transparent 0);
-    background-size: 32px 32px;
+    background-image: radial-gradient(rgba(36, 77, 84, 0.08) 1.5px, transparent 0);
+    background-size: 24px 24px;
   }
 
   @keyframes scan {
     0% { top: 0; opacity: 0; }
-    10% { opacity: 0.5; }
-    90% { opacity: 0.5; }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.7; }
     100% { top: 100%; opacity: 0; }
   }
 
@@ -139,10 +270,20 @@
     position: absolute;
     left: 0;
     right: 0;
-    height: 1px;
-    background: rgb(var(--color-primary));
-    box-shadow: 0 0 10px 1px rgb(var(--color-primary));
-    animation: scan 4s ease-in-out infinite;
+    height: 2px;
+    background: var(--color-hex-activation-green);
+    box-shadow: 0 0 15px 3px var(--color-hex-activation-green);
+    animation: scan 3.5s ease-in-out infinite;
     z-index: 10;
+  }
+
+  .font-inter-tight-small {
+    font-family: 'Inter Tight', sans-serif;
+    letter-spacing: var(--tracking-tight-small);
+  }
+
+  .font-inter-heading {
+    font-family: 'Inter', sans-serif;
+    letter-spacing: var(--tracking-tight-medium);
   }
 }
