@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BookOpen, Sun, Moon, Heart, Activity, Smile, Coffee, ArrowRight, Star, Plus } from "lucide-react";
+import { BookOpen, Sun, Moon, Heart, Activity, ArrowRight, Star, Plus, ShieldAlert, PhoneCall, MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -8,7 +8,6 @@ import RecentCheckCard from "../../../components/ui/RecentCheckCard";
 import ItemMainFunction from "../../../components/ui/ItemMainFunction";
 import features from "../../../constants/homeFeatures";
 import HeroBanner from "../../../components/ui/HeroBanner";
-import HorizontalRow from "../../../components/ui/HorizontalRow";
 import { fetchMyHistory } from "../../../store/slices/historySlice";
 
 const HomeScreen = () => {
@@ -32,35 +31,43 @@ const HomeScreen = () => {
     return fullName;
   };
 
+  // Split features into functional groups
+  const screeningFeatures = features.filter(f => f.id === 1 || f.id === 2 || f.id === 3 || f.id === 6);
+  const emergencyFeature = features.find(f => f.id === 4);
+  const hospitalFeature = features.find(f => f.id === 5);
+
   return (
-    <UserLayout>
+    <UserLayout noPaddingTop={false}>
       <HeroBanner />
       
-      <div className="w-full max-w-[1600px] mx-auto px-4 md:px-8 lg:px-12 mt-12 pb-24 bg-background">
-        
-        {/* Recent Activity Section */}
-        <div className="mb-20">
-          <div className="flex items-center justify-between mb-8">
+      {/* 2.AG Alternating Layout System */}
+      
+      {/* Section 1: Recent Activity (Pure White Canvas) */}
+      <section className="w-full bg-[#ffffff] py-20 border-b border-[#e5e7eb]/60">
+        <div className="w-full max-w-[1200px] mx-auto px-6">
+          <div className="flex items-center justify-between mb-10">
             <div 
               onClick={() => navigate('/history')}
               className="cursor-pointer group"
             >
-              <h2 className="text-3xl font-semibold text-main mb-1">Hoạt động gần đây</h2>
-              <div className="w-12 h-1 bg-primary rounded-full transition-all group-hover:w-20" />
+              <h2 className="text-[28px] font-bold text-black font-inter tracking-tight mb-1">
+                Hoạt động gần đây
+              </h2>
+              <div className="w-8 h-0.5 bg-[#2ecea0] rounded-full transition-all duration-300 group-hover:w-16" />
             </div>
             <button 
               onClick={() => navigate('/history')}
-              className="bg-white border border-border/40 text-main px-5 py-2 rounded-md font-medium flex items-center gap-2 hover:bg-neutral transition-all shadow-sm"
+              className="px-5 py-2.5 rounded-full border border-[#244d54]/20 text-[#244d54] bg-transparent text-[13px] font-bold font-inter-tight hover:bg-[#244d54]/5 transition-all duration-300 flex items-center gap-2"
             >
-              Xem tất cả <ArrowRight size={16} />
+              Xem tất cả <ArrowRight size={14} strokeWidth={2.5} />
             </button>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {loading ? (
-              <div className="col-span-1 md:col-span-2 lg:col-span-2 h-[240px] flex flex-col items-center justify-center bg-white rounded-lg border border-border/20 shadow-sm">
-                <div className="w-10 h-10 border-2 border-primary/20 border-t-primary rounded-full animate-spin mb-4" />
-                <p className="text-secondary font-medium">Đang tải dữ liệu...</p>
+              <div className="col-span-1 md:col-span-2 lg:col-span-2 h-[240px] flex flex-col items-center justify-center bg-white rounded-xl border border-[#e5e7eb] shadow-sm">
+                <div className="w-8 h-8 border-2 border-[#2ecea0]/25 border-t-[#2ecea0] rounded-full animate-spin mb-4" />
+                <p className="text-[#858585] font-semibold text-[13px] font-inter-tight">Đang tải dữ liệu...</p>
               </div>
             ) : history && history.length > 0 ? (
               history.slice(0, 2).map((item, idx) => (
@@ -75,109 +82,201 @@ const HomeScreen = () => {
                 </div>
               ))
             ) : (
-              <div className="col-span-1 md:col-span-2 lg:col-span-2 h-[240px] flex flex-col items-center justify-center bg-white rounded-lg border border-border/20 p-8 text-center shadow-sm">
-                <Activity size={40} className="text-primary/20 mb-3" />
-                <p className="text-main font-semibold text-xl mb-2">Chưa có dữ liệu</p>
-                <p className="text-secondary text-sm">Thực hiện tầm soát để theo dõi sức khỏe của bạn.</p>
+              <div className="col-span-1 md:col-span-2 lg:col-span-2 h-[240px] flex flex-col items-center justify-center bg-[#f5f5f5] rounded-xl border border-[#e5e7eb] p-8 text-center">
+                <Activity size={32} className="text-[#244d54]/30 mb-3" />
+                <p className="text-black font-bold text-lg mb-1 font-inter tracking-tight">Chưa có dữ liệu</p>
+                <p className="text-[#858585] text-xs font-semibold font-inter-tight">Thực hiện tầm soát để theo dõi sức khỏe của bạn.</p>
               </div>
             )}
             
             <div 
               onClick={() => navigate('/befast')}
-              className="hidden lg:flex border border-dashed border-primary/30 rounded-lg items-center justify-center p-8 bg-primary/5 group hover:bg-primary/10 transition-all cursor-pointer h-[240px]"
+              className="hidden lg:flex border border-dashed border-[#244d54]/30 rounded-xl items-center justify-center p-8 bg-[#244d54]/5 group hover:bg-[#244d54]/10 transition-all duration-300 cursor-pointer h-[240px]"
             >
-              <div className="text-center">
-                <div className="w-14 h-14 bg-primary rounded-md flex items-center justify-center mx-auto mb-4 shadow-sm group-hover:scale-110 transition-transform">
-                  <Plus size={28} className="text-white" strokeWidth={2.5} />
+              <div className="text-center font-inter-tight">
+                <div className="w-12 h-12 bg-[#2ecea0] rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm group-hover:scale-105 transition-transform duration-300">
+                  <Plus size={22} className="text-white" strokeWidth={2.5} />
                 </div>
-                <p className="text-primary font-semibold text-lg">Kiểm tra BEFAST mới</p>
+                <p className="text-[#244d54] font-bold text-[15px]">Kiểm tra BEFAST mới</p>
               </div>
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Core Features Grid */}
-        <div className="mb-20 relative rounded-xl bg-white border border-border/20 p-10 md:p-14 shadow-sm overflow-hidden">
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[80px] -mr-40 -mt-40 pointer-events-none" />
-          
-          <div className="relative z-10">
-            <div className="text-center mb-12">
-              <div className="inline-block bg-primary/10 text-primary px-4 py-1 rounded-sm font-semibold uppercase tracking-wider text-[0.7rem] mb-4 border border-primary/20">
-                Dịch vụ y tế trực tuyến
-              </div>
-              <h2 className="text-4xl md:text-5xl font-semibold text-main mb-4 leading-tight">
-                Hệ sinh thái <span className="text-primary">Click Health</span>
-              </h2>
-              <p className="text-secondary max-w-2xl mx-auto font-medium text-lg mt-4">Giải pháp công nghệ hỗ trợ phòng ngừa và nhận biết sớm nguy cơ đột quỵ</p>
+      {/* Section 2: Health Ecosystem Features (Light Pearl Background) */}
+      <section className="w-full bg-[#f0f1f2] py-20 border-b border-[#e5e7eb]/60">
+        <div className="w-full max-w-[1200px] mx-auto px-6">
+          <div className="text-center mb-16">
+            <div className="inline-block bg-[#244d54]/10 text-[#244d54] border border-[#244d54]/10 px-3.5 py-1 rounded-full font-bold uppercase tracking-wider text-[10px] mb-4 font-inter-tight">
+              Dịch vụ y tế trực tuyến
             </div>
-            
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {features.map((d) => (
-                <ItemMainFunction
-                  key={d.id}
-                  title={d.title}
-                  nameIcon={d.icon}
-                  danger={d.danger}
-                  primary={d.primary}
-                  link={d.link}
-                  telNumber={d.telNumber}
-                />
-              ))}
-            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4 font-inter tracking-tight">
+              Hệ sinh thái sức khỏe số
+            </h2>
+            <p className="text-[#858585] max-w-xl mx-auto font-semibold text-[14px] font-inter-tight leading-relaxed">
+              Giải pháp công nghệ đồng bộ hỗ trợ phòng ngừa, nhận biết sớm và đồng hành khôi phục sức khỏe đột quỵ
+            </p>
           </div>
-        </div>
 
-        {/* Health Handbook Section */}
-        <div className="relative rounded-xl bg-main text-white overflow-hidden p-10 md:p-16 mb-20 shadow-lg">
-          <div className="absolute top-0 right-0 w-full h-full pattern-grid-lg opacity-5" />
-          
-          <div className="relative z-10">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-12 gap-8">
-              <div className="max-w-2xl">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="bg-primary p-2 rounded-sm shadow-sm">
-                    <Star size={24} className="text-white fill-white" />
-                  </div>
-                  <span className="text-primary-light font-semibold tracking-widest uppercase text-xs">Kiến thức y khoa</span>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Left 2/3 Panel - AI Smart Screening */}
+            <div className="lg:col-span-2 rounded-[24px] bg-[#ffffff] border border-[#e5e7eb]/80 p-8 flex flex-col justify-between relative overflow-hidden shadow-2xs">
+              <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-[#2ecea0]/5 rounded-full blur-[50px] -mr-20 -mt-20 pointer-events-none" />
+              
+              <div className="mb-8">
+                <div className="flex items-center gap-2 mb-2">
+                  <Activity size={18} className="text-[#2ecea0]" />
+                  <span className="text-[12px] font-extrabold text-[#244d54] uppercase tracking-wider font-inter-tight">
+                    Tầm soát chuyên sâu & Phục hồi
+                  </span>
                 </div>
-                <h2 className="text-4xl md:text-5xl font-semibold mb-6 leading-tight text-white">Cẩm nang <span className="text-primary-light">Sức khỏe</span></h2>
-                <p className="text-white/70 text-lg font-medium leading-relaxed">Tổng hợp những thông tin y khoa chính thống giúp bạn chủ động bảo vệ sức khỏe bản thân và gia đình.</p>
+                <h3 className="text-2xl font-bold text-black font-inter tracking-tight">
+                  Chẩn đoán AI & Trị liệu
+                </h3>
+                <p className="text-[#858585] text-[13px] font-semibold font-inter-tight mt-1">
+                  Đánh giá các chỉ số sinh trắc học cử động và luyện tập phục hồi chức năng
+                </p>
               </div>
-              <button 
-                onClick={() => navigate("/knowledge")}
-                className="bg-primary text-white px-10 py-4 rounded-md font-semibold hover:bg-primary-dark transition-all whitespace-nowrap text-lg shadow-md active:scale-95"
-              >
-                Khám phá ngay
-              </button>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {screeningFeatures.map((f) => (
+                  <ItemMainFunction
+                    key={f.id}
+                    title={f.title}
+                    nameIcon={f.icon}
+                    danger={f.danger}
+                    primary={f.primary}
+                    link={f.link}
+                  />
+                ))}
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {[
-                { id: 1, title: "Kiến thức đột quỵ", desc: "Dấu hiệu nhận biết sớm và quy trình xử lý khẩn cấp chuẩn y khoa.", icon: BookOpen },
-                { id: 2, title: "Chế độ sinh hoạt", desc: "Xây dựng thói quen sống lành mạnh để kiểm soát huyết áp và tim mạch.", icon: Sun },
-                { id: 3, title: "Chất lượng giấc ngủ", desc: "Tầm quan trọng của giấc ngủ đối với sự phục hồi của não bộ.", icon: Moon },
-                { id: 4, title: "Dinh dưỡng hợp lý", desc: "Thực đơn giúp giảm mỡ máu và tăng cường sức khỏe hệ tuần hoàn.", icon: Heart },
-              ].map((item) => {
-                const Icon = item.icon;
-                return (
-                  <button
-                    key={item.id}
-                    className="group bg-white/5 border border-white/10 p-6 rounded-lg flex flex-col items-start hover:bg-white/10 transition-all text-left shadow-sm"
-                    onClick={() => navigate("/knowledge")}
-                  >
-                    <div className="w-12 h-12 rounded-md bg-white/10 flex items-center justify-center mb-6 transition-colors">
-                      <Icon size={24} className="text-primary-light" strokeWidth={2} />
+            {/* Right 1/3 Panel - Emergency & Utilities */}
+            <div className="flex flex-col gap-6">
+              {/* Emergency Alert Card (Calls 115) */}
+              {emergencyFeature && (
+                <div 
+                  onClick={() => window.location.href = `tel:${emergencyFeature.telNumber}`}
+                  className="rounded-[24px] bg-red-50 border border-red-150 p-8 flex flex-col justify-between cursor-pointer group hover:bg-red-100 hover:border-red-200 transition-all duration-300 relative overflow-hidden h-1/2 min-h-[220px]"
+                >
+                  <div className="absolute top-[-30px] right-[-30px] w-36 h-36 bg-red-500/10 rounded-full blur-[20px] pointer-events-none group-hover:scale-110 transition-transform duration-500" />
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="w-12 h-12 rounded-[16px] bg-[#d32f2f] flex items-center justify-center text-white border border-[#d32f2f] shadow-md shadow-red-500/20 group-hover:scale-105 transition-all">
+                      <PhoneCall size={22} className="animate-pulse" />
                     </div>
-                    <h3 className="text-xl font-semibold mb-3 text-white leading-tight">{item.title}</h3>
-                    <p className="text-sm font-medium text-white/50 line-clamp-3 leading-relaxed">{item.desc}</p>
-                  </button>
-                );
-              })}
+                    <span className="bg-red-500 text-white font-extrabold text-[9px] uppercase tracking-widest px-2.5 py-1 rounded-full border border-red-500/20 shadow-sm animate-pulse">
+                      Khẩn cấp
+                    </span>
+                  </div>
+
+                  <div className="mt-6">
+                    <h4 className="text-xl font-bold font-inter text-red-800 mb-1 leading-snug">
+                      {emergencyFeature.title}
+                    </h4>
+                    <p className="text-red-700/70 font-semibold text-[13px] font-inter-tight leading-normal">
+                      Hệ thống tự động liên hệ xe cứu thương và cơ sở y tế gần nhất của bạn.
+                    </p>
+                  </div>
+                  
+                  <div className="w-6 h-0.5 bg-[#d32f2f]/30 rounded-full mt-4 group-hover:w-1/3 transition-all duration-300" />
+                </div>
+              )}
+
+              {/* Utility Clinic Card */}
+              {hospitalFeature && (
+                <div 
+                  onClick={() => navigate(hospitalFeature.link)}
+                  className="rounded-[24px] bg-[#244d54] text-white p-8 flex flex-col justify-between cursor-pointer group hover:bg-[#1a383d] transition-all duration-300 relative overflow-hidden h-1/2 min-h-[220px] shadow-sm"
+                >
+                  <div className="absolute top-[-30px] right-[-30px] w-36 h-36 bg-[#6dddbd]/10 rounded-full blur-[25px] pointer-events-none group-hover:scale-110 transition-transform duration-500" />
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="w-12 h-12 rounded-[16px] bg-white/10 flex items-center justify-center text-[#6dddbd] border border-white/10 group-hover:bg-[#2ecea0] group-hover:text-white group-hover:border-[#2ecea0] transition-all">
+                      <MapPin size={22} />
+                    </div>
+                    <span className="bg-[#6dddbd]/15 text-[#6dddbd] font-bold text-[9px] uppercase tracking-widest px-2.5 py-1 rounded-full border border-[#6dddbd]/25">
+                      Bản đồ y tế
+                    </span>
+                  </div>
+
+                  <div className="mt-6">
+                    <h4 className="text-xl font-bold font-inter text-white mb-1 leading-snug">
+                      {hospitalFeature.title}
+                    </h4>
+                    <p className="text-white/60 font-semibold text-[13px] font-inter-tight leading-normal">
+                      Tìm kiếm chính xác bệnh viện có trung tâm can thiệp đột quỵ gần bạn nhất.
+                    </p>
+                  </div>
+                  
+                  <div className="w-6 h-0.5 bg-[#2ecea0] rounded-full mt-4 group-hover:w-1/3 transition-all duration-300" />
+                </div>
+              )}
             </div>
           </div>
         </div>
+      </section>
 
-      </div>
+      {/* Section 3: Health Handbook (Pure White Background) */}
+      <section className="w-full bg-[#ffffff] py-20">
+        <div className="w-full max-w-[1200px] mx-auto px-6">
+          <div className="relative rounded-[24px] bg-[#244d54] text-white overflow-hidden p-8 md:p-12 shadow-lg">
+            <div className="absolute inset-0 pattern-grid-lg opacity-20 pointer-events-none" />
+            <div className="absolute top-[-50px] right-[-50px] w-80 h-80 bg-[#6dddbd]/10 rounded-full blur-[80px] pointer-events-none" />
+            
+            <div className="relative z-10">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-12 gap-8">
+                <div className="max-w-2xl font-inter-tight">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="bg-[#2ecea0]/15 border border-[#2ecea0]/30 p-1.5 rounded-full">
+                      <Star size={16} className="text-[#2ecea0] fill-[#2ecea0]" />
+                    </div>
+                    <span className="text-[#6dddbd] font-bold tracking-wider uppercase text-[10px]">Kiến thức y khoa</span>
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-bold mb-4 font-inter text-white tracking-tight leading-tight">
+                    Cẩm nang <span className="text-[#2ecea0]">Sức khỏe</span>
+                  </h2>
+                  <p className="text-white/70 text-[14px] font-medium leading-relaxed max-w-xl">
+                    Tổng hợp những thông tin y khoa chính thống giúp bạn chủ động bảo vệ sức khỏe bản thân và gia đình.
+                  </p>
+                </div>
+                <button 
+                  onClick={() => navigate("/knowledge")}
+                  className="bg-[#2ecea0] text-white px-8 py-3.5 rounded-full font-bold hover:bg-[#26b38a] hover:scale-102 transition-all duration-300 whitespace-nowrap text-[14px] font-inter-tight shadow-md shadow-[#2ecea0]/15"
+                >
+                  Khám phá ngay
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {[
+                  { id: 1, title: "Kiến thức đột quỵ", desc: "Dấu hiệu nhận biết sớm và quy trình xử lý khẩn cấp chuẩn y khoa.", icon: BookOpen },
+                  { id: 2, title: "Chế độ sinh hoạt", desc: "Xây dựng thói quen sống lành mạnh để kiểm soát huyết áp và tim mạch.", icon: Sun },
+                  { id: 3, title: "Chất lượng giấc ngủ", desc: "Tầm quan trọng của giấc ngủ đối với sự phục hồi của não bộ.", icon: Moon },
+                  { id: 4, title: "Dinh dưỡng hợp lý", desc: "Thực đơn giúp giảm mỡ máu và tăng cường sức khỏe hệ tuần hoàn.", icon: Heart },
+                ].map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <button
+                      key={item.id}
+                      className="group bg-white/5 border border-white/10 p-6 rounded-xl flex flex-col items-start hover:bg-white/10 hover:border-white/20 transition-all duration-300 text-left"
+                      onClick={() => navigate("/knowledge")}
+                    >
+                      <div className="w-10 h-10 rounded-[10px] bg-white/10 flex items-center justify-center mb-5 transition-colors duration-300 group-hover:bg-[#2ecea0]/20">
+                        <Icon size={18} className="text-[#6dddbd]" strokeWidth={2} />
+                      </div>
+                      <h3 className="text-lg font-bold mb-2 text-white font-inter tracking-tight leading-tight">{item.title}</h3>
+                      <p className="text-[13px] font-semibold text-white/50 line-clamp-3 leading-relaxed font-inter-tight">{item.desc}</p>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </UserLayout>
   );
 };

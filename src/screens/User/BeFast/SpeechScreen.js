@@ -112,63 +112,69 @@ const SpeechScreen = () => {
   const displayError = localError || apiError;
 
   return (
-    <div className="bg-surface border border-border rounded-lg p-6 shadow-sm">
-      <div className="mb-6 flex items-center justify-between">
+    <div className="bg-white border border-[#e5e7eb] rounded-[24px] p-6 md:p-8 max-w-2xl mx-auto shadow-sm transition-all duration-300">
+      <div className="mb-6 flex items-center justify-between font-inter-tight-small">
         <div>
-          <span className="text-label text-tertiary bg-neutral px-2 py-1 rounded-sm uppercase mb-2 inline-block">Bước 5/5</span>
-          <h2 className="text-h1 text-primary text-2xl flex items-center gap-2">
-            <Mic size={24} className="text-tertiary" />
+          <span className="bg-[#244d54]/10 text-[#244d54] border border-[#244d54]/10 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-2.5 inline-block">
+            Bước 5/5
+          </span>
+          <h2 className="text-2xl font-bold font-inter text-black flex items-center gap-2.5">
+            <Mic size={22} className="text-[#2ecea0]" />
             S - Speech (Giọng nói)
           </h2>
         </div>
       </div>
       
-      <p className="text-body text-secondary mb-6">
+      <p className="text-[#858585] text-[14px] font-semibold mb-6 font-inter-tight-small leading-relaxed">
         Người bệnh có bị nói ngọng, nói đớ hoặc không nói được không? Yêu cầu người bệnh đọc to, rõ ràng câu mẫu dưới đây:
       </p>
 
-      <div className="bg-neutral border-2 border-dashed border-border rounded-lg p-6 text-center mb-8">
-        <p className="text-xl font-bold text-primary mb-2">"mẹ đi chợ mua cá"</p>
-        <p className="text-sm text-secondary">Bấm vào nút micro bên dưới và bắt đầu đọc</p>
+      <div className="bg-[#f0f1f2] border border-[#244d54]/10 rounded-[20px] p-6 text-center mb-8 font-inter-tight-small">
+        <p className="text-2xl font-bold text-black mb-2 font-inter tracking-tight">"mẹ đi chợ mua cá"</p>
+        <p className="text-xs font-semibold text-[#858585]">Bấm vào nút micro bên dưới và bắt đầu đọc</p>
       </div>
 
-      <div className="flex flex-col items-center justify-center mb-8">
+      <div className="flex flex-col items-center justify-center mb-8 font-inter-tight-small">
         <button 
           onClick={toggleListening}
-          className={`w-20 h-20 rounded-full flex items-center justify-center transition-all shadow-md ${
+          className={`w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 shadow-md ${
             isListening 
-              ? 'bg-red-500 text-white animate-pulse' 
-              : 'bg-tertiary text-white hover:scale-105'
+              ? 'bg-[#d32f2f] text-white animate-pulse shadow-[#d32f2f]/20' 
+              : 'bg-[#2ecea0] text-white hover:scale-[1.03] shadow-[#2ecea0]/20 hover:bg-[#26b38a]'
           }`}
         >
-          {isListening ? <Square size={28} fill="currentColor" /> : <Mic size={32} />}
+          {isListening ? <Square size={26} className="fill-white" /> : <Mic size={28} />}
         </button>
-        <p className="mt-4 text-body font-medium text-primary">
+        <p className="mt-4 text-sm font-bold text-black">
           {isListening ? 'Đang nghe...' : 'Bấm để nói'}
         </p>
       </div>
 
       {transcript && (
-        <div className="bg-surface border border-border rounded-md p-4 mb-6">
-          <p className="text-label text-secondary mb-1">Kết quả nhận diện:</p>
-          <p className="text-body text-primary font-medium">"{transcript}"</p>
+        <div className="bg-[#2ecea0]/5 border border-[#2ecea0]/20 rounded-[16px] p-5 mb-6 font-inter-tight-small">
+          <p className="text-[11px] font-bold text-[#2ecea0] uppercase tracking-wider mb-1.5">Kết quả nhận diện:</p>
+          <p className="text-[15px] font-bold text-black">"{transcript}"</p>
         </div>
       )}
 
-      {displayError && <p className="text-red-500 text-sm font-medium mb-4 text-center">{displayError}</p>}
+      {displayError && (
+        <p className="text-[#d32f2f] text-xs font-bold mb-6 text-center bg-red-50 py-3 rounded-xl border border-red-100 font-inter-tight-small">
+          {displayError}
+        </p>
+      )}
 
-      <div className="flex justify-end gap-4">
+      <div className="flex justify-end font-inter-tight-small">
         <button 
           onClick={processSpeech}
           disabled={loading || !transcript || isListening}
-          className="flex items-center gap-2 bg-tertiary text-on-primary px-8 py-3 rounded-md text-body font-medium hover:bg-opacity-90 transition-colors disabled:opacity-50"
+          className="btn-activation-filled flex items-center gap-2 text-sm font-semibold tracking-tight shadow-md disabled:opacity-50 disabled:pointer-events-none"
         >
           {loading ? (
             <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
           ) : (
             <>
               Phân tích & Kết quả
-              <ChevronRight size={20} />
+              <ChevronRight size={18} strokeWidth={2.5} />
             </>
           )}
         </button>

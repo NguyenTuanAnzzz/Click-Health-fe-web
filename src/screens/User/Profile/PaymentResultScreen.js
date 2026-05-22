@@ -43,58 +43,58 @@ const PaymentResultScreen = () => {
 
     return (
         <UserLayout noPaddingTop>
-            <div className="min-h-[80vh] flex items-center justify-center px-4">
-                <div className="max-w-md w-full game-card p-10 text-center relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 rounded-full -mr-16 -mt-16 blur-2xl" />
+            <div className="min-h-[80vh] flex items-center justify-center px-4 bg-[#f0f1f2]/30">
+                <div className="max-w-md w-full bg-white rounded-2xl border border-[#e5e7eb] p-10 text-center relative shadow-md overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#2ecea0]/5 rounded-full -mr-16 -mt-16 blur-2xl pointer-events-none" />
                     
                     {loading ? (
-                        <div className="space-y-6 py-10">
-                            <div className="w-20 h-20 bg-accent/20 rounded-3xl flex items-center justify-center mx-auto border-4 border-accent animate-spin-slow">
-                                <Loader2 size={40} className="text-accent animate-spin" />
+                        <div className="space-y-6 py-6">
+                            <div className="w-16 h-16 bg-[#2ecea0]/10 rounded-full flex items-center justify-center mx-auto border border-[#2ecea0]/25 shadow-2xs">
+                                <Loader2 size={32} className="text-[#2ecea0] animate-spin" />
                             </div>
-                            <h2 className="text-3xl font-black text-main uppercase italic">Đang xác thực...</h2>
-                            <p className="text-main/60 font-bold italic">Vui lòng chờ trong giây lát trong khi chúng tôi kiểm tra giao dịch của bạn.</p>
+                            <h2 className="text-2xl font-bold text-[#244d54] tracking-tight font-inter">Đang xác thực...</h2>
+                            <p className="text-xs font-semibold text-[#858585] leading-relaxed">Vui lòng chờ trong giây lát trong khi chúng tôi xác nhận giao dịch của bạn qua cổng VNPAY.</p>
                         </div>
                     ) : (
-                        <div className="space-y-8 animate-float-in">
+                        <div className="space-y-6">
                             {status === 'success' ? (
                                 <>
-                                    <div className="w-24 h-24 bg-green-500 rounded-[2rem] flex items-center justify-center mx-auto border-4 border-primary-dark shadow-teal-glow rotate-6">
-                                        <CheckCircle size={48} className="text-white" strokeWidth={3} />
+                                    <div className="w-16 h-16 bg-[#2ecea0]/15 rounded-full flex items-center justify-center mx-auto border border-[#2ecea0]/30 shadow-2xs">
+                                        <CheckCircle size={32} className="text-[#2ecea0]" strokeWidth={2.5} />
                                     </div>
-                                    <h2 className="text-4xl font-black text-green-500 uppercase italic leading-none">
-                                        Thanh toán <br/> <span className="text-accent">Thành công!</span>
+                                    <h2 className="text-2xl font-bold text-black tracking-tight font-inter">
+                                        Thanh toán <span className="text-[#2ecea0]">Thành công!</span>
                                     </h2>
-                                    <p className="text-main/70 font-bold italic text-lg">
-                                        Chúc mừng! Tài khoản của bạn đã được nâng cấp lên VIP. Tận hưởng mọi tính năng cao cấp ngay bây giờ.
+                                    <p className="text-sm font-semibold text-[#858585] leading-relaxed">
+                                        Chúc mừng! Tài khoản của bạn đã được nâng cấp thành công lên gói <span className="text-[#244d54] font-bold">Click VIP</span>. Bạn hiện có quyền sử dụng không giới hạn tất cả các tính năng tầm soát và chẩn đoán đột quỵ AI.
                                     </p>
                                 </>
                             ) : (
                                 <>
-                                    <div className="w-24 h-24 bg-danger rounded-[2rem] flex items-center justify-center mx-auto border-4 border-primary-dark shadow-danger-glow -rotate-6">
-                                        <XCircle size={48} className="text-white" strokeWidth={3} />
+                                    <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto border border-red-200 shadow-2xs">
+                                        <XCircle size={32} className="text-red-500" strokeWidth={2.5} />
                                     </div>
-                                    <h2 className="text-4xl font-black text-danger uppercase italic leading-none">
-                                        Giao dịch <br/> <span className="text-accent">Thất bại</span>
+                                    <h2 className="text-2xl font-bold text-black tracking-tight font-inter">
+                                        Giao dịch <span className="text-red-500">Thất bại</span>
                                     </h2>
-                                    <p className="text-main/70 font-bold italic text-lg">
-                                        Rất tiếc, đã có lỗi xảy ra trong quá trình thanh toán hoặc giao dịch bị hủy bỏ.
+                                    <p className="text-sm font-semibold text-[#858585] leading-relaxed">
+                                        Rất tiếc, đã có lỗi xảy ra trong quá trình thanh toán hoặc giao dịch đã bị hủy bỏ bởi người dùng.
                                     </p>
                                 </>
                             )}
 
-                            <div className="pt-8 border-t-4 border-dashed border-border flex flex-col gap-4">
+                            <div className="pt-6 border-t border-[#e5e7eb] flex flex-col gap-3">
                                 <button 
                                     onClick={() => navigate('/')}
-                                    className="btn-primary-game w-full text-lg py-5"
+                                    className="btn-activation-filled w-full py-3.5 flex items-center justify-center gap-2 text-sm font-semibold tracking-tight shadow-md hover:shadow-lg transition-all cursor-pointer"
                                 >
-                                    <Home size={20} /> Về trang chủ
+                                    <Home size={16} /> Về trang chủ
                                 </button>
                                 <button 
                                     onClick={() => navigate('/profile')}
-                                    className="text-main/60 font-black uppercase tracking-widest text-sm hover:text-accent transition-colors flex items-center justify-center gap-2"
+                                    className="btn-ghost-outline-dark w-full py-3 flex items-center justify-center gap-2 text-sm font-semibold tracking-tight transition-all cursor-pointer"
                                 >
-                                    Quay lại hồ sơ <ArrowRight size={16} />
+                                    Quay lại hồ sơ sức khỏe <ArrowRight size={16} />
                                 </button>
                             </div>
                         </div>

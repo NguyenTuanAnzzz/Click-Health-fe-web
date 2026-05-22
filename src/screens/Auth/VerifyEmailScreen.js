@@ -143,23 +143,26 @@ const VerifyEmailScreen = () => {
 
   return (
     <AuthLayout tagline="Xác thực tài khoản của bạn">
-      <div className="w-full">
-        <h2 className="mb-2.5 text-2xl font-semibold text-main">Xác thực email</h2>
-
-        <p className="mb-4.5 text-[14px] leading-5 font-normal text-secondary">
-          Nhập mã xác thực gồm 6 số đã được gửi đến email của bạn.
-        </p>
+      <div className="w-full space-y-6">
+        <div>
+          <h2 className="text-2xl font-bold text-black font-inter tracking-tight mb-1">
+            Xác thực email
+          </h2>
+          <p className="text-sm font-medium text-[#858585]">
+            Nhập mã xác thực gồm 6 số đã được gửi đến email của bạn.
+          </p>
+        </div>
 
         {!!email && (
-          <div className="min-h-[54px] rounded-md border border-border/30 bg-neutral flex flex-row items-center px-3.5 mb-5.5">
-            <div className="w-8 h-8 rounded bg-primary/10 flex items-center justify-center">
-              <Mail size={18} className="text-primary" />
+          <div className="min-h-[50px] rounded-full border border-[#e5e7eb] bg-[#f0f1f2] flex flex-row items-center px-4 mb-4 shadow-2xs">
+            <div className="w-8 h-8 rounded-full bg-[#2ecea0]/15 flex items-center justify-center">
+              <Mail size={16} className="text-[#2ecea0]" />
             </div>
-            <span className="ml-2.5 flex-1 text-[14px] font-semibold text-primary">{email}</span>
+            <span className="ml-3 flex-1 text-sm font-semibold text-[#244d54]">{email}</span>
           </div>
         )}
 
-        <div className={`flex flex-row justify-between mb-4.5 gap-2 ${error ? 'animate-shake' : ''}`}>
+        <div className={`flex flex-row justify-between mb-4 gap-2 ${error ? 'animate-shake' : ''}`}>
           {otp.map((digit, index) => (
             <input
               key={index}
@@ -173,42 +176,48 @@ const VerifyEmailScreen = () => {
               inputMode="numeric"
               maxLength={6}
               disabled={isExpired || loading}
-              className={`w-12 h-14 rounded-md border text-center text-[22px] font-semibold outline-none transition-colors
-                ${digit ? "border-primary bg-primary/5 text-primary" : "border-border bg-neutral text-main"}
-                ${isExpired ? "bg-gray-100 border-gray-200 text-gray-400" : "focus:border-primary"}`}
+              className={`w-11 h-14 rounded-xl border text-center text-[22px] font-semibold outline-none transition-all duration-300
+                ${digit ? "border-[#2ecea0] bg-[#2ecea0]/5 text-[#2ecea0]" : "border-[#e5e7eb] bg-[#f0f1f2]/40 text-black"}
+                ${isExpired ? "bg-gray-100 border-gray-200 text-gray-400" : "focus:border-[#2ecea0] focus:ring-2 focus:ring-[#2ecea0]/10"}`}
             />
           ))}
         </div>
 
-        <div className="flex flex-row items-center justify-center mb-4.5 gap-1.5">
-          {isExpired ? <AlertCircle size={16} className="text-danger" /> : <Clock size={16} className="text-primary" />}
-          <span className={`text-[13px] font-semibold ${isExpired ? "text-danger" : "text-primary"}`}>
+        <div className="flex flex-row items-center justify-center mb-6 gap-2">
+          {isExpired ? <AlertCircle size={16} className="text-red-500 animate-pulse" /> : <Clock size={16} className="text-[#2ecea0]" />}
+          <span className={`text-xs font-semibold ${isExpired ? "text-red-600" : "text-[#2ecea0]"}`}>
             {isExpired ? "Mã xác thực đã hết hạn" : "Mã hết hạn trong "}
             {!isExpired && <span className="font-bold">{formatTime(timeLeft)}</span>}
           </span>
         </div>
 
         <Button
-          title="Xác thực"
+          title="Xác thực tài khoản"
           nameIcon="CheckCircle"
-          sizeIcon={18}
+          sizeIcon={16}
           loading={loading}
           disabled={!isOtpFull || isExpired}
           handle={handleVerify}
         />
 
-        {error && <Error title="Xác thực thất bại" desc={error} />}
+        {error && (
+          <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-center gap-3 mt-4">
+            <AlertCircle className="text-red-500" size={18} />
+            <p className="text-red-600 font-semibold text-xs leading-normal">{error}</p>
+          </div>
+        )}
 
         <button
           type="button"
           onClick={handleResendCode}
           disabled={!isExpired || loading}
-          className={`w-full min-h-[48px] mt-3 rounded-md border flex items-center justify-center transition-colors
-            ${isExpired ? "border-primary bg-primary/5 text-primary" : "border-border bg-white text-secondary cursor-not-allowed"}
-          `}
+          className={`w-full min-h-[44px] mt-4 rounded-full border flex items-center justify-center transition-all text-xs font-semibold
+            ${isExpired 
+              ? "border-[#2ecea0] bg-[#2ecea0]/5 text-[#2ecea0] hover:bg-[#2ecea0]/10 cursor-pointer" 
+              : "border-[#e5e7eb] bg-white text-[#858585] cursor-not-allowed"}`}
         >
-          <span className="text-[15px] font-semibold">
-            {isExpired ? "Gửi lại mã" : `Gửi lại sau ${formatTime(timeLeft)}`}
+          <span>
+            {isExpired ? "Gửi lại mã xác thực" : `Gửi lại mã sau ${formatTime(timeLeft)}`}
           </span>
         </button>
       </div>
@@ -217,6 +226,7 @@ const VerifyEmailScreen = () => {
         titleLeft="Nhập sai email?"
         titleRight="Đăng ký lại"
         goToLink="/register"
+        className="mt-6 pt-4 border-t border-[#e5e7eb]/60"
       />
     </AuthLayout>
   );

@@ -10,134 +10,144 @@ const RecoveryExerciseScreen = () => {
     {
       id: "face",
       title: "Face Gym",
-      desc: "Cải thiện cơ mặt và nụ cười với các bài tập biểu cảm vui nhộn.",
+      desc: "Cải thiện sự đàn hồi cơ mặt, khôi phục nụ cười tự nhiên với các bài tập biểu cảm trị liệu chuyên sâu.",
       icon: Smile,
-      color: "bg-accent",
-      items: ["Cười rạng rỡ", "Phồng má thổi hơi", "Luyện cơ hàm"]
+      color: "bg-[#2ecea0]/10 text-[#2ecea0]",
+      border: "border-[#2ecea0]/25",
+      items: ["Cười liên tục 5s", "Thổi khí phồng hai má", "Chuyển động lưỡi tròn"]
     },
     {
       id: "arm",
       title: "Arm Power",
-      desc: "Tăng cường sự linh hoạt và sức mạnh cho cánh tay bị yếu.",
+      desc: "Tăng cường độ linh hoạt, khôi phục phản xạ cử động và sức mạnh cho cánh tay bị yếu hoặc co cứng.",
       icon: Dumbbell,
-      color: "bg-primary",
-      items: ["Nâng tay robot", "Xoay cổ tay", "Bóp bóng năng lực"]
+      color: "bg-[#6dddbd]/20 text-[#244d54]",
+      border: "border-[#6dddbd]/30",
+      items: ["Nâng cánh tay robot", "Xoay cổ tay 360 độ", "Bóp bóng cao su phục hồi"]
     },
     {
       id: "balance",
       title: "Balance Master",
-      desc: "Lấy lại sự thăng bằng và tự tin trong từng bước đi.",
+      desc: "Lấy lại khả năng giữ thăng bằng cơ thể, kiểm soát trọng tâm khi đứng và di chuyển vững chãi.",
       icon: Activity,
-      color: "bg-info",
-      items: ["Đứng một chân", "Đi bộ đường thẳng", "Xoay người nhẹ nhàng"]
+      color: "bg-[#244d54]/10 text-[#244d54]",
+      border: "border-[#244d54]/20",
+      items: ["Đứng thăng bằng một chân", "Đi bộ nối gót thẳng hàng", "Xoay hông nhẹ nhàng"]
     },
     {
       id: "speech",
       title: "Vocal Hero",
-      desc: "Luyện phát âm rõ ràng thông qua các bài hát và trò chơi chữ.",
+      desc: "Luyện phát âm tròn vành rõ chữ, kiểm soát cơ vòm họng và cải thiện chất lượng ngôn ngữ đàm thoại.",
       icon: Mic,
-      color: "bg-danger",
-      items: ["Uốn lưỡi nghệ thuật", "Phát âm nguyên âm", "Kể chuyện ngắn"]
+      color: "bg-red-50 text-[#d32f2f]",
+      border: "border-red-100",
+      items: ["Luyện cơ lưỡi phát âm", "Phát âm nguyên âm dài", "Kể các mẩu truyện ngắn"]
     }
   ];
 
   return (
-    <UserLayout noPaddingTop>
-      {/* Hero Section */}
-      <div className="bg-primary-dark pt-32 pb-20 px-4 md:px-8 lg:px-12 border-b-8 border-accent relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-full h-full pattern-grid-lg opacity-10" />
-        <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-primary/20 rounded-full blur-[100px]" />
+    <UserLayout noPaddingTop={false}>
+      <div className="w-full max-w-[1200px] mx-auto px-6 mt-8 pb-24 bg-[#ffffff]">
         
-        <div className="max-w-[1200px] mx-auto relative z-10">
-          <button 
-            onClick={() => navigate(-1)}
-            className="flex items-center gap-2 text-white/60 hover:text-accent transition-colors mb-8 font-bold uppercase tracking-widest text-sm"
-          >
-            <ArrowLeft size={20} /> Quay lại trang chủ
-          </button>
+        {/* Breadcrumb Navigation */}
+        <button 
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-2 text-[#858585] hover:text-black transition-colors mb-6 font-bold text-xs uppercase tracking-wider font-inter-tight-small"
+        >
+          <ArrowLeft size={14} /> Quay lại trang chủ
+        </button>
+
+        {/* 2.AG Styled Clinical Header Banner (Midnight Teal card layout) */}
+        <div className="relative rounded-[24px] bg-[#244d54] text-white p-8 md:p-12 mb-16 overflow-hidden shadow-lg">
+          <div className="absolute inset-0 pattern-grid-lg opacity-25 pointer-events-none" />
+          <div className="absolute bottom-[-100px] left-[-100px] w-96 h-96 bg-[#2ecea0]/5 rounded-full blur-[100px] pointer-events-none" />
           
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            <div className="flex-1 text-center lg:text-left">
-              <div className="inline-block bg-accent text-primary-dark px-6 py-2 rounded-full font-black uppercase tracking-widest text-xs mb-6 shadow-accent-glow">
-                Level Up Your Health
+          <div className="relative z-10 flex flex-col lg:flex-row items-center gap-12">
+            <div className="flex-1 text-left font-inter-tight-small">
+              <div className="inline-block bg-[#2ecea0]/15 text-[#2ecea0] border border-[#2ecea0]/30 px-4 py-1.5 rounded-full font-bold uppercase tracking-wider text-[10px] mb-6">
+                Chương trình Phục hồi Chức năng
               </div>
-              <h1 className="text-5xl md:text-8xl font-black text-white uppercase italic leading-[0.85] mb-8">
-                Luyện tập <br />
-                <span className="text-accent drop-shadow-[6px_6px_0_rgba(43,168,162,1)]">Khắc phục</span>
+              <h1 className="text-3xl md:text-5xl font-bold font-inter text-white tracking-tight mb-4 leading-tight">
+                Luyện tập <span className="text-[#2ecea0]">Khắc phục</span>
               </h1>
-              <p className="text-white/80 text-xl md:text-2xl font-bold italic leading-relaxed max-w-xl">
-                Biến quá trình phục hồi thành một cuộc phiêu lưu! Chọn "vũ khí" của bạn và bắt đầu luyện tập ngay hôm nay.
+              <p className="text-white/70 text-[15px] font-medium leading-relaxed max-w-xl">
+                Cải thiện khả năng vận động và ngôn ngữ với các bài tập trị liệu tại nhà được thiết kế theo quy chuẩn chuyên gia. Hãy kiên trì mỗi ngày để thấy sự khác biệt rõ rệt.
               </p>
             </div>
             
-            <div className="w-full max-w-md bg-surface/10 border-4 border-accent rounded-[3rem] p-8 backdrop-blur-md relative rotate-3 shadow-2xl">
-              <div className="absolute -top-6 -right-6 bg-danger text-white w-20 h-20 rounded-2xl flex items-center justify-center border-4 border-primary-dark rotate-12 animate-bounce-small shadow-lg">
-                <Zap size={40} fill="currentColor" />
+            {/* Elegant glassmorphic goals card */}
+            <div className="w-full max-w-sm bg-white/5 border border-white/10 rounded-[20px] p-6 backdrop-blur-md shadow-2xl font-inter-tight-small">
+              <div className="absolute -top-4 -right-4 bg-[#2ecea0] text-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-[#244d54] rotate-12 shadow-lg">
+                <Zap size={18} className="fill-white" />
               </div>
-              <div className="space-y-6">
-                <div className="flex items-center gap-4 border-b-2 border-dashed border-white/20 pb-4">
-                  <div className="w-12 h-12 bg-accent rounded-xl flex items-center justify-center text-primary-dark shadow-md">
-                    <Trophy size={24} />
+              <div className="space-y-5">
+                <div className="flex items-center gap-4 border-b border-white/10 pb-4">
+                  <div className="w-9 h-9 bg-white/10 rounded-[10px] flex items-center justify-center text-[#2ecea0]">
+                    <Trophy size={16} />
                   </div>
                   <div>
-                    <p className="text-xs font-black text-accent uppercase">Mục tiêu hôm nay</p>
-                    <p className="text-lg font-bold text-white uppercase italic">Hoàn thành 3 bài tập</p>
+                    <p className="text-[10px] font-bold text-white/50 uppercase tracking-wider">Mục tiêu hôm nay</p>
+                    <p className="text-sm font-bold text-white">Hoàn thành 3 bài tập bất kỳ</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white shadow-md">
-                    <Heart size={24} fill="currentColor" />
+                  <div className="w-9 h-9 bg-[#2ecea0]/20 rounded-[10px] flex items-center justify-center text-[#2ecea0]">
+                    <Heart size={16} className="fill-[#2ecea0]" />
                   </div>
                   <div>
-                    <p className="text-xs font-black text-primary uppercase">Streak hiện tại</p>
-                    <p className="text-lg font-bold text-white uppercase italic">05 Ngày liên tiếp</p>
+                    <p className="text-[10px] font-bold text-[#2ecea0] uppercase tracking-wider">Chuỗi tích lũy</p>
+                    <p className="text-sm font-bold text-white">05 ngày liên tiếp</p>
                   </div>
                 </div>
-                <button className="w-full btn-primary-game text-xl py-6 mt-4">
-                  TIẾP TỤC LUYỆN TẬP!
-                </button>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="max-w-[1400px] mx-auto px-4 md:px-8 lg:px-12 py-24">
-        <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-6xl font-black text-primary-dark dark:text-white uppercase italic mb-6">
-            Chọn <span className="text-primary">Kỹ năng</span> cần rèn luyện
-          </h2>
-          <div className="w-32 h-2 bg-accent mx-auto rounded-full" />
-        </div>
+        {/* Selection Center Grid */}
+        <div>
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-black font-inter-heading tracking-tight mb-2">
+              Lựa chọn kỹ năng rèn luyện
+            </h2>
+            <div className="w-12 h-0.5 bg-[#2ecea0] mx-auto rounded-full" />
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {categories.map((cat) => {
-            const Icon = cat.icon;
-            return (
-              <div key={cat.id} className="game-card flex flex-col group hover:-translate-y-4 hover:shadow-2xl transition-all duration-500">
-                <div className={`w-20 h-20 ${cat.color} rounded-3xl flex items-center justify-center mb-8 border-4 border-primary-dark shadow-lg group-hover:rotate-12 transition-transform`}>
-                  <Icon size={40} className="text-primary-dark" strokeWidth={3} />
-                </div>
-                
-                <h3 className="text-3xl font-black text-primary-dark uppercase italic mb-4">{cat.title}</h3>
-                <p className="text-primary-dark/60 font-bold mb-8 leading-relaxed italic">{cat.desc}</p>
-                
-                <div className="space-y-3 mb-10 flex-1">
-                  {cat.items.map((item, i) => (
-                    <div key={i} className="flex items-center gap-2 bg-neutral p-3 rounded-xl border-2 border-primary-dark/5">
-                      <div className="w-2 h-2 bg-accent rounded-full" />
-                      <span className="text-sm font-black text-primary-dark uppercase italic">{item}</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {categories.map((cat) => {
+              const Icon = cat.icon;
+              return (
+                <div 
+                  key={cat.id} 
+                  className="rounded-[20px] bg-[#f0f1f2] border border-transparent p-6 flex flex-col justify-between hover:border-[#244d54]/15 hover:bg-[#e9eaec] transition-all duration-300 shadow-sm"
+                >
+                  <div>
+                    <div className={`w-12 h-12 ${cat.color} rounded-[12px] flex items-center justify-center mb-6 border ${cat.border} shadow-sm`}>
+                      <Icon size={20} strokeWidth={2.2} />
                     </div>
-                  ))}
+                    
+                    <h3 className="text-xl font-bold font-inter text-black mb-3">{cat.title}</h3>
+                    <p className="text-[#858585] text-[13px] font-semibold font-inter-tight-small mb-6 leading-relaxed">
+                      {cat.desc}
+                    </p>
+                    
+                    <div className="space-y-2 mb-8 font-inter-tight-small">
+                      {cat.items.map((item, i) => (
+                        <div key={i} className="flex items-center gap-2.5 bg-white px-3.5 py-2.5 rounded-lg border border-[#e5e7eb] shadow-2xs">
+                          <div className="w-1.5 h-1.5 bg-[#2ecea0] rounded-full" />
+                          <span className="text-[12px] font-bold text-[#151515] leading-none">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <button className="w-full bg-[#2ecea0] text-white py-3 rounded-full font-bold hover:bg-[#26b38a] hover:scale-[1.01] transition-all duration-300 flex items-center justify-center gap-2 text-[13px] font-inter-tight-small shadow-sm shadow-[#2ecea0]/15">
+                    <Play size={14} className="fill-white" /> Bắt đầu tập
+                  </button>
                 </div>
-                
-                <button className={`w-full py-4 rounded-2xl font-black uppercase tracking-widest text-sm border-4 border-primary-dark transition-all flex items-center justify-center gap-2 ${cat.color} text-primary-dark hover:bg-primary-dark hover:text-white shadow-md`}>
-                  <Play size={18} fill="currentColor" /> Bắt đầu ngay
-                </button>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
       </div>
