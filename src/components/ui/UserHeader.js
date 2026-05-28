@@ -76,13 +76,23 @@ const UserHeader = () => {
               />
             </Link>
             <Link 
+              to="/knowledge" 
+              className={`text-[12px] font-extrabold uppercase tracking-wider transition-colors duration-300 relative py-1 group
+                ${isActive('/knowledge') ? 'text-black' : 'text-[#858585] hover:text-black'}`}
+            >
+              Kiến thức đột quỵ
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-[#2ecea0] transition-all duration-300
+                ${isActive('/knowledge') ? 'w-full' : 'w-0 group-hover:w-full'}`} 
+              />
+            </Link>
+            <Link 
               to="/history" 
               className={`text-[12px] font-extrabold uppercase tracking-wider transition-colors duration-300 relative py-1 group
                 ${isActive('/history') ? 'text-black' : 'text-[#858585] hover:text-black'}`}
             >
               Lịch sử
               <span className={`absolute bottom-0 left-0 h-0.5 bg-[#2ecea0] transition-all duration-300
-                ${isActive('/history') ? 'text-full' : 'w-0 group-hover:w-full'}`} 
+                ${isActive('/history') ? 'w-full' : 'w-0 group-hover:w-full'}`} 
               />
             </Link>
           </nav>
