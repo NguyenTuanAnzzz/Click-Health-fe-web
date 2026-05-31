@@ -1,0 +1,66 @@
+export const TEST_PHASE = {
+  LOADING: 'loading',
+  PERMISSION: 'permission',
+  VALIDATION: 'validation',
+  COUNTDOWN: 'countdown',
+  RECORDING: 'recording',
+  ANALYZING: 'analyzing',
+  RESULTS: 'results',
+  ERROR: 'error',
+};
+
+export const SHARED_CONFIG = {
+  VALIDATION_STABLE_MS: 2000,
+  COUNTDOWN_SEC: 5,
+  MIN_FRAMES: 45,
+};
+
+export const VALIDATION_THRESHOLDS = {
+  MIN_VISIBILITY: 0.45,
+  SHOULDER_WIDTH_MIN: 0.14,
+  SHOULDER_WIDTH_MAX: 0.62,
+  LUMINANCE_MIN: 35,
+  LUMINANCE_MAX: 240,
+  SHAKE_WINDOW: 24,
+  SHAKE_MAX_VARIANCE: 0.00085,
+  LUMINANCE_SAMPLE_INTERVAL: 12,
+  FACE_WIDTH_MIN: 0.12,
+  FACE_WIDTH_MAX: 0.55,
+};
+
+export const RISK_THRESHOLDS = {
+  NORMAL_MIN: 80,
+  WATCH_MIN: 65,
+};
+
+export const POSE_LANDMARK = {
+  NOSE: 0,
+  LEFT_SHOULDER: 11,
+  RIGHT_SHOULDER: 12,
+  LEFT_ELBOW: 13,
+  RIGHT_ELBOW: 14,
+  LEFT_WRIST: 15,
+  RIGHT_WRIST: 16,
+  LEFT_HIP: 23,
+  RIGHT_HIP: 24,
+};
+
+export const FACE_LANDMARK = {
+  FOREHEAD: 10,
+  CHIN: 152,
+  LEFT_EYE_OUTER: 33,
+  LEFT_EYE_INNER: 133,
+  RIGHT_EYE_OUTER: 362,
+  RIGHT_EYE_INNER: 263,
+  MOUTH_LEFT: 61,
+  MOUTH_RIGHT: 291,
+};
+
+export const SPEECH_TARGET = 'mẹ đi chợ mua cá';
+
+export const TEST_IDS = {
+  BALANCE: 'balance',
+  ARM: 'arm',
+  FACE: 'face',
+  SPEECH: 'speech',
+};
