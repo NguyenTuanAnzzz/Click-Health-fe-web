@@ -14,6 +14,7 @@ import PaymentResultScreen from '../screens/User/Profile/PaymentResultScreen';
 import RecoveryExerciseScreen from '../screens/User/Features/RecoveryExerciseScreen';
 import StrokeRiskScreen from '../screens/User/Features/StrokeRiskScreen';
 import KnowledgeScreen from '../screens/User/Features/KnowledgeScreen';
+import LandingScreen from '../screens/Public/LandingScreen';
 
 import BefastLayout from '../layouts/BefastLayout';
 import BalanceScreen from '../screens/User/BeFast/BalanceScreen';
@@ -31,11 +32,12 @@ const AppRouter = () => {
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/register" element={<RegisterScreen />} />
         <Route path="/verify-email" element={<VerifyEmailScreen />} />
+        <Route path="/" element={<LandingScreen />} />
       </Route>
 
       {/* Main Routes (Private Routes - Only accessible when logged in) */}
       <Route element={<PrivateRoute />}>
-        <Route path="/" element={<HomeScreen />} />
+        <Route path="/home" element={<HomeScreen />} />
         <Route path="/profile" element={<ProfileScreen />} />
         <Route path="/history" element={<HistoryScreen />} />
         <Route path="/payment-result" element={<PaymentResultScreen />} />
@@ -56,7 +58,7 @@ const AppRouter = () => {
       </Route>
       
       {/* Fallback Route */}
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<Navigate to="/home" replace />} />
     </Routes>
   );
 };
