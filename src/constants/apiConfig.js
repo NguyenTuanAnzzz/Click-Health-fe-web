@@ -2,7 +2,7 @@ const getBaseUrl = () => {
   if (process.env.REACT_APP_API_URL) {
     return process.env.REACT_APP_API_URL;
   }
-  return 'http://localhost:9999';
+  return 'https://click-health-be.onrender.com';
 };
 
 const getAiBaseUrl = () => {
