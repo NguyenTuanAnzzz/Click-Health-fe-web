@@ -32,13 +32,13 @@ const BefastLayout = () => {
           <div className="flex items-center">
             <button 
               onClick={() => navigate('/')}
-              className="w-10 h-10 rounded-full bg-[#f0f1f2] flex items-center justify-center text-[#244d54] hover:bg-[#e5e7eb] transition-all mr-4 shadow-2xs"
+              className="w-10 h-10 rounded-full bg-[#f0f1f2] flex items-center justify-center text-[#1F75C1] hover:bg-[#e5e7eb] transition-all mr-4 shadow-2xs"
             >
               <ArrowLeft size={18} strokeWidth={2.5} />
             </button>
             <div>
               <h1 className="text-xl font-bold font-inter text-black tracking-tight leading-none mb-1">
-                Tầm soát Đột quỵ <span className="text-[#2ecea0]">BEFAST</span>
+                Tầm soát Đột quỵ <span className="text-[#7AB5E9]">BEFAST</span>
               </h1>
               <p className="text-[11px] font-bold text-[#858585] uppercase tracking-wider font-inter-tight-small">
                 Hệ thống AI phân tích cử động lâm sàng
@@ -60,9 +60,9 @@ const BefastLayout = () => {
                       <div 
                         className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-[13px] border transition-all duration-500
                           ${isCompleted 
-                            ? 'bg-[#2ecea0] border-[#2ecea0] text-white shadow-sm' 
+                            ? 'bg-[#7AB5E9] border-[#7AB5E9] text-white shadow-sm' 
                             : isActive 
-                            ? 'bg-white border-[#2ecea0] text-[#2ecea0] ring-4 ring-[#2ecea0]/15 shadow-sm' 
+                            ? 'bg-white border-[#7AB5E9] text-[#7AB5E9] ring-4 ring-[#7AB5E9]/15 shadow-sm' 
                             : 'bg-white border-[#e5e7eb] text-[#999999]'}`}
                       >
                         {isCompleted ? <Check size={14} strokeWidth={3} /> : step.short}
@@ -70,7 +70,7 @@ const BefastLayout = () => {
                       
                       <div className="hidden lg:block text-left">
                         <p className={`text-[10px] font-extrabold uppercase tracking-wider leading-none mb-0.5
-                          ${isActive ? 'text-[#2ecea0]' : isCompleted ? 'text-black/80' : 'text-[#999999]'}`}>
+                          ${isActive ? 'text-[#7AB5E9]' : isCompleted ? 'text-black/80' : 'text-[#999999]'}`}>
                           {step.label}
                         </p>
                         <p className={`text-[11px] font-bold leading-none
@@ -83,7 +83,7 @@ const BefastLayout = () => {
                     {idx < steps.length - 1 && (
                       <div 
                         className={`h-0.5 w-6 md:w-8 transition-colors duration-500 shrink-0
-                          ${idx < currentIdx ? 'bg-[#2ecea0]' : 'bg-[#e5e7eb]'}`} 
+                          ${idx < currentIdx ? 'bg-[#7AB5E9]' : 'bg-[#e5e7eb]'}`} 
                       />
                     )}
                   </React.Fragment>

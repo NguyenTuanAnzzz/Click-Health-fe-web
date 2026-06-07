@@ -19,7 +19,7 @@ export default function ValidationPanel({ validation, validationReady }) {
             key={key}
             className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold border ${
               ok
-                ? 'bg-[#2ecea0]/10 text-[#2ecea0] border-[#2ecea0]/25'
+                ? 'bg-[#7AB5E9]/10 text-[#7AB5E9] border-[#7AB5E9]/25'
                 : 'bg-red-50 text-[#d32f2f] border-red-100'
             }`}
           >
@@ -29,7 +29,7 @@ export default function ValidationPanel({ validation, validationReady }) {
         );
       })}
       {validationReady && (
-        <span className="inline-flex px-3 py-1.5 rounded-full text-[11px] font-bold bg-[#244d54]/10 text-[#244d54] border border-[#244d54]/20">
+        <span className="inline-flex px-3 py-1.5 rounded-full text-[11px] font-bold bg-[#1F75C1]/10 text-[#1F75C1] border border-[#1F75C1]/20">
           Sẵn sàng
         </span>
       )}

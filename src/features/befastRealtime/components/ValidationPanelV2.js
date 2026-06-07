@@ -25,7 +25,7 @@ export default function ValidationPanelV2({ validation, validationReady }) {
         </div>
         <div className="h-2 bg-[#e5e7eb] rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-[#2ecea0] to-[#26b38a] transition-all duration-500 ease-out"
+            className="h-full bg-gradient-to-r from-[#7AB5E9] to-[#5CA5E4] transition-all duration-500 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>

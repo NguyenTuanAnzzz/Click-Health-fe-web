@@ -72,7 +72,7 @@ const ResultScreen = () => {
   return (
     <div className="bg-white border border-[#e5e7eb] rounded-[24px] p-6 md:p-8 max-w-4xl mx-auto shadow-sm">
       <div className="text-center mb-8 font-inter-tight-small">
-        <span className="bg-[#244d54]/10 text-[#244d54] px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2 inline-block">
+        <span className="bg-[#1F75C1]/10 text-[#1F75C1] px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2 inline-block">
           Phân tích hoàn tất
         </span>
         <h2 className="text-2xl font-bold font-inter text-black mb-2">Kết quả BEFAST (Realtime AI)</h2>
@@ -83,11 +83,11 @@ const ResultScreen = () => {
 
       <div className="mb-8 flex justify-center font-inter-tight-small">
         {saveLoading ? (
-          <div className="flex items-center gap-2 bg-[#6dddbd]/10 text-[#244d54] px-4 py-1.5 rounded-full text-[11px] font-bold">
+          <div className="flex items-center gap-2 bg-[#BEDBF4]/10 text-[#1F75C1] px-4 py-1.5 rounded-full text-[11px] font-bold">
             <Loader2 size={13} className="animate-spin" /> ĐANG LƯU HỒ SƠ...
           </div>
         ) : saveFinished ? (
-          <div className="flex items-center gap-2 bg-[#2ecea0]/10 text-[#2ecea0] px-4 py-1.5 rounded-full text-[11px] font-bold">
+          <div className="flex items-center gap-2 bg-[#7AB5E9]/10 text-[#7AB5E9] px-4 py-1.5 rounded-full text-[11px] font-bold">
             <CheckCircle size={13} /> ĐÃ LƯU THÀNH CÔNG
           </div>
         ) : saveError ? (
@@ -107,7 +107,7 @@ const ResultScreen = () => {
         </div>
       ) : (
         <div className="bg-green-50 border border-green-200 rounded-[20px] p-6 mb-8 text-center">
-          <CheckCircle className="mx-auto text-[#2ecea0] mb-3" size={28} />
+          <CheckCircle className="mx-auto text-[#7AB5E9] mb-3" size={28} />
           <h3 className="text-xl font-bold text-green-800">Chưa phát hiện dấu hiệu bất thường</h3>
         </div>
       )}
@@ -125,7 +125,7 @@ const ResultScreen = () => {
             dispatch(resetBefast());
             navigate('/');
           }}
-          className="flex items-center gap-2 border border-[#e5e7eb] px-8 py-3 rounded-full font-bold text-[#244d54]"
+          className="flex items-center gap-2 border border-[#e5e7eb] px-8 py-3 rounded-full font-bold text-[#1F75C1]"
         >
           <ArrowLeft size={14} /> Trang chủ
         </button>
@@ -133,7 +133,7 @@ const ResultScreen = () => {
           <button
             type="button"
             onClick={() => navigate('/history')}
-            className="flex items-center gap-2 bg-[#2ecea0] text-white px-8 py-3 rounded-full font-bold"
+            className="flex items-center gap-2 bg-[#7AB5E9] text-white px-8 py-3 rounded-full font-bold"
           >
             Lịch sử <ChevronRight size={14} />
           </button>
@@ -153,7 +153,7 @@ function ResultCard({ item }) {
     <div className="flex gap-4 p-5 border border-[#e5e7eb] rounded-xl bg-[#f5f5f5]">
       <div
         className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
-          isAbnormal ? 'bg-red-50 text-[#d32f2f]' : isNormal ? 'bg-green-50 text-[#2ecea0]' : 'bg-white text-[#999]'
+          isAbnormal ? 'bg-red-50 text-[#d32f2f]' : isNormal ? 'bg-green-50 text-[#7AB5E9]' : 'bg-white text-[#999]'
         }`}
       >
         <Icon size={18} />

@@ -1,8 +1,8 @@
 export default function ScoreBar({ label, value }) {
   const isLow = value < 65;
   const isMid = value >= 65 && value < 80;
-  const color = isLow ? 'bg-[#d32f2f]' : isMid ? 'bg-amber-400' : 'bg-[#2ecea0]';
-  const textColor = isLow ? 'text-[#d32f2f]' : isMid ? 'text-amber-600' : 'text-[#2ecea0]';
+  const color = isLow ? 'bg-[#d32f2f]' : isMid ? 'bg-amber-400' : 'bg-[#7AB5E9]';
+  const textColor = isLow ? 'text-[#d32f2f]' : isMid ? 'text-amber-600' : 'text-[#7AB5E9]';
 
   return (
     <div className="mb-4 font-inter-tight-small">

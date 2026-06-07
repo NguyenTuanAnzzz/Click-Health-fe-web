@@ -17,11 +17,11 @@ const Input = (props) => {
 
       <div className={`relative flex items-center transition-all duration-300 w-full
         ${isUnderlined 
-          ? 'border-b border-[#244d54] rounded-[5px] bg-transparent focus-within:border-[#2ecea0]' 
-          : 'bg-white border border-border/60 rounded-[9999px] shadow-sm focus-within:border-[#2ecea0] focus-within:ring-2 focus-within:ring-[#2ecea0]/15'}`}
+          ? 'border-b border-[#1F75C1] rounded-[5px] bg-transparent focus-within:border-[#7AB5E9]' 
+          : 'bg-white border border-border/60 rounded-[9999px] shadow-sm focus-within:border-[#7AB5E9] focus-within:ring-2 focus-within:ring-[#7AB5E9]/15'}`}
       >
         {IconLeft && (
-          <div className="absolute left-4 flex items-center justify-center text-[#244d54] z-10 pointer-events-none">
+          <div className="absolute left-4 flex items-center justify-center text-[#1F75C1] z-10 pointer-events-none">
             <IconLeft size={props.sizeIcon || 18} />
           </div>
         )}

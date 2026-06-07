@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, Activity } from 'lucide-react';
+import { User } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -26,11 +26,9 @@ const UserHeader = () => {
       <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
         <div className="flex items-center gap-10">
           <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 bg-[#244d54] rounded-[10px] flex items-center justify-center shadow-sm transition-all duration-300 group-hover:bg-[#2ecea0] group-hover:scale-105">
-               <Activity size={20} className="text-white" />
-            </div>
+            <img src="/My_logo.png" alt="ClickHealth Logo" className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
             <span className="text-xl font-bold font-inter-heading tracking-tight text-black">
-              Click<span className="text-[#2ecea0]">Health</span>
+              Click<span className="text-[#7AB5E9]">Health</span>
             </span>
           </Link>
           
@@ -41,7 +39,7 @@ const UserHeader = () => {
                 ${isActive('/') ? 'text-black' : 'text-[#858585] hover:text-black'}`}
             >
               Trang chủ
-              <span className={`absolute bottom-0 left-0 h-0.5 bg-[#2ecea0] transition-all duration-300
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-[#7AB5E9] transition-all duration-300
                 ${isActive('/') ? 'w-full' : 'w-0 group-hover:w-full'}`} 
               />
             </Link>
@@ -51,7 +49,7 @@ const UserHeader = () => {
                 ${isActive('/befast') ? 'text-black' : 'text-[#858585] hover:text-black'}`}
             >
               BeFast AI
-              <span className={`absolute bottom-0 left-0 h-0.5 bg-[#2ecea0] transition-all duration-300
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-[#7AB5E9] transition-all duration-300
                 ${isActive('/befast') ? 'w-full' : 'w-0 group-hover:w-full'}`} 
               />
             </Link>
@@ -61,7 +59,7 @@ const UserHeader = () => {
                 ${isActive('/stroke-risk-score') ? 'text-black' : 'text-[#858585] hover:text-black'}`}
             >
               Tầm soát BMI
-              <span className={`absolute bottom-0 left-0 h-0.5 bg-[#2ecea0] transition-all duration-300
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-[#7AB5E9] transition-all duration-300
                 ${isActive('/stroke-risk-score') ? 'w-full' : 'w-0 group-hover:w-full'}`} 
               />
             </Link>
@@ -71,7 +69,7 @@ const UserHeader = () => {
                 ${isActive('/recovery-exercise') ? 'text-black' : 'text-[#858585] hover:text-black'}`}
             >
               Bài tập Phục hồi
-              <span className={`absolute bottom-0 left-0 h-0.5 bg-[#2ecea0] transition-all duration-300
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-[#7AB5E9] transition-all duration-300
                 ${isActive('/recovery-exercise') ? 'w-full' : 'w-0 group-hover:w-full'}`} 
               />
             </Link>
@@ -81,7 +79,7 @@ const UserHeader = () => {
                 ${isActive('/knowledge') ? 'text-black' : 'text-[#858585] hover:text-black'}`}
             >
               Kiến thức đột quỵ
-              <span className={`absolute bottom-0 left-0 h-0.5 bg-[#2ecea0] transition-all duration-300
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-[#7AB5E9] transition-all duration-300
                 ${isActive('/knowledge') ? 'w-full' : 'w-0 group-hover:w-full'}`} 
               />
             </Link>
@@ -91,7 +89,7 @@ const UserHeader = () => {
                 ${isActive('/history') ? 'text-black' : 'text-[#858585] hover:text-black'}`}
             >
               Lịch sử
-              <span className={`absolute bottom-0 left-0 h-0.5 bg-[#2ecea0] transition-all duration-300
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-[#7AB5E9] transition-all duration-300
                 ${isActive('/history') ? 'w-full' : 'w-0 group-hover:w-full'}`} 
               />
             </Link>
@@ -101,9 +99,9 @@ const UserHeader = () => {
         <div className="flex items-center gap-4">
           <Link 
             to="/profile" 
-            className="flex items-center gap-2.5 p-1 rounded-full border border-[#e5e7eb] bg-white hover:bg-[#f0f1f2] hover:border-[#244d54]/20 transition-all duration-300 group pr-4 shadow-sm"
+            className="flex items-center gap-2.5 p-1 rounded-full border border-[#e5e7eb] bg-white hover:bg-[#f0f1f2] hover:border-[#1F75C1]/20 transition-all duration-300 group pr-4 shadow-sm"
           >
-            <div className="w-8 h-8 rounded-full bg-[#244d54]/10 flex items-center justify-center text-[#244d54] overflow-hidden border border-[#e5e7eb] transition-all duration-300 group-hover:bg-[#2ecea0]/10 group-hover:text-[#2ecea0]">
+            <div className="w-8 h-8 rounded-full bg-[#1F75C1]/10 flex items-center justify-center text-[#1F75C1] overflow-hidden border border-[#e5e7eb] transition-all duration-300 group-hover:bg-[#7AB5E9]/10 group-hover:text-[#7AB5E9]">
               {user?.avatar ? (
                 <img src={user.avatar} alt="Avatar" className="w-full h-full object-cover" />
               ) : (
@@ -111,7 +109,7 @@ const UserHeader = () => {
               )}
             </div>
             <div className="hidden sm:block font-inter-tight-small text-left">
-              <p className="text-[13px] font-bold text-[#151515] leading-none transition-colors duration-300 group-hover:text-[#244d54]">
+              <p className="text-[13px] font-bold text-[#151515] leading-none transition-colors duration-300 group-hover:text-[#1F75C1]">
                 {getShortName(user?.fullName || user?.email)}
               </p>
             </div>

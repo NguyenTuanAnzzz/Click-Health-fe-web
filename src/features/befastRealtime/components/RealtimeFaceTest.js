@@ -172,7 +172,7 @@ export default function RealtimeFaceTest({ onComplete }) {
 
       {(phase === TEST_PHASE.LOADING || phase === TEST_PHASE.PERMISSION) && (
         <div className="flex flex-col items-center py-16 text-[#858585]">
-          <Loader2 className="animate-spin text-[#2ecea0] mb-4" size={36} />
+          <Loader2 className="animate-spin text-[#7AB5E9] mb-4" size={36} />
           <p className="font-bold text-sm">
             {phase === TEST_PHASE.LOADING ? 'Đang tải AI...' : 'Đang khởi tạo camera và AI...'}
           </p>
@@ -197,11 +197,11 @@ export default function RealtimeFaceTest({ onComplete }) {
             muted
           />
           {showOverlay && viewSize.width > 0 && (
-            <div className="absolute inset-0 border-4 border-[#2ecea0]/30 rounded-[20px] m-8 pointer-events-none z-10" />
+            <div className="absolute inset-0 border-4 border-[#7AB5E9]/30 rounded-[20px] m-8 pointer-events-none z-10" />
           )}
           {phase === TEST_PHASE.COUNTDOWN && countdown > 0 && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/30 z-20">
-              <span className="text-[7rem] font-bold text-[#2ecea0]">{countdown}</span>
+              <span className="text-[7rem] font-bold text-[#7AB5E9]">{countdown}</span>
             </div>
           )}
           {phase === TEST_PHASE.RECORDING && (
@@ -210,13 +210,13 @@ export default function RealtimeFaceTest({ onComplete }) {
                 {config.recordingBanner}
               </div>
               <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-white/10 z-20">
-                <div className="h-full bg-[#2ecea0]" style={{ width: `${recordingProgress}%` }} />
+                <div className="h-full bg-[#7AB5E9]" style={{ width: `${recordingProgress}%` }} />
               </div>
             </>
           )}
           {phase === TEST_PHASE.ANALYZING && (
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/50 z-20">
-              <Loader2 className="animate-spin text-[#2ecea0]" size={40} />
+              <Loader2 className="animate-spin text-[#7AB5E9]" size={40} />
               <p className="text-white font-bold text-sm mt-3">Đang phân tích...</p>
             </div>
           )}
@@ -251,7 +251,7 @@ export default function RealtimeFaceTest({ onComplete }) {
                 onClick={startCountdown}
                 className={`flex items-center gap-2 px-10 py-4 rounded-full font-bold text-white transition-all duration-300 ${
                   validationReady
-                    ? 'bg-gradient-to-r from-[#2ecea0] to-[#26b38a] hover:shadow-lg hover:shadow-[#2ecea0]/40 hover:scale-105'
+                    ? 'bg-gradient-to-r from-[#7AB5E9] to-[#5CA5E4] hover:shadow-lg hover:shadow-[#7AB5E9]/40 hover:scale-105'
                     : startRequested
                     ? 'bg-gradient-to-r from-[#3b82f6] to-[#2563eb] shadow-lg shadow-[#3b82f6]/30'
                     : 'bg-gradient-to-r from-[#6b7280] to-[#4b5563] hover:from-[#757f8f] hover:to-[#555f70]'
@@ -283,12 +283,12 @@ export default function RealtimeFaceTest({ onComplete }) {
 function Header() {
   return (
     <div className="mb-4">
-      <span className="bg-[#244d54]/10 text-[#244d54] px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2 inline-block">
+      <span className="bg-[#1F75C1]/10 text-[#1F75C1] px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2 inline-block">
         {FACE_TEST.step}
       </span>
       <h2 className="text-2xl font-bold font-inter flex items-center gap-2">
-        <Smile size={22} className="text-[#2ecea0]" /> {FACE_TEST.title}
-        <span className="text-[11px] text-[#2ecea0]">REALTIME</span>
+        <Smile size={22} className="text-[#7AB5E9]" /> {FACE_TEST.title}
+        <span className="text-[11px] text-[#7AB5E9]">REALTIME</span>
       </h2>
     </div>
   );

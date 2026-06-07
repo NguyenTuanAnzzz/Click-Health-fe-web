@@ -155,10 +155,10 @@ const VerifyEmailScreen = () => {
 
         {!!email && (
           <div className="min-h-[50px] rounded-full border border-[#e5e7eb] bg-[#f0f1f2] flex flex-row items-center px-4 mb-4 shadow-2xs">
-            <div className="w-8 h-8 rounded-full bg-[#2ecea0]/15 flex items-center justify-center">
-              <Mail size={16} className="text-[#2ecea0]" />
+            <div className="w-8 h-8 rounded-full bg-[#7AB5E9]/15 flex items-center justify-center">
+              <Mail size={16} className="text-[#7AB5E9]" />
             </div>
-            <span className="ml-3 flex-1 text-sm font-semibold text-[#244d54]">{email}</span>
+            <span className="ml-3 flex-1 text-sm font-semibold text-[#1F75C1]">{email}</span>
           </div>
         )}
 
@@ -177,15 +177,15 @@ const VerifyEmailScreen = () => {
               maxLength={6}
               disabled={isExpired || loading}
               className={`w-11 h-14 rounded-xl border text-center text-[22px] font-semibold outline-none transition-all duration-300
-                ${digit ? "border-[#2ecea0] bg-[#2ecea0]/5 text-[#2ecea0]" : "border-[#e5e7eb] bg-[#f0f1f2]/40 text-black"}
-                ${isExpired ? "bg-gray-100 border-gray-200 text-gray-400" : "focus:border-[#2ecea0] focus:ring-2 focus:ring-[#2ecea0]/10"}`}
+                ${digit ? "border-[#7AB5E9] bg-[#7AB5E9]/5 text-[#7AB5E9]" : "border-[#e5e7eb] bg-[#f0f1f2]/40 text-black"}
+                ${isExpired ? "bg-gray-100 border-gray-200 text-gray-400" : "focus:border-[#7AB5E9] focus:ring-2 focus:ring-[#7AB5E9]/10"}`}
             />
           ))}
         </div>
 
         <div className="flex flex-row items-center justify-center mb-6 gap-2">
-          {isExpired ? <AlertCircle size={16} className="text-red-500 animate-pulse" /> : <Clock size={16} className="text-[#2ecea0]" />}
-          <span className={`text-xs font-semibold ${isExpired ? "text-red-600" : "text-[#2ecea0]"}`}>
+          {isExpired ? <AlertCircle size={16} className="text-red-500 animate-pulse" /> : <Clock size={16} className="text-[#7AB5E9]" />}
+          <span className={`text-xs font-semibold ${isExpired ? "text-red-600" : "text-[#7AB5E9]"}`}>
             {isExpired ? "Mã xác thực đã hết hạn" : "Mã hết hạn trong "}
             {!isExpired && <span className="font-bold">{formatTime(timeLeft)}</span>}
           </span>
@@ -213,7 +213,7 @@ const VerifyEmailScreen = () => {
           disabled={!isExpired || loading}
           className={`w-full min-h-[44px] mt-4 rounded-full border flex items-center justify-center transition-all text-xs font-semibold
             ${isExpired 
-              ? "border-[#2ecea0] bg-[#2ecea0]/5 text-[#2ecea0] hover:bg-[#2ecea0]/10 cursor-pointer" 
+              ? "border-[#7AB5E9] bg-[#7AB5E9]/5 text-[#7AB5E9] hover:bg-[#7AB5E9]/10 cursor-pointer" 
               : "border-[#e5e7eb] bg-white text-[#858585] cursor-not-allowed"}`}
         >
           <span>

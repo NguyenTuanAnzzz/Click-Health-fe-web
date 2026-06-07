@@ -61,7 +61,7 @@ export default function EyesTestRound({
               key={i}
               className={`w-3 h-3 rounded-full transition-all ${
                 i < roundNumber
-                  ? 'bg-[#2ecea0]'
+                  ? 'bg-[#7AB5E9]'
                   : i === roundNumber - 1
                   ? 'bg-[#3b82f6]'
                   : 'bg-[#e5e7eb]'

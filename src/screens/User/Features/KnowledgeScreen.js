@@ -30,7 +30,7 @@ const THEORY_CARDS = [
   {
     id: 1,
     icon: BookOpen,
-    iconColor: "text-[#2ecea0]",
+    iconColor: "text-[#7AB5E9]",
     title: "Đột quỵ là gì?",
     summary: "Cấp cứu: máu não bị gián đoạn do tắc hoặc chảy máu.",
     content:
@@ -40,7 +40,7 @@ const THEORY_CARDS = [
   {
     id: 2,
     icon: Layers,
-    iconColor: "text-[#244d54]",
+    iconColor: "text-[#1F75C1]",
     title: "Các dạng đột quỵ",
     summary: "Nhồi máu não, xuất huyết não và cơn thiếu máu não thoáng qua.",
     content:
@@ -144,7 +144,7 @@ const KnowledgeScreen = () => {
         <div className="rounded-[24px] bg-[#ffffff] border border-[#e5e7eb] p-8 shadow-sm">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-10">
             <div>
-              <p className="text-[#2ecea0] font-bold text-[11px] uppercase tracking-[0.3em] mb-3">
+              <p className="text-[#7AB5E9] font-bold text-[11px] uppercase tracking-[0.3em] mb-3">
                 Kiến thức đột quỵ
               </p>
               <h1 className="text-[34px] md:text-[42px] font-bold text-black leading-tight tracking-tight mb-4">
@@ -155,7 +155,7 @@ const KnowledgeScreen = () => {
               </p>
             </div>
             <div className="rounded-[24px] bg-[#f0f1f2] p-6 border border-[#e5e7eb] shadow-sm">
-              <div className="text-xs uppercase tracking-[0.25em] text-[#244d54] font-bold mb-3">Nguồn tham khảo</div>
+              <div className="text-xs uppercase tracking-[0.25em] text-[#1F75C1] font-bold mb-3">Nguồn tham khảo</div>
               <div className="space-y-3">
                 {REFERENCE_LINKS.map((item) => (
                   <a
@@ -163,7 +163,7 @@ const KnowledgeScreen = () => {
                     href={item.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="block text-[#244d54] font-semibold text-sm hover:text-[#2ecea0] transition-colors"
+                    className="block text-[#1F75C1] font-semibold text-sm hover:text-[#7AB5E9] transition-colors"
                   >
                     {item.label}
                   </a>
@@ -194,7 +194,7 @@ const KnowledgeScreen = () => {
                           <p className="text-sm text-[#575757] mt-1">{card.summary}</p>
                         </div>
                       </div>
-                      <span className={`text-sm font-bold ${isOpen ? 'text-[#244d54]' : 'text-[#858585]'}`}>
+                      <span className={`text-sm font-bold ${isOpen ? 'text-[#1F75C1]' : 'text-[#858585]'}`}>
                         {isOpen ? 'Thu gọn' : 'Xem thêm'}
                       </span>
                     </button>
@@ -210,7 +210,7 @@ const KnowledgeScreen = () => {
             </div>
 
             <div className="space-y-6">
-              <div className="rounded-[24px] bg-[#2ecea0] text-white p-8 shadow-lg border border-[#2ecea0]/20">
+              <div className="rounded-[24px] bg-[#7AB5E9] text-white p-8 shadow-lg border border-[#7AB5E9]/20">
                 <div className="text-xs uppercase tracking-[0.3em] font-bold text-white/70 mb-4">Nội dung chính</div>
                 <ul className="space-y-3 text-sm leading-relaxed">
                   {THEORY_CARDS.map((card) => (

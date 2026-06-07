@@ -208,12 +208,12 @@ export default function RealtimeSpeechTest({ onComplete }) {
         Đọc to, rõ câu mẫu sau khi đếm ngược. Hệ thống phân tích độ khớp và độ rõ.
       </p>
 
-      <div className="bg-[#f0f1f2] border border-[#244d54]/10 rounded-[20px] p-6 text-center mb-8">
+      <div className="bg-[#f0f1f2] border border-[#1F75C1]/10 rounded-[20px] p-6 text-center mb-8">
         <p className="text-2xl font-bold">&quot;{config.targetPhrase}&quot;</p>
       </div>
 
       {phase === 'countdown' && countdown > 0 && (
-        <p className="text-center text-6xl font-bold text-[#2ecea0] mb-6">{countdown}</p>
+        <p className="text-center text-6xl font-bold text-[#7AB5E9] mb-6">{countdown}</p>
       )}
 
       {phase === 'listening' && isListening && (
@@ -227,7 +227,7 @@ export default function RealtimeSpeechTest({ onComplete }) {
 
       {phase === 'analyzing' && (
         <div className="flex flex-col items-center py-8 mb-4">
-          <Loader2 className="animate-spin text-[#2ecea0] mb-3" size={36} />
+          <Loader2 className="animate-spin text-[#7AB5E9] mb-3" size={36} />
           <p className="font-bold text-sm text-[#858585]">Đang phân tích giọng nói...</p>
         </div>
       )}
@@ -248,7 +248,7 @@ export default function RealtimeSpeechTest({ onComplete }) {
               setCountdown(config.countdownSec);
               setPhase('countdown');
             }}
-            className="w-20 h-20 rounded-full bg-[#2ecea0] text-white flex items-center justify-center shadow-md"
+            className="w-20 h-20 rounded-full bg-[#7AB5E9] text-white flex items-center justify-center shadow-md"
           >
             <Mic size={28} />
           </button>
@@ -276,12 +276,12 @@ export default function RealtimeSpeechTest({ onComplete }) {
 function Header() {
   return (
     <div className="mb-6">
-      <span className="bg-[#244d54]/10 text-[#244d54] px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2 inline-block">
+      <span className="bg-[#1F75C1]/10 text-[#1F75C1] px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2 inline-block">
         {SPEECH_TEST.step}
       </span>
       <h2 className="text-2xl font-bold font-inter flex items-center gap-2">
-        <Mic size={22} className="text-[#2ecea0]" /> {SPEECH_TEST.title}
-        <span className="text-[11px] text-[#2ecea0]">REALTIME</span>
+        <Mic size={22} className="text-[#7AB5E9]" /> {SPEECH_TEST.title}
+        <span className="text-[11px] text-[#7AB5E9]">REALTIME</span>
       </h2>
     </div>
   );

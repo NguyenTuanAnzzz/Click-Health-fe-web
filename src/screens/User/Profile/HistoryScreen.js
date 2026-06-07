@@ -22,7 +22,7 @@ const HistoryScreen = () => {
 
   const renderStatusIcon = (status) => {
     if (status?.is_abnormal) return <ShieldAlert size={14} className="text-[#d32f2f]" />;
-    return <CheckCircle size={14} className="text-[#2ecea0]" />;
+    return <CheckCircle size={14} className="text-[#7AB5E9]" />;
   };
 
   return (
@@ -38,24 +38,24 @@ const HistoryScreen = () => {
         </button>
 
         {/* 2.AG Styled Header Section */}
-        <div className="relative rounded-[24px] bg-[#244d54] text-white p-8 md:p-12 mb-10 overflow-hidden shadow-lg">
+        <div className="relative rounded-[24px] bg-[#1F75C1] text-white p-8 md:p-12 mb-10 overflow-hidden shadow-lg">
           <div className="absolute inset-0 pattern-grid-lg opacity-25 pointer-events-none" />
-          <div className="absolute top-[-50px] right-[-50px] w-96 h-96 bg-[#6dddbd]/10 rounded-full blur-[100px] pointer-events-none" />
+          <div className="absolute top-[-50px] right-[-50px] w-96 h-96 bg-[#BEDBF4]/10 rounded-full blur-[100px] pointer-events-none" />
           
           <div className="relative z-10 flex items-center justify-between font-inter-tight-small">
             <div>
-              <div className="inline-block bg-[#2ecea0]/15 text-[#2ecea0] border border-[#2ecea0]/30 px-4 py-1.5 rounded-full font-bold uppercase tracking-wider text-[10px] mb-6">
+              <div className="inline-block bg-[#7AB5E9]/15 text-[#7AB5E9] border border-[#7AB5E9]/30 px-4 py-1.5 rounded-full font-bold uppercase tracking-wider text-[10px] mb-6">
                 Nhật ký Sức khỏe cá nhân
               </div>
               <h1 className="text-3xl md:text-5xl font-bold font-inter text-white tracking-tight mb-4 leading-tight">
-                Lịch sử <span className="text-[#2ecea0]">kiểm tra</span>
+                Lịch sử <span className="text-[#7AB5E9]">kiểm tra</span>
               </h1>
               <p className="text-white/70 text-[14px] font-medium leading-relaxed max-w-xl">
                 Theo dõi, thống kê và quản lý các lượt phân tích nguy cơ đột quỵ sớm bằng AI thông qua camera BeFast AI và chẩn đoán chỉ số BMI.
               </p>
             </div>
             <div className="hidden md:flex w-16 h-16 bg-white/10 rounded-[16px] border border-white/15 items-center justify-center shadow-lg">
-              <Clock size={28} className="text-[#6dddbd]" />
+              <Clock size={28} className="text-[#BEDBF4]" />
             </div>
           </div>
         </div>
@@ -66,8 +66,8 @@ const HistoryScreen = () => {
             onClick={() => setActiveTab("befast")}
             className={`flex-1 flex items-center justify-center gap-2.5 py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
               activeTab === "befast"
-                ? "bg-[#244d54] text-white shadow-md"
-                : "text-[#244d54] hover:bg-white/50"
+                ? "bg-[#1F75C1] text-white shadow-md"
+                : "text-[#1F75C1] hover:bg-white/50"
             }`}
           >
             <Brain size={15} /> Tầm soát BEFAST AI
@@ -76,8 +76,8 @@ const HistoryScreen = () => {
             onClick={() => setActiveTab("bmi")}
             className={`flex-1 flex items-center justify-center gap-2.5 py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
               activeTab === "bmi"
-                ? "bg-[#244d54] text-white shadow-md"
-                : "text-[#244d54] hover:bg-white/50"
+                ? "bg-[#1F75C1] text-white shadow-md"
+                : "text-[#1F75C1] hover:bg-white/50"
             }`}
           >
             <Scale size={15} /> BMI & Đột quỵ
@@ -90,19 +90,19 @@ const HistoryScreen = () => {
             /* TAB 1: BEFAST AI HISTORY */
             loading ? (
               <div className="flex flex-col items-center justify-center py-20">
-                <div className="w-10 h-10 border-2 border-[#2ecea0]/25 border-t-[#2ecea0] rounded-full animate-spin mb-4" />
+                <div className="w-10 h-10 border-2 border-[#7AB5E9]/25 border-t-[#7AB5E9] rounded-full animate-spin mb-4" />
                 <p className="text-[#858585] font-semibold text-[13px] font-inter-tight-small">Đang tải dữ liệu lịch sử BeFast...</p>
               </div>
             ) : history.length === 0 ? (
               <div className="text-center py-16 bg-[#f0f1f2] rounded-[24px] border border-[#e5e7eb]/80 max-w-2xl mx-auto px-8">
-                <Activity size={48} className="text-[#244d54]/20 mx-auto mb-5" />
+                <Activity size={48} className="text-[#1F75C1]/20 mx-auto mb-5" />
                 <h3 className="text-xl font-bold text-black font-inter tracking-tight mb-2">Chưa có dữ liệu</h3>
                 <p className="text-[#858585] text-[13px] font-semibold font-inter-tight-small mb-8">
                   Bạn chưa thực hiện bất kỳ lượt tầm soát BEFAST bằng camera nào.
                 </p>
                 <button 
                   onClick={() => navigate('/befast')}
-                  className="bg-[#2ecea0] text-white px-8 py-3 rounded-full font-bold hover:bg-[#26b38a] hover:scale-[1.01] transition-all duration-300 text-[13px] font-inter-tight-small shadow-sm shadow-[#2ecea0]/15 cursor-pointer"
+                  className="bg-[#7AB5E9] text-white px-8 py-3 rounded-full font-bold hover:bg-[#5CA5E4] hover:scale-[1.01] transition-all duration-300 text-[13px] font-inter-tight-small shadow-sm shadow-[#7AB5E9]/15 cursor-pointer"
                 >
                   Kiểm tra ngay
                 </button>
@@ -116,22 +116,22 @@ const HistoryScreen = () => {
                   return (
                     <div 
                       key={record._id} 
-                      className="rounded-[20px] bg-[#f5f5f5] border border-[#e5e7eb] p-6 flex flex-col justify-between hover:bg-[#ececec] hover:border-[#244d54]/20 hover:shadow-xs transition-all duration-300 relative overflow-hidden"
+                      className="rounded-[20px] bg-[#f5f5f5] border border-[#e5e7eb] p-6 flex flex-col justify-between hover:bg-[#ececec] hover:border-[#1F75C1]/20 hover:shadow-xs transition-all duration-300 relative overflow-hidden"
                     >
                       {/* Tiny visual indicators line */}
-                      <div className={`absolute top-0 left-0 w-1.5 h-full transition-colors ${isDanger ? 'bg-[#d32f2f]' : 'bg-[#2ecea0]'}`} />
+                      <div className={`absolute top-0 left-0 w-1.5 h-full transition-colors ${isDanger ? 'bg-[#d32f2f]' : 'bg-[#7AB5E9]'}`} />
                       
                       <div className="mb-6">
                         <div className="flex items-center justify-between mb-4 font-inter-tight-small text-left">
                           <div className="flex items-center gap-2.5">
-                            <span className="bg-[#244d54]/10 text-[#244d54] px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                            <span className="bg-[#1F75C1]/10 text-[#1F75C1] px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
                               #{record._id.slice(-4).toUpperCase()}
                             </span>
                             <span className="text-[#858585] text-[12px] font-semibold">
                               {date.toLocaleDateString('vi-VN')} {date.toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'})}
                             </span>
                           </div>
-                          <div className={`w-8 h-8 rounded-[8px] flex items-center justify-center border shadow-2xs ${isDanger ? 'bg-red-50 border-red-100 text-[#d32f2f]' : 'bg-green-50 border-green-100 text-[#2ecea0]'}`}>
+                          <div className={`w-8 h-8 rounded-[8px] flex items-center justify-center border shadow-2xs ${isDanger ? 'bg-red-50 border-red-100 text-[#d32f2f]' : 'bg-green-50 border-green-100 text-[#7AB5E9]'}`}>
                             {isDanger ? <ShieldAlert size={16} /> : <CheckCircle size={16} />}
                           </div>
                         </div>
@@ -142,7 +142,7 @@ const HistoryScreen = () => {
                       </div>
 
                       <div className="bg-white rounded-xl p-4 border border-[#e5e7eb] mb-2 font-inter-tight-small text-left">
-                        <h4 className="text-[10px] font-extrabold uppercase text-[#244d54] tracking-widest mb-3">Kết quả phân tích chi tiết</h4>
+                        <h4 className="text-[10px] font-extrabold uppercase text-[#1F75C1] tracking-widest mb-3">Kết quả phân tích chi tiết</h4>
                         <div className="grid grid-cols-2 gap-3.5">
                           <div className="flex items-center gap-2 text-[13px] font-semibold text-[#151515]">
                             {renderStatusIcon(record.balance)}
@@ -175,19 +175,19 @@ const HistoryScreen = () => {
             /* TAB 2: BMI & STROKE RISK HISTORY */
             bmiLoading ? (
               <div className="flex flex-col items-center justify-center py-20">
-                <div className="w-10 h-10 border-2 border-[#2ecea0]/25 border-t-[#2ecea0] rounded-full animate-spin mb-4" />
+                <div className="w-10 h-10 border-2 border-[#7AB5E9]/25 border-t-[#7AB5E9] rounded-full animate-spin mb-4" />
                 <p className="text-[#858585] font-semibold text-[13px] font-inter-tight-small">Đang tải dữ liệu lịch sử BMI...</p>
               </div>
             ) : bmiData.length === 0 ? (
               <div className="text-center py-16 bg-[#f0f1f2] rounded-[24px] border border-[#e5e7eb]/80 max-w-2xl mx-auto px-8">
-                <Scale size={48} className="text-[#244d54]/20 mx-auto mb-5" />
+                <Scale size={48} className="text-[#1F75C1]/20 mx-auto mb-5" />
                 <h3 className="text-xl font-bold text-black font-inter tracking-tight mb-2">Chưa có lịch sử đo BMI</h3>
                 <p className="text-[#858585] text-[13px] font-semibold font-inter-tight-small mb-8">
                   Bạn chưa thực hiện bất kỳ lượt tầm soát sức khỏe & tính toán BMI nào.
                 </p>
                 <button 
                   onClick={() => navigate('/stroke-risk-score')}
-                  className="bg-[#2ecea0] text-white px-8 py-3 rounded-full font-bold hover:bg-[#26b38a] hover:scale-[1.01] transition-all duration-300 text-[13px] font-inter-tight-small shadow-sm shadow-[#2ecea0]/15 cursor-pointer"
+                  className="bg-[#7AB5E9] text-white px-8 py-3 rounded-full font-bold hover:bg-[#5CA5E4] hover:scale-[1.01] transition-all duration-300 text-[13px] font-inter-tight-small shadow-sm shadow-[#7AB5E9]/15 cursor-pointer"
                 >
                   Tính toán ngay
                 </button>
@@ -199,10 +199,10 @@ const HistoryScreen = () => {
                   const riskCat = record.riskCategory;
                   
                   let riskTheme = {
-                    text: "text-[#2ecea0]",
-                    bg: "bg-[#2ecea0]/10",
-                    border: "border-[#2ecea0]/20",
-                    bar: "bg-[#2ecea0]"
+                    text: "text-[#7AB5E9]",
+                    bg: "bg-[#7AB5E9]/10",
+                    border: "border-[#7AB5E9]/20",
+                    bar: "bg-[#7AB5E9]"
                   };
                   if (riskCat === "Trung bình") {
                     riskTheme = {
@@ -223,7 +223,7 @@ const HistoryScreen = () => {
                   return (
                     <div 
                       key={record._id || record.id} 
-                      className="rounded-[20px] bg-[#f5f5f5] border border-[#e5e7eb] p-6 flex flex-col justify-between hover:bg-[#ececec] hover:border-[#244d54]/20 hover:shadow-xs transition-all duration-300 relative overflow-hidden text-left"
+                      className="rounded-[20px] bg-[#f5f5f5] border border-[#e5e7eb] p-6 flex flex-col justify-between hover:bg-[#ececec] hover:border-[#1F75C1]/20 hover:shadow-xs transition-all duration-300 relative overflow-hidden text-left"
                     >
                       {/* Left border strip */}
                       <div className={`absolute top-0 left-0 w-1.5 h-full transition-colors ${riskTheme.bar}`} />
@@ -231,7 +231,7 @@ const HistoryScreen = () => {
                       <div className="mb-6">
                         <div className="flex items-center justify-between mb-4 font-inter-tight-small text-left">
                           <div className="flex items-center gap-2.5">
-                            <span className="bg-[#244d54]/10 text-[#244d54] px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                            <span className="bg-[#1F75C1]/10 text-[#1F75C1] px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
                               #{record._id ? record._id.slice(-4).toUpperCase() : "BMI"}
                             </span>
                             <span className="text-[#858585] text-[12px] font-semibold">
@@ -266,7 +266,7 @@ const HistoryScreen = () => {
                               <span className="text-black font-extrabold text-sm">{record.bmi} kg/m²</span>
                             </div>
                             <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${
-                              record.bmiCategory === "Bình thường" ? "bg-green-50 text-[#2ecea0] border-green-100" :
+                              record.bmiCategory === "Bình thường" ? "bg-green-50 text-[#7AB5E9] border-green-100" :
                               record.bmiCategory === "Thiếu cân" ? "bg-blue-50 text-blue-500 border-blue-100" :
                               "bg-amber-50 text-amber-600 border-amber-100"
                             }`}>
@@ -278,8 +278,8 @@ const HistoryScreen = () => {
 
                       {/* Health history in calculation */}
                       <div className="bg-white rounded-xl p-4 border border-[#e5e7eb] mb-4 font-inter-tight-small text-xs space-y-2 text-left">
-                        <h4 className="text-[9px] font-extrabold uppercase text-[#244d54] tracking-widest mb-2 border-b border-[#e5e7eb]/60 pb-1.5 flex items-center gap-1">
-                          <Activity size={12} className="text-[#2ecea0]" /> Chỉ số bệnh lý & sinh hoạt
+                        <h4 className="text-[9px] font-extrabold uppercase text-[#1F75C1] tracking-widest mb-2 border-b border-[#e5e7eb]/60 pb-1.5 flex items-center gap-1">
+                          <Activity size={12} className="text-[#7AB5E9]" /> Chỉ số bệnh lý & sinh hoạt
                         </h4>
                         <div className="grid grid-cols-2 gap-x-4 gap-y-2 font-semibold">
                           <div className="flex justify-between">

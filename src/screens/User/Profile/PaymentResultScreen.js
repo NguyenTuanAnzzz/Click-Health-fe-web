@@ -45,28 +45,28 @@ const PaymentResultScreen = () => {
         <UserLayout noPaddingTop>
             <div className="min-h-[80vh] flex items-center justify-center px-4 bg-[#f0f1f2]/30">
                 <div className="max-w-md w-full bg-white rounded-2xl border border-[#e5e7eb] p-10 text-center relative shadow-md overflow-hidden">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#2ecea0]/5 rounded-full -mr-16 -mt-16 blur-2xl pointer-events-none" />
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#7AB5E9]/5 rounded-full -mr-16 -mt-16 blur-2xl pointer-events-none" />
                     
                     {loading ? (
                         <div className="space-y-6 py-6">
-                            <div className="w-16 h-16 bg-[#2ecea0]/10 rounded-full flex items-center justify-center mx-auto border border-[#2ecea0]/25 shadow-2xs">
-                                <Loader2 size={32} className="text-[#2ecea0] animate-spin" />
+                            <div className="w-16 h-16 bg-[#7AB5E9]/10 rounded-full flex items-center justify-center mx-auto border border-[#7AB5E9]/25 shadow-2xs">
+                                <Loader2 size={32} className="text-[#7AB5E9] animate-spin" />
                             </div>
-                            <h2 className="text-2xl font-bold text-[#244d54] tracking-tight font-inter">Đang xác thực...</h2>
+                            <h2 className="text-2xl font-bold text-[#1F75C1] tracking-tight font-inter">Đang xác thực...</h2>
                             <p className="text-xs font-semibold text-[#858585] leading-relaxed">Vui lòng chờ trong giây lát trong khi chúng tôi xác nhận giao dịch của bạn qua cổng VNPAY.</p>
                         </div>
                     ) : (
                         <div className="space-y-6">
                             {status === 'success' ? (
                                 <>
-                                    <div className="w-16 h-16 bg-[#2ecea0]/15 rounded-full flex items-center justify-center mx-auto border border-[#2ecea0]/30 shadow-2xs">
-                                        <CheckCircle size={32} className="text-[#2ecea0]" strokeWidth={2.5} />
+                                    <div className="w-16 h-16 bg-[#7AB5E9]/15 rounded-full flex items-center justify-center mx-auto border border-[#7AB5E9]/30 shadow-2xs">
+                                        <CheckCircle size={32} className="text-[#7AB5E9]" strokeWidth={2.5} />
                                     </div>
                                     <h2 className="text-2xl font-bold text-black tracking-tight font-inter">
-                                        Thanh toán <span className="text-[#2ecea0]">Thành công!</span>
+                                        Thanh toán <span className="text-[#7AB5E9]">Thành công!</span>
                                     </h2>
                                     <p className="text-sm font-semibold text-[#858585] leading-relaxed">
-                                        Chúc mừng! Tài khoản của bạn đã được nâng cấp thành công lên gói <span className="text-[#244d54] font-bold">Click VIP</span>. Bạn hiện có quyền sử dụng không giới hạn tất cả các tính năng tầm soát và chẩn đoán đột quỵ AI.
+                                        Chúc mừng! Tài khoản của bạn đã được nâng cấp thành công lên gói <span className="text-[#1F75C1] font-bold">Click VIP</span>. Bạn hiện có quyền sử dụng không giới hạn tất cả các tính năng tầm soát và chẩn đoán đột quỵ AI.
                                     </p>
                                 </>
                             ) : (

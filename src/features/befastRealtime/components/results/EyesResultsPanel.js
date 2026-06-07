@@ -28,11 +28,11 @@ export default function EyesResultsPanel({ result, onRetry, onContinue }) {
     <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-8 max-w-4xl mx-auto shadow-lg border border-[#e5e7eb]/50 font-inter-tight-small">
       {/* Header */}
       <div className="mb-8">
-        <span className="bg-[#244d54]/10 text-[#244d54] border border-[#244d54]/10 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider inline-block mb-4">
+        <span className="bg-[#1F75C1]/10 text-[#1F75C1] border border-[#1F75C1]/10 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider inline-block mb-4">
           Kết quả kiểm tra thị lực
         </span>
         <h2 className="text-2xl font-bold text-black flex items-center gap-2.5">
-          <Eye size={28} className="text-[#2ecea0]" />
+          <Eye size={28} className="text-[#7AB5E9]" />
           Đánh giá thị lực của bạn
         </h2>
       </div>
@@ -66,7 +66,7 @@ export default function EyesResultsPanel({ result, onRetry, onContinue }) {
       <div className="grid md:grid-cols-2 gap-4 mb-8">
         <div className="bg-white border border-[#e5e7eb] rounded-[16px] p-4">
           <p className="text-[#6b7280] text-[12px] font-semibold mb-2">Trả lời chính xác</p>
-          <p className="text-[28px] font-bold text-[#2ecea0]">
+          <p className="text-[28px] font-bold text-[#7AB5E9]">
             {result.correct_count}/{result.total_count}
           </p>
         </div>
@@ -101,13 +101,13 @@ export default function EyesResultsPanel({ result, onRetry, onContinue }) {
       <div className="flex gap-4 justify-between">
         <button
           onClick={onRetry}
-          className="px-8 py-3 rounded-full font-bold text-[#2ecea0] bg-[#2ecea0]/10 border border-[#2ecea0]/30 hover:bg-[#2ecea0]/20 transition-all duration-300"
+          className="px-8 py-3 rounded-full font-bold text-[#7AB5E9] bg-[#7AB5E9]/10 border border-[#7AB5E9]/30 hover:bg-[#7AB5E9]/20 transition-all duration-300"
         >
           Kiểm tra lại
         </button>
         <button
           onClick={onContinue}
-          className="px-8 py-3 rounded-full font-bold text-white bg-gradient-to-r from-[#2ecea0] to-[#26b38a] hover:shadow-lg transition-all duration-300"
+          className="px-8 py-3 rounded-full font-bold text-white bg-gradient-to-r from-[#7AB5E9] to-[#5CA5E4] hover:shadow-lg transition-all duration-300"
         >
           Tiếp tục
         </button>

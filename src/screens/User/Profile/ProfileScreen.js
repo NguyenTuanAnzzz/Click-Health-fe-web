@@ -14,7 +14,7 @@ const PlanCard = ({ title, price, badge, selected, onClick }) => (
     onClick={onClick}
     className={`relative flex-1 rounded-xl border p-6 text-left transition-all duration-300 shadow-2xs cursor-pointer
       ${selected 
-        ? 'border-[#2ecea0] bg-white text-[#244d54] ring-2 ring-[#2ecea0]/30 shadow-md shadow-[#2ecea0]/10' 
+        ? 'border-[#7AB5E9] bg-white text-[#1F75C1] ring-2 ring-[#7AB5E9]/30 shadow-md shadow-[#7AB5E9]/10' 
         : 'border-white/10 bg-white/5 text-white hover:bg-white/10 hover:border-white/20'}
     `}
   >
@@ -23,10 +23,10 @@ const PlanCard = ({ title, price, badge, selected, onClick }) => (
         <span className="text-[9px] font-extrabold text-white uppercase tracking-wider">{badge}</span>
       </div>
     )}
-    <h4 className={`text-[10px] font-extrabold uppercase mb-2 tracking-widest ${selected ? 'text-[#2ecea0]' : 'text-white/50'}`}>
+    <h4 className={`text-[10px] font-extrabold uppercase mb-2 tracking-widest ${selected ? 'text-[#7AB5E9]' : 'text-white/50'}`}>
       {title}
     </h4>
-    <p className={`text-2xl font-bold leading-none font-inter ${selected ? 'text-[#244d54]' : 'text-white'}`}>{price}</p>
+    <p className={`text-2xl font-bold leading-none font-inter ${selected ? 'text-[#1F75C1]' : 'text-white'}`}>{price}</p>
   </button>
 );
 
@@ -158,7 +158,7 @@ const ProfileScreen = () => {
 
   return (
     <UserLayout noPaddingTop>
-      <div className="bg-[#244d54] pt-32 pb-16 px-4 md:px-8 lg:px-12 border-b border-[#e5e7eb]/10 relative overflow-hidden">
+      <div className="bg-[#1F75C1] pt-32 pb-16 px-4 md:px-8 lg:px-12 border-b border-[#e5e7eb]/10 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-full h-full pattern-grid-lg opacity-5" />
         <div className="max-w-[1000px] mx-auto relative z-10">
           <div className="flex flex-col md:flex-row items-center gap-8">
@@ -190,7 +190,7 @@ const ProfileScreen = () => {
                <button 
                  type="button"
                  onClick={() => fileInputRef.current?.click()}
-                 className="absolute -bottom-2 -right-2 bg-white text-[#244d54] p-2.5 rounded-full border border-[#e5e7eb] shadow-md hover:bg-[#f0f1f2] transition-colors cursor-pointer"
+                 className="absolute -bottom-2 -right-2 bg-white text-[#1F75C1] p-2.5 rounded-full border border-[#e5e7eb] shadow-md hover:bg-[#f0f1f2] transition-colors cursor-pointer"
                >
                  <Camera size={18} />
                </button>
@@ -200,7 +200,7 @@ const ProfileScreen = () => {
                <h1 className="text-4xl md:text-5xl font-semibold text-white leading-none mb-3 font-inter">
                  {user?.fullName || "Người dùng"}
                </h1>
-               <p className="text-[#6dddbd] font-bold tracking-wider uppercase text-xs mb-4">Mã số: #{user?._id?.slice(-6).toUpperCase()}</p>
+               <p className="text-[#BEDBF4] font-bold tracking-wider uppercase text-xs mb-4">Mã số: #{user?._id?.slice(-6).toUpperCase()}</p>
                <div className="flex flex-wrap justify-center md:justify-start gap-3">
                  <span className="bg-white/10 text-white px-3 py-1 rounded-sm text-[11px] font-medium border border-white/20 uppercase tracking-wider">{user?.email}</span>
                  <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-sm text-[11px] font-medium border border-green-500/30 uppercase tracking-wider">Trạng thái: Hoạt động</span>
@@ -238,7 +238,7 @@ const ProfileScreen = () => {
                     type="text" 
                     value={formData.fullName}
                     onChange={(e) => setFormData({...formData, fullName: e.target.value})}
-                    className="w-full bg-white border border-[#e5e7eb] rounded-full px-5 py-3 text-black text-sm font-medium focus:ring-2 focus:ring-[#2ecea0]/20 focus:border-[#2ecea0] outline-none transition-all placeholder-[#999999]"
+                    className="w-full bg-white border border-[#e5e7eb] rounded-full px-5 py-3 text-black text-sm font-medium focus:ring-2 focus:ring-[#7AB5E9]/20 focus:border-[#7AB5E9] outline-none transition-all placeholder-[#999999]"
                     placeholder="Nhập tên của bạn..."
                   />
                 </div>
@@ -248,7 +248,7 @@ const ProfileScreen = () => {
                     type="number" 
                     value={formData.age}
                     onChange={(e) => setFormData({...formData, age: e.target.value})}
-                    className="w-full bg-white border border-[#e5e7eb] rounded-full px-5 py-3 text-black text-sm font-medium focus:ring-2 focus:ring-[#2ecea0]/20 focus:border-[#2ecea0] outline-none transition-all placeholder-[#999999]"
+                    className="w-full bg-white border border-[#e5e7eb] rounded-full px-5 py-3 text-black text-sm font-medium focus:ring-2 focus:ring-[#7AB5E9]/20 focus:border-[#7AB5E9] outline-none transition-all placeholder-[#999999]"
                     placeholder="Tuổi..."
                   />
                 </div>
@@ -257,7 +257,7 @@ const ProfileScreen = () => {
                   <select 
                     value={formData.gender}
                     onChange={(e) => setFormData({...formData, gender: e.target.value})}
-                    className="w-full bg-white border border-[#e5e7eb] rounded-full px-5 py-3 text-black text-sm font-medium focus:ring-2 focus:ring-[#2ecea0]/20 focus:border-[#2ecea0] outline-none cursor-pointer"
+                    className="w-full bg-white border border-[#e5e7eb] rounded-full px-5 py-3 text-black text-sm font-medium focus:ring-2 focus:ring-[#7AB5E9]/20 focus:border-[#7AB5E9] outline-none cursor-pointer"
                   >
                     <option value="MALE">Nam</option>
                     <option value="FEMALE">Nữ</option>
@@ -279,12 +279,12 @@ const ProfileScreen = () => {
                       })}
                       className={`px-5 py-3.5 rounded-full border text-xs font-semibold transition-all flex items-center justify-between cursor-pointer
                         ${value 
-                          ? 'bg-[#2ecea0]/10 text-[#244d54] border-[#2ecea0] shadow-2xs' 
-                          : 'bg-white text-[#858585] border-[#e5e7eb] hover:border-[#2ecea0]/30'}
+                          ? 'bg-[#7AB5E9]/10 text-[#1F75C1] border-[#7AB5E9] shadow-2xs' 
+                          : 'bg-white text-[#858585] border-[#e5e7eb] hover:border-[#7AB5E9]/30'}
                       `}
                     >
                       <span>{key === 'hypertension' ? 'Huyết áp cao' : key === 'diabetes' ? 'Tiểu đường' : 'Bệnh tim'}</span>
-                      {value && <CheckCircle size={14} className="text-[#2ecea0]" strokeWidth={3} />}
+                      {value && <CheckCircle size={14} className="text-[#7AB5E9]" strokeWidth={3} />}
                     </button>
                   ))}
                 </div>
@@ -303,32 +303,32 @@ const ProfileScreen = () => {
         ) : (
           <div className="space-y-12">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-[#f0f1f2] rounded-2xl p-6 border border-transparent hover:border-[#2ecea0]/25 transition-all text-center shadow-2xs">
+              <div className="bg-[#f0f1f2] rounded-2xl p-6 border border-transparent hover:border-[#7AB5E9]/25 transition-all text-center shadow-2xs">
                  <p className="text-[10px] font-extrabold text-[#858585] uppercase tracking-widest mb-2 font-inter-tight-small">Độ tuổi</p>
-                 <p className="text-3xl font-bold text-[#244d54] font-inter">{user?.age || "--"} tuổi</p>
+                 <p className="text-3xl font-bold text-[#1F75C1] font-inter">{user?.age || "--"} tuổi</p>
               </div>
-              <div className="bg-[#f0f1f2] rounded-2xl p-6 border border-transparent hover:border-[#2ecea0]/25 transition-all text-center shadow-2xs">
+              <div className="bg-[#f0f1f2] rounded-2xl p-6 border border-transparent hover:border-[#7AB5E9]/25 transition-all text-center shadow-2xs">
                  <p className="text-[10px] font-extrabold text-[#858585] uppercase tracking-widest mb-2 font-inter-tight-small">Giới tính</p>
-                 <p className="text-3xl font-bold text-[#244d54] font-inter">{user?.gender === 'MALE' ? 'Nam' : user?.gender === 'FEMALE' ? 'Nữ' : '--'}</p>
+                 <p className="text-3xl font-bold text-[#1F75C1] font-inter">{user?.gender === 'MALE' ? 'Nam' : user?.gender === 'FEMALE' ? 'Nữ' : '--'}</p>
               </div>
-              <div className="bg-[#f0f1f2] rounded-2xl p-6 border border-transparent hover:border-[#2ecea0]/25 transition-all text-center shadow-2xs">
+              <div className="bg-[#f0f1f2] rounded-2xl p-6 border border-transparent hover:border-[#7AB5E9]/25 transition-all text-center shadow-2xs">
                  <p className="text-[10px] font-extrabold text-[#858585] uppercase tracking-widest mb-2 font-inter-tight-small">Sức khỏe</p>
-                 <p className="text-3xl font-bold text-[#2ecea0] font-inter">Bình thường</p>
+                 <p className="text-3xl font-bold text-[#7AB5E9] font-inter">Bình thường</p>
               </div>
             </div>
 
             {/* VIP Upgrade Section */}
-            <div className="relative rounded-2xl bg-[#244d54] text-white p-10 overflow-hidden shadow-lg border border-white/5">
+            <div className="relative rounded-2xl bg-[#1F75C1] text-white p-10 overflow-hidden shadow-lg border border-white/5">
                 <div className="absolute top-0 right-0 w-full h-full pattern-grid-lg opacity-5" />
                 <div className="relative z-10">
                     <div className="flex justify-between items-start mb-10">
                         <div>
-                            <div className="inline-block bg-[#2ecea0]/15 text-[#6dddbd] px-3.5 py-1 rounded-full font-bold uppercase text-[9px] mb-4 border border-[#2ecea0]/20 font-inter-tight-small">Gói dịch vụ cao cấp</div>
-                            <h3 className="text-3xl md:text-4xl font-bold leading-tight font-inter">Nâng cấp <span className="text-[#6dddbd]">Click VIP</span></h3>
+                            <div className="inline-block bg-[#7AB5E9]/15 text-[#BEDBF4] px-3.5 py-1 rounded-full font-bold uppercase text-[9px] mb-4 border border-[#7AB5E9]/20 font-inter-tight-small">Gói dịch vụ cao cấp</div>
+                            <h3 className="text-3xl md:text-4xl font-bold leading-tight font-inter">Nâng cấp <span className="text-[#BEDBF4]">Click VIP</span></h3>
                             <p className="text-white/60 font-medium mt-2 text-sm">Mở khóa tính năng tầm soát không giới hạn và báo cáo phân tích chi tiết.</p>
                         </div>
                         <div className="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center border border-white/10 shadow-sm">
-                            <Award size={28} className="text-[#6dddbd]" />
+                            <Award size={28} className="text-[#BEDBF4]" />
                         </div>
                     </div>
 
@@ -351,7 +351,7 @@ const ProfileScreen = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
                         {["Quét dấu hiệu không giới hạn", "Báo cáo phân tích chuyên sâu", "Hỗ trợ ưu tiên 24/7", "Lưu trữ lịch sử tầm soát"].map((f, i) => (
                             <div key={i} className="flex items-center gap-3">
-                                <CheckCircle size={16} className="text-[#2ecea0]" strokeWidth={3} />
+                                <CheckCircle size={16} className="text-[#7AB5E9]" strokeWidth={3} />
                                 <span className="font-semibold text-white/80 text-sm">{f}</span>
                             </div>
                         ))}
@@ -360,7 +360,7 @@ const ProfileScreen = () => {
                     <button 
                         onClick={handleUpgrade}
                         disabled={paymentLoading}
-                        className="w-full bg-[#2ecea0] text-white py-4.5 rounded-full font-bold shadow-md hover:bg-[#26b38a] hover:shadow-lg transition-all flex items-center justify-center gap-2 text-md font-inter-tight-small cursor-pointer disabled:opacity-50"
+                        className="w-full bg-[#7AB5E9] text-white py-4.5 rounded-full font-bold shadow-md hover:bg-[#5CA5E4] hover:shadow-lg transition-all flex items-center justify-center gap-2 text-md font-inter-tight-small cursor-pointer disabled:opacity-50"
                     >
                         {paymentLoading ? (
                             <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -375,19 +375,19 @@ const ProfileScreen = () => {
             </div>
 
             <div className="bg-white rounded-2xl border border-[#e5e7eb] p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-[#244d54] mb-6 border-b border-[#e5e7eb]/60 pb-4 font-inter">Cài đặt hệ thống</h3>
+              <h3 className="text-xl font-bold text-[#1F75C1] mb-6 border-b border-[#e5e7eb]/60 pb-4 font-inter">Cài đặt hệ thống</h3>
               <div className="space-y-4">
                 <div className="flex items-center justify-between p-4 bg-[#f0f1f2] rounded-xl border border-transparent">
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center border border-[#e5e7eb] shadow-2xs">
-                      <Moon size={18} className="text-[#244d54]" />
+                      <Moon size={18} className="text-[#1F75C1]" />
                     </div>
-                    <span className="font-bold text-[#244d54] text-sm">Chế độ tối (Dark Mode)</span>
+                    <span className="font-bold text-[#1F75C1] text-sm">Chế độ tối (Dark Mode)</span>
                   </div>
                   <button 
                     onClick={() => setDarkMode(!darkMode)}
                     className={`w-12 h-6 rounded-full transition-all relative cursor-pointer
-                      ${darkMode ? 'bg-[#2ecea0]' : 'bg-gray-300'}
+                      ${darkMode ? 'bg-[#7AB5E9]' : 'bg-gray-300'}
                     `}
                   >
                     <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all

@@ -6,20 +6,20 @@
 
 :root {
   /* 2.AG - Clinical Clarity, Soft Curves Theme (Light) */
-  --color-primary: 46 206 160;        /* #2ecea0 - Activation Green */
-  --color-primary-light: 109 221 189;  /* #6dddbd - Lagoon Mist */
-  --color-primary-dark: 36 77 84;     /* #244d54 - Midnight Teal */
+  --color-primary: 122 181 233;        /* #7AB5E9 - Activation Green */
+  --color-primary-light: 190 219 244;  /* #BEDBF4 - Lagoon Mist */
+  --color-primary-dark: 31 117 193;     /* #1F75C1 - Midnight Teal */
   
-  --color-accent: 36 77 84;           /* #244d54 - Midnight Teal */
-  --color-accent-light: 109 221 189;  /* #6dddbd - Lagoon Mist */
-  --color-accent-dark: 36 77 84;
+  --color-accent: 31 117 193;           /* #1F75C1 - Midnight Teal */
+  --color-accent-light: 190 219 244;  /* #BEDBF4 - Lagoon Mist */
+  --color-accent-dark: 31 117 193;
   
   --color-danger: 211 47 47;          /* Soft clinical red for emergency */
   --color-danger-light: 239 83 80;
   --color-danger-dark: 198 40 40;
   
   --color-neutral: 240 241 242;       /* #f0f1f2 - Light Pearl */
-  --color-info: 109 221 189;          /* #6dddbd */
+  --color-info: 190 219 244;          /* #BEDBF4 */
   
   --color-surface: 255 255 255;       /* #ffffff - Pure White */
   --color-background: 255 255 255;    /* #ffffff - Pure White */
@@ -27,9 +27,9 @@
   --color-text: 0 0 0;                /* #000000 - Deep Graphite */
 
   /* Specific Hex Colors for Non-Tailwind Styles */
-  --color-hex-midnight-teal: #244d54;
-  --color-hex-activation-green: #2ecea0;
-  --color-hex-lagoon-mist: #6dddbd;
+  --color-hex-midnight-teal: #1F75C1;
+  --color-hex-activation-green: #7AB5E9;
+  --color-hex-lagoon-mist: #BEDBF4;
   --color-hex-deep-graphite: #000000;
   --color-hex-medium-gray: #151515;
   --color-hex-silver-cloud: #e5e7eb;
@@ -104,8 +104,8 @@
     box-shadow: var(--shadow-sm);
   }
   .btn-activation-filled:hover {
-    background-color: #26b38a;
-    border-color: #26b38a;
+    background-color: #5CA5E4;
+    border-color: #5CA5E4;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(46, 206, 160, 0.3);
   }
@@ -285,5 +285,20 @@
   .font-inter-heading {
     font-family: 'Inter', sans-serif;
     letter-spacing: var(--tracking-tight-medium);
+  }
+
+  @keyframes wave {
+    0% { transform: rotate(0.0deg) }
+    10% { transform: rotate(14.0deg) }
+    20% { transform: rotate(-8.0deg) }
+    30% { transform: rotate(14.0deg) }
+    40% { transform: rotate(-4.0deg) }
+    50% { transform: rotate(10.0deg) }
+    60% { transform: rotate(0.0deg) }
+    100% { transform: rotate(0.0deg) }
+  }
+
+  .animate-wave {
+    animation: wave 2.5s infinite;
   }
 }

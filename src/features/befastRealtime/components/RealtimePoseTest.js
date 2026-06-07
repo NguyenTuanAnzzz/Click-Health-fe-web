@@ -259,7 +259,7 @@ export default function RealtimePoseTest({
                 onClick={startCountdown}
                 className={`flex items-center gap-2 px-10 py-4 rounded-full font-bold text-white transition-all duration-300 ${
                   validationReady
-                    ? 'bg-gradient-to-r from-[#2ecea0] to-[#26b38a] hover:shadow-lg hover:shadow-[#2ecea0]/40 hover:scale-105'
+                    ? 'bg-gradient-to-r from-[#7AB5E9] to-[#5CA5E4] hover:shadow-lg hover:shadow-[#7AB5E9]/40 hover:scale-105'
                     : startRequested
                     ? 'bg-gradient-to-r from-[#3b82f6] to-[#2563eb] shadow-lg shadow-[#3b82f6]/30'
                     : 'bg-gradient-to-r from-[#6b7280] to-[#4b5563] hover:from-[#757f8f] hover:to-[#555f70]'
@@ -291,13 +291,13 @@ export default function RealtimePoseTest({
 function TestHeader({ Icon, config }) {
   return (
     <div className="mb-4">
-      <span className="bg-[#244d54]/10 text-[#244d54] px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2 inline-block">
+      <span className="bg-[#1F75C1]/10 text-[#1F75C1] px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-2 inline-block">
         {config.step}
       </span>
       <h2 className="text-2xl font-bold font-inter text-black flex items-center gap-2.5">
-        {Icon && <Icon size={22} className="text-[#2ecea0]" />}
+        {Icon && <Icon size={22} className="text-[#7AB5E9]" />}
         {config.title}
-        <span className="text-[11px] font-bold text-[#2ecea0] ml-1">REALTIME</span>
+        <span className="text-[11px] font-bold text-[#7AB5E9] ml-1">REALTIME</span>
       </h2>
     </div>
   );
@@ -306,7 +306,7 @@ function TestHeader({ Icon, config }) {
 function LoadingBlock({ phase }) {
   return (
     <div className="flex flex-col items-center py-16 text-[#858585]">
-      <Loader2 className="animate-spin text-[#2ecea0] mb-4" size={36} />
+      <Loader2 className="animate-spin text-[#7AB5E9] mb-4" size={36} />
       <p className="font-bold text-sm">
         {phase === TEST_PHASE.LOADING ? 'Đang tải AI...' : 'Đang khởi tạo camera và AI...'}
       </p>
@@ -318,7 +318,7 @@ function CountdownOverlay({ phase, countdown }) {
   if (phase !== TEST_PHASE.COUNTDOWN || !countdown) return null;
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-black/30 z-20">
-      <span className="text-[7rem] font-bold text-[#2ecea0] animate-pulse">{countdown}</span>
+      <span className="text-[7rem] font-bold text-[#7AB5E9] animate-pulse">{countdown}</span>
     </div>
   );
 }
@@ -339,7 +339,7 @@ function RecordingOverlay({ phase, banner, progress, live }) {
         )}
       </div>
       <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-white/10 z-20">
-        <div className="h-full bg-[#2ecea0]" style={{ width: `${progress}%` }} />
+        <div className="h-full bg-[#7AB5E9]" style={{ width: `${progress}%` }} />
       </div>
     </>
   );
@@ -349,7 +349,7 @@ function AnalyzingOverlay({ phase }) {
   if (phase !== TEST_PHASE.ANALYZING) return null;
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/50 z-20">
-      <Loader2 className="animate-spin text-[#2ecea0] mb-3" size={40} />
+      <Loader2 className="animate-spin text-[#7AB5E9] mb-3" size={40} />
       <p className="text-white font-bold text-sm">Đang phân tích...</p>
     </div>
   );

@@ -32,98 +32,102 @@ const LoginScreen = () => {
   }, [token, navigate]);
 
   return (
-    <AuthLayout tagline="Hệ thống tầm soát đột quỵ Click Health">
-      <div className="w-full space-y-6">
-        <div>
-          <h2 className="text-2xl font-bold text-black font-inter tracking-tight mb-1">
+    <AuthLayout tagline="Hệ thống cảnh báo đột quỵ thông minh">
+      <div className="w-full">
+        <div className="mb-10 text-center lg:text-left">
+          <h2 className="text-3xl sm:text-4xl font-black text-[#111827] font-inter tracking-tight mb-3">
             Đăng nhập
           </h2>
-          <p className="text-sm font-medium text-[#858585]">
-            Đăng nhập tài khoản của bạn để tiếp tục sử dụng dịch vụ.
+          <p className="text-[15px] font-medium text-gray-500">
+            Mừng bạn quay trở lại. Hãy đăng nhập để tiếp tục.
           </p>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-5">
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold uppercase text-[#151515] tracking-wider ml-1">Email</label>
+        <form onSubmit={handleLogin} className="space-y-6">
+          <div className="space-y-2">
+            <label className="text-[13px] font-bold text-gray-700 tracking-wide ml-1">ĐỊA CHỈ EMAIL</label>
             <div className="relative group">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-[#858585]/40 group-focus-within:text-[#2ecea0] transition-colors" size={18} />
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#1F75C1] transition-colors duration-300" size={20} strokeWidth={2.5} />
               <input 
                 type="email" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-white border border-[#e5e7eb] rounded-full py-3.5 pl-12 pr-6 text-black text-sm font-medium focus:ring-2 focus:ring-[#2ecea0]/20 focus:border-[#2ecea0] outline-none transition-all placeholder-[#999999]"
+                className="w-full bg-[#F8FAFC] border-2 border-transparent rounded-2xl py-4 pl-12 pr-6 text-gray-900 text-[15px] font-semibold focus:bg-white focus:border-[#1F75C1] focus:ring-4 focus:ring-[#1F75C1]/10 outline-none transition-all duration-300 placeholder-gray-400"
                 placeholder="email@example.com"
               />
             </div>
           </div>
 
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold uppercase text-[#151515] tracking-wider ml-1">Mật khẩu</label>
+          <div className="space-y-2">
+            <label className="text-[13px] font-bold text-gray-700 tracking-wide ml-1">MẬT KHẨU</label>
             <div className="relative group">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-[#858585]/40 group-focus-within:text-[#2ecea0] transition-colors" size={18} />
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#1F75C1] transition-colors duration-300" size={20} strokeWidth={2.5} />
               <input 
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-white border border-[#e5e7eb] rounded-full py-3.5 pl-12 pr-12 text-black text-sm font-medium focus:ring-2 focus:ring-[#2ecea0]/20 focus:border-[#2ecea0] outline-none transition-all placeholder-[#999999]"
+                className="w-full bg-[#F8FAFC] border-2 border-transparent rounded-2xl py-4 pl-12 pr-16 text-gray-900 text-[15px] font-semibold focus:bg-white focus:border-[#1F75C1] focus:ring-4 focus:ring-[#1F75C1]/10 outline-none transition-all duration-300 placeholder-gray-400"
                 placeholder="••••••••"
               />
               <button 
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-5 top-1/2 -translate-y-1/2 text-[#858585]/60 hover:text-[#2ecea0] text-xs font-semibold"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#1F75C1] text-[11px] font-bold px-2.5 py-1.5 bg-white rounded-lg shadow-sm border border-gray-100 transition-all"
               >
                 {showPassword ? "ẨN" : "HIỆN"}
               </button>
             </div>
           </div>
 
-          <div className="flex flex-row justify-between items-center py-1">
+          <div className="flex flex-row justify-between items-center py-2">
             <button
               type="button"
-              className="flex items-center gap-2 group cursor-pointer text-left"
+              className="flex items-center gap-3 group cursor-pointer text-left"
               onClick={() => setRememberMe(!rememberMe)}
             >
-              <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-all shadow-2xs shrink-0
-                ${rememberMe ? "bg-[#2ecea0] border-[#2ecea0]" : "bg-white border-[#e5e7eb] group-hover:border-[#2ecea0]/60"}`}
+              <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all duration-300
+                ${rememberMe ? "bg-[#1F75C1] border-[#1F75C1] shadow-md shadow-[#1F75C1]/30" : "bg-[#F8FAFC] border-gray-200 group-hover:border-[#1F75C1]/50"}`}
               >
-                {rememberMe && <Check size={12} className="text-white" strokeWidth={3} />}
+                {rememberMe && <Check size={14} className="text-white" strokeWidth={4} />}
               </div>
-              <span className="text-xs font-medium text-[#858585]">Ghi nhớ đăng nhập</span>
+              <span className="text-[14px] font-semibold text-gray-600 group-hover:text-gray-900 transition-colors">Ghi nhớ đăng nhập</span>
             </button>
 
-            <button type="button" className="text-xs font-semibold text-[#2ecea0] hover:underline transition-colors">
+            <button type="button" className="text-[14px] font-bold text-[#1F75C1] hover:text-[#155A96] hover:underline transition-colors">
               Quên mật khẩu?
             </button>
           </div>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-center gap-3">
-              <Activity className="text-red-500" size={18} />
-              <p className="text-red-600 font-semibold text-xs leading-normal">{error}</p>
+            <div className="bg-red-50 border-l-4 border-red-500 rounded-r-xl p-4 flex items-center gap-3 shadow-sm animate-pulse">
+              <Activity className="text-red-500" size={20} />
+              <p className="text-red-600 font-bold text-[13px] leading-normal">{error}</p>
             </div>
           )}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full btn-activation-filled py-4 mt-6 flex items-center justify-center gap-2 text-sm font-semibold tracking-tight shadow-md hover:shadow-lg transition-all"
+            className="w-full bg-gradient-to-r from-[#1F75C1] to-[#7AB5E9] py-4 mt-8 rounded-2xl flex items-center justify-center gap-2 text-white text-[16px] font-bold shadow-[0_10px_25px_rgba(31,117,193,0.3)] hover:shadow-[0_15px_35px_rgba(31,117,193,0.4)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
           >
-            {loading ? (
-              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-            ) : (
-              <>
-                Đăng nhập <ArrowRight size={16} strokeWidth={2.5} />
-              </>
-            )}
+            <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+            <span className="relative z-10 flex items-center gap-2">
+              {loading ? (
+                <div className="flex items-center gap-2">
+                  <div className="w-5 h-5 border-[3px] border-white/30 border-t-white rounded-full animate-spin" />
+                  <span>Đang xử lý...</span>
+                </div>
+              ) : (
+                <>Đăng nhập hệ thống <ArrowRight size={18} strokeWidth={3} /></>
+              )}
+            </span>
           </button>
         </form>
 
-        <div className="text-center pt-6 border-t border-[#e5e7eb]">
-          <p className="text-[#858585] text-sm font-medium">
+        <div className="text-center mt-10">
+          <p className="text-gray-500 text-[15px] font-medium">
             Chưa có tài khoản?{" "}
-            <Link to="/register" className="text-[#2ecea0] font-semibold hover:underline">
+            <Link to="/register" className="text-[#1F75C1] font-black hover:text-[#155A96] hover:underline transition-colors ml-1">
               Đăng ký ngay
             </Link>
           </p>

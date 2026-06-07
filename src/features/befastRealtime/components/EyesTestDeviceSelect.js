@@ -38,11 +38,11 @@ export default function EyesTestDeviceSelect({ onDeviceSelected, config }) {
     <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-8 max-w-4xl mx-auto shadow-lg border border-[#e5e7eb]/50 font-inter-tight-small">
       {/* Header */}
       <div className="mb-8">
-        <span className="bg-[#244d54]/10 text-[#244d54] border border-[#244d54]/10 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider inline-block mb-4">
+        <span className="bg-[#1F75C1]/10 text-[#1F75C1] border border-[#1F75C1]/10 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider inline-block mb-4">
           Bước 2/5
         </span>
         <h2 className="text-2xl font-bold text-black flex items-center gap-2.5">
-          <Eye size={28} className="text-[#2ecea0]" />
+          <Eye size={28} className="text-[#7AB5E9]" />
           E - Kiểm tra Thị lực
         </h2>
         <p className="text-[#6b7280] text-[15px] font-medium mt-2">
@@ -58,8 +58,8 @@ export default function EyesTestDeviceSelect({ onDeviceSelected, config }) {
             onClick={() => setSelectedDevice(device.id)}
             className={`p-6 rounded-[20px] border-2 transition-all duration-300 text-left ${
               selectedDevice === device.id
-                ? 'border-[#2ecea0] bg-[#2ecea0]/5 shadow-md'
-                : 'border-[#e5e7eb] bg-white hover:border-[#2ecea0]/30'
+                ? 'border-[#7AB5E9] bg-[#7AB5E9]/5 shadow-md'
+                : 'border-[#e5e7eb] bg-white hover:border-[#7AB5E9]/30'
             }`}
           >
             <div className="text-4xl mb-3">{device.icon}</div>
@@ -97,7 +97,7 @@ export default function EyesTestDeviceSelect({ onDeviceSelected, config }) {
         <button
           disabled={!selectedDevice}
           onClick={() => onDeviceSelected(selectedDevice)}
-          className="px-10 py-3 rounded-full font-bold text-white bg-gradient-to-r from-[#2ecea0] to-[#26b38a] hover:shadow-lg disabled:opacity-50 disabled:pointer-events-none transition-all duration-300"
+          className="px-10 py-3 rounded-full font-bold text-white bg-gradient-to-r from-[#7AB5E9] to-[#5CA5E4] hover:shadow-lg disabled:opacity-50 disabled:pointer-events-none transition-all duration-300"
         >
           Bắt đầu kiểm tra
         </button>

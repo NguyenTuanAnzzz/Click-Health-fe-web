@@ -186,7 +186,7 @@ export default function RealtimeEyesTest({ onComplete }) {
             ? `Hãy quay trở lại vị trí cũ để chuẩn bị Vòng ${currentRound}!`
             : `Di chuyển về vị trí kiểm tra (~${deviceConfig?.distance_cm}cm)`}
         </h2>
-        <div className="text-7xl font-bold text-[#2ecea0] mb-6 animate-pulse">{countdown}</div>
+        <div className="text-7xl font-bold text-[#7AB5E9] mb-6 animate-pulse">{countdown}</div>
         <p className="text-[#6b7280] text-[16px] font-medium max-w-md">
           {deviceConfig?.distance_steps > 0
             ? `Vui lòng lùi lại khoảng ${deviceConfig?.distance_steps} bước chân để bắt đầu.`
@@ -229,7 +229,7 @@ export default function RealtimeEyesTest({ onComplete }) {
 
   return (
     <div className="flex items-center justify-center min-h-96">
-      <Loader2 className="animate-spin text-[#2ecea0]" size={40} />
+      <Loader2 className="animate-spin text-[#7AB5E9]" size={40} />
     </div>
   );
 }
