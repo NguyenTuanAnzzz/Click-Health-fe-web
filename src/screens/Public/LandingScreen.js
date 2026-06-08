@@ -6,13 +6,13 @@ const LandingScreen = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-white font-inter">
+    <div className="min-h-screen bg-white font-inter overflow-x-hidden">
       {/* Navbar */}
       <nav className="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo(0,0)}>
-              <img src="/My_logo.png" alt="ClickHealth Logo" className="h-8 w-auto object-contain" />
+              <img src="/My_logo.png" alt="ClickHealth Logo" className="h-16 w-auto object-contain" />
               <span className="font-bold text-xl text-[#1F75C1] tracking-tight">Click Health</span>
             </div>
             <div className="flex items-center gap-4">
@@ -148,7 +148,7 @@ const LandingScreen = () => {
              <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-[#7AB5E9]/10 to-transparent rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 transition-transform duration-700 group-hover:scale-110" />
              <div className="absolute bottom-0 left-0 w-60 h-60 bg-gradient-to-tr from-[#1F75C1]/5 to-transparent rounded-full blur-2xl translate-y-1/3 -translate-x-1/3" />
              
-             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-14 relative z-10">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-14 relative z-10">
                <div className="flex items-center gap-4">
                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#1F75C1] to-[#7AB5E9] flex items-center justify-center shadow-lg shadow-[#1F75C1]/20">
                    <Activity className="w-6 h-6 text-white" />
@@ -160,7 +160,7 @@ const LandingScreen = () => {
                </div>
                <div className="px-4 py-2 bg-red-50 rounded-xl border border-red-100 flex items-center gap-2">
                  <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
-                 <span className="text-xs font-bold text-red-600 uppercase tracking-wider">Thời gian là Não</span>
+                 <span className="text-xs font-bold text-red-600 uppercase tracking-wider">Thời gian là vàng</span>
                </div>
              </div>
 

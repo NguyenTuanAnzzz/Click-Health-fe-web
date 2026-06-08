@@ -1,11 +1,12 @@
-import React from 'react';
-import { User } from 'lucide-react';
+import React, { useState } from 'react';
+import { User, Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const UserHeader = () => {
   const { user } = useSelector((state) => state.auth);
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   const getShortName = (fullName) => {
     if (!fullName) return "Người dùng";
@@ -23,9 +24,17 @@ const UserHeader = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-[#e5e7eb] py-4 transition-all duration-300">
-      <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
-        <div className="flex items-center gap-10">
-          <Link to="/" className="flex items-center gap-2.5 group">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 flex items-center justify-between">
+        <div className="flex items-center gap-4 sm:gap-10">
+          {/* Mobile menu button */}
+          <button 
+            className="md:hidden p-2 -ml-2 text-gray-600 hover:text-[#1F75C1] hover:bg-[#f0f1f2] rounded-full transition-colors"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+
+          <Link to="/" className="flex items-center gap-2 sm:gap-2.5 group">
             <img src="/My_logo.png" alt="ClickHealth Logo" className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
             <span className="text-xl font-bold font-inter-heading tracking-tight text-black">
               Click<span className="text-[#7AB5E9]">Health</span>
@@ -115,6 +124,60 @@ const UserHeader = () => {
             </div>
           </Link>
         </div>
+      </div>
+
+      {/* Mobile Menu Dropdown */}
+      <div className={`md:hidden absolute top-full left-0 right-0 bg-white border-b border-[#e5e7eb] shadow-lg transition-all duration-300 origin-top ${isMobileMenuOpen ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0 pointer-events-none'}`}>
+        <nav className="flex flex-col py-2 font-inter-tight-small">
+          <Link 
+            to="/" 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className={`px-6 py-3 text-[14px] font-bold uppercase tracking-wider transition-colors duration-300
+              ${isActive('/') ? 'bg-[#f0f1f2] text-[#1F75C1] border-l-4 border-[#1F75C1]' : 'text-[#858585] hover:bg-[#f8fafc] hover:text-black border-l-4 border-transparent'}`}
+          >
+            Trang chủ
+          </Link>
+          <Link 
+            to="/befast" 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className={`px-6 py-3 text-[14px] font-bold uppercase tracking-wider transition-colors duration-300
+              ${isActive('/befast') ? 'bg-[#f0f1f2] text-[#1F75C1] border-l-4 border-[#1F75C1]' : 'text-[#858585] hover:bg-[#f8fafc] hover:text-black border-l-4 border-transparent'}`}
+          >
+            BeFast AI
+          </Link>
+          <Link 
+            to="/stroke-risk-score" 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className={`px-6 py-3 text-[14px] font-bold uppercase tracking-wider transition-colors duration-300
+              ${isActive('/stroke-risk-score') ? 'bg-[#f0f1f2] text-[#1F75C1] border-l-4 border-[#1F75C1]' : 'text-[#858585] hover:bg-[#f8fafc] hover:text-black border-l-4 border-transparent'}`}
+          >
+            Tầm soát BMI
+          </Link>
+          <Link 
+            to="/recovery-exercise" 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className={`px-6 py-3 text-[14px] font-bold uppercase tracking-wider transition-colors duration-300
+              ${isActive('/recovery-exercise') ? 'bg-[#f0f1f2] text-[#1F75C1] border-l-4 border-[#1F75C1]' : 'text-[#858585] hover:bg-[#f8fafc] hover:text-black border-l-4 border-transparent'}`}
+          >
+            Bài tập Phục hồi
+          </Link>
+          <Link 
+            to="/knowledge" 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className={`px-6 py-3 text-[14px] font-bold uppercase tracking-wider transition-colors duration-300
+              ${isActive('/knowledge') ? 'bg-[#f0f1f2] text-[#1F75C1] border-l-4 border-[#1F75C1]' : 'text-[#858585] hover:bg-[#f8fafc] hover:text-black border-l-4 border-transparent'}`}
+          >
+            Kiến thức đột quỵ
+          </Link>
+          <Link 
+            to="/history" 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className={`px-6 py-3 text-[14px] font-bold uppercase tracking-wider transition-colors duration-300
+              ${isActive('/history') ? 'bg-[#f0f1f2] text-[#1F75C1] border-l-4 border-[#1F75C1]' : 'text-[#858585] hover:bg-[#f8fafc] hover:text-black border-l-4 border-transparent'}`}
+          >
+            Lịch sử
+          </Link>
+        </nav>
       </div>
     </header>
   );

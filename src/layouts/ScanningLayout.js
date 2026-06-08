@@ -105,12 +105,12 @@ const ScanningLayout = ({
       )}
 
       {/* Custom Control Triggers */}
-      <div className="flex justify-center gap-4 font-inter-tight-small">
+      <div className="flex flex-wrap justify-center gap-2 sm:gap-4 font-inter-tight-small">
         {!imageSrc ? (
           <button 
             onClick={capture}
             disabled={isAutoScanning}
-            className={`flex items-center gap-2.5 px-10 py-4 rounded-full text-[14px] font-bold transition-all duration-300 shadow-md ${
+            className={`flex items-center gap-2.5 px-4 sm:px-10 py-4 rounded-full text-[14px] font-bold transition-all duration-300 shadow-md ${
               isAutoScanning 
               ? 'bg-[#d32f2f] text-white animate-pulse' 
               : 'bg-[#7AB5E9] text-white hover:bg-[#5CA5E4] hover:scale-[1.01] hover:shadow-[#7AB5E9]/15'
@@ -133,7 +133,7 @@ const ScanningLayout = ({
             <button 
               onClick={retake}
               disabled={loading}
-              className="flex items-center gap-2 bg-white border border-[#e5e7eb] text-[#1F75C1] px-8 py-3.5 rounded-full text-[14px] font-bold hover:bg-[#f0f1f2] transition-colors duration-300 disabled:opacity-50 shadow-sm"
+              className="flex items-center gap-2 bg-white border border-[#e5e7eb] text-[#1F75C1] px-4 sm:px-8 py-3.5 rounded-full text-[14px] font-bold hover:bg-[#f0f1f2] transition-colors duration-300 disabled:opacity-50 shadow-sm"
             >
               <RefreshCw size={16} />
               Quét lại
@@ -141,7 +141,7 @@ const ScanningLayout = ({
             <button 
               onClick={processImage}
               disabled={loading}
-              className="flex items-center gap-2 bg-[#7AB5E9] text-white px-10 py-3.5 rounded-full text-[14px] font-bold hover:bg-[#5CA5E4] hover:scale-[1.01] transition-all duration-300 disabled:opacity-50 shadow-md shadow-[#7AB5E9]/15"
+              className="flex items-center gap-2 bg-[#7AB5E9] text-white px-4 sm:px-10 py-3.5 rounded-full text-[14px] font-bold hover:bg-[#5CA5E4] hover:scale-[1.01] transition-all duration-300 disabled:opacity-50 shadow-md shadow-[#7AB5E9]/15"
             >
               {loading ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
