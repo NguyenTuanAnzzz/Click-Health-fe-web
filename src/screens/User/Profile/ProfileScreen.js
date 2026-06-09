@@ -366,7 +366,7 @@ const ProfileScreen = () => {
                             <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                         ) : (
                             <>
-                                <span>NÂNG CẤP QUA VNPAY</span>
+                                <span>NÂNG CẤP QUA PAYOS</span>
                                 <Zap size={18} fill="currentColor" />
                             </>
                         )}

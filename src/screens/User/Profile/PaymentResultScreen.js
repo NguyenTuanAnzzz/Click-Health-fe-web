@@ -53,7 +53,7 @@ const PaymentResultScreen = () => {
                                 <Loader2 size={32} className="text-[#7AB5E9] animate-spin" />
                             </div>
                             <h2 className="text-2xl font-bold text-[#1F75C1] tracking-tight font-inter">Đang xác thực...</h2>
-                            <p className="text-xs font-semibold text-[#858585] leading-relaxed">Vui lòng chờ trong giây lát trong khi chúng tôi xác nhận giao dịch của bạn qua cổng VNPAY.</p>
+                            <p className="text-xs font-semibold text-[#858585] leading-relaxed">Vui lòng chờ trong giây lát trong khi chúng tôi xác nhận giao dịch của bạn qua cổng PayOS.</p>
                         </div>
                     ) : (
                         <div className="space-y-6">
