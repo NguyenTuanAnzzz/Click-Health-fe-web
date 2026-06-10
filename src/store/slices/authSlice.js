@@ -113,6 +113,34 @@ export const resendOtp = createAsyncThunk(
   },
 );
 
+export const forgotPassword = createAsyncThunk(
+  "auth/forgotPassword",
+  async (emailData, thunkAPI) => {
+    try {
+      const res = await axios.post(`${API_URL}/users/forgot-password`, emailData);
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        getErrorMessage(error, "Forgot password failed"),
+      );
+    }
+  },
+);
+
+export const resetPassword = createAsyncThunk(
+  "auth/resetPassword",
+  async (resetData, thunkAPI) => {
+    try {
+      const res = await axios.post(`${API_URL}/users/reset-password`, resetData);
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        getErrorMessage(error, "Reset password failed"),
+      );
+    }
+  },
+);
+
 export const getInfo = createAsyncThunk(
   "auth/getInfo",
   async (_, thunkAPI) => {
@@ -290,6 +318,30 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
+      .addCase(forgotPassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(forgotPassword.fulfilled, (state) => {
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(forgotPassword.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || action.error?.message;
+      })
+      .addCase(resetPassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(resetPassword.fulfilled, (state) => {
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || action.error?.message;
+      });
   },
 });
 

@@ -93,9 +93,9 @@ const LoginScreen = () => {
               <span className="text-[14px] font-semibold text-gray-600 group-hover:text-gray-900 transition-colors">Ghi nhớ đăng nhập</span>
             </button>
 
-            <button type="button" className="text-[14px] font-bold text-[#1F75C1] hover:text-[#155A96] hover:underline transition-colors">
+            <Link to="/forgot-password" className="text-[14px] font-bold text-[#1F75C1] hover:text-[#155A96] hover:underline transition-colors">
               Quên mật khẩu?
-            </button>
+            </Link>
           </div>
 
           {error && (

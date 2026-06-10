@@ -7,6 +7,8 @@ import PrivateRoute from './PrivateRoute';
 import LoginScreen from '../screens/Auth/LoginScreen';
 import RegisterScreen from '../screens/Auth/RegisterScreen';
 import VerifyEmailScreen from '../screens/Auth/VerifyEmailScreen';
+import ForgotPasswordScreen from '../screens/Auth/ForgotPasswordScreen';
+import ResetPasswordScreen from '../screens/Auth/ResetPasswordScreen';
 import HomeScreen from '../screens/User/Home/HomeScreen';
 import ProfileScreen from '../screens/User/Profile/ProfileScreen';
 import HistoryScreen from '../screens/User/Profile/HistoryScreen';
@@ -32,6 +34,8 @@ const AppRouter = () => {
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/register" element={<RegisterScreen />} />
         <Route path="/verify-email" element={<VerifyEmailScreen />} />
+        <Route path="/forgot-password" element={<ForgotPasswordScreen />} />
+        <Route path="/reset-password" element={<ResetPasswordScreen />} />
         <Route path="/" element={<LandingScreen />} />
       </Route>
 
