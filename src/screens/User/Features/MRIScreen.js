@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Upload, FileImage, AlertCircle, Activity, ChevronLeft, CheckCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { AI_API_URL } from '../../../constants/apiConfig';
 
 export default function MRIScreen() {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ export default function MRIScreen() {
     formData.append('file', selectedFile);
 
     try {
-      const response = await fetch('http://localhost:8000/predict-mri', {
+      const response = await fetch(`${AI_API_URL}/predict-mri`, {
         method: 'POST',
         body: formData,
       });
