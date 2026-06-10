@@ -33,9 +33,9 @@ const features = [
   },
   {
     id: 6,
-    title: "Theo dõi sức khỏe",
-    icon: "Heart",
-    link: "/history",
+    title: "Chẩn đoán MRI bằng AI",
+    icon: "Image",
+    link: "/mri",
   },
 ];
 

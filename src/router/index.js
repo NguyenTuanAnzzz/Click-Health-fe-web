@@ -17,6 +17,7 @@ import RecoveryExerciseScreen from '../screens/User/Features/RecoveryExerciseScr
 import StrokeRiskScreen from '../screens/User/Features/StrokeRiskScreen';
 import KnowledgeScreen from '../screens/User/Features/KnowledgeScreen';
 import LandingScreen from '../screens/Public/LandingScreen';
+import MRIScreen from '../screens/User/Features/MRIScreen';
 
 import BefastLayout from '../layouts/BefastLayout';
 import BalanceScreen from '../screens/User/BeFast/BalanceScreen';
@@ -48,6 +49,7 @@ const AppRouter = () => {
         <Route path="/recovery-exercise" element={<RecoveryExerciseScreen />} />
         <Route path="/knowledge" element={<KnowledgeScreen />} />
         <Route path="/stroke-risk-score" element={<StrokeRiskScreen />} />
+        <Route path="/mri" element={<MRIScreen />} />
         
         {/* BEFAST AI Check Flow */}
         <Route path="/befast" element={<BefastLayout />}>
