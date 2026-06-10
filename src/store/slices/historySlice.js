@@ -45,6 +45,22 @@ export const saveHistory = createAsyncThunk(
 
       return res.data;
     } catch (error) {
+      // Handle specific HTTP status codes
+      if (error.response?.status === 403) {
+        // 403 Forbidden - likely token expired or insufficient permissions
+        console.error('403 Forbidden: Your session may have expired. Please log in again.');
+        localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
+        return thunkAPI.rejectWithValue("Session expired. Please log in again.");
+      }
+      
+      if (error.response?.status === 401) {
+        // 401 Unauthorized
+        localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
+        return thunkAPI.rejectWithValue("Authentication failed. Please log in again.");
+      }
+      
       return thunkAPI.rejectWithValue(getErrorMessage(error, "Save history failed"));
     }
   }
@@ -89,6 +105,20 @@ export const saveBmiHistory = createAsyncThunk(
 
       return res.data;
     } catch (error) {
+      // Handle specific HTTP status codes
+      if (error.response?.status === 403) {
+        console.error('403 Forbidden: Your session may have expired. Please log in again.');
+        localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
+        return thunkAPI.rejectWithValue("Session expired. Please log in again.");
+      }
+      
+      if (error.response?.status === 401) {
+        localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
+        return thunkAPI.rejectWithValue("Authentication failed. Please log in again.");
+      }
+      
       return thunkAPI.rejectWithValue(getErrorMessage(error, "Save BMI history failed"));
     }
   }

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Loader2, Play, AlertCircle } from 'lucide-react';
 import { TEST_PHASE } from '../constants';
 import { evaluatePoseValidation } from '../engines/cameraValidation';
@@ -19,6 +20,10 @@ export default function RealtimePoseTest({
   ResultsPanel,
   onComplete,
 }) {
+  const { user } = useSelector((state) => state.auth);
+  const freeAttemptsLeft = user?.freeAttemptsBefastLeft || 0;
+  const hasNoAttempts = freeAttemptsLeft === 0;
+  
   const videoRef = useRef(null);
   const containerRef = useRef(null);
   const streamRef = useRef(null);
@@ -178,7 +183,7 @@ export default function RealtimePoseTest({
 
   if (phase === TEST_PHASE.RESULTS && analysisResult) {
     return (
-      <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-8 max-w-4xl mx-auto shadow-lg border border-[#e5e7eb]/50">
+      <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-4 md:p-8 max-w-4xl mx-auto shadow-lg border border-[#e5e7eb]/50">
         <TestHeader Icon={Icon} config={config} />
         <ResultsPanel
           result={analysisResult}
@@ -190,7 +195,7 @@ export default function RealtimePoseTest({
   }
 
   return (
-    <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-8 max-w-4xl mx-auto shadow-lg font-inter-tight-small border border-[#e5e7eb]/50">
+    <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-4 md:p-8 max-w-4xl mx-auto shadow-lg font-inter-tight-small border border-[#e5e7eb]/50">
       <TestHeader Icon={Icon} config={config} />
       <p className="text-[#6b7280] text-[15px] font-medium mb-2">{config.description}</p>
       <p className="text-[13px] text-[#9ca3af] mb-6">{config.prepHint}</p>
@@ -208,7 +213,7 @@ export default function RealtimePoseTest({
       {phase !== TEST_PHASE.LOADING && phase !== TEST_PHASE.ERROR && (
         <div
           ref={containerRef}
-          className="relative w-full aspect-video bg-gradient-to-br from-[#0f172a] to-[#1e293b] rounded-[24px] overflow-hidden border border-[#e5e7eb]/20 mb-6 shadow-xl"
+          className="relative w-full aspect-[3/4] md:aspect-video video-responsive-container bg-gradient-to-br from-[#0f172a] to-[#1e293b] rounded-[24px] overflow-hidden border border-[#e5e7eb]/20 mb-6 shadow-xl"
         >
           <video ref={videoRef} className="absolute inset-0 w-full h-full object-cover scale-x-[-1]" playsInline muted />
           {showOverlay && viewSize.width > 0 && (
@@ -256,9 +261,12 @@ export default function RealtimePoseTest({
             <div className="flex flex-col items-center justify-center min-h-[96px]">
               <button
                 type="button"
-                onClick={startCountdown}
+                disabled={hasNoAttempts}
+                onClick={hasNoAttempts ? undefined : startCountdown}
                 className={`flex items-center gap-2 px-10 py-4 rounded-full font-bold text-white transition-all duration-300 ${
-                  validationReady
+                  hasNoAttempts
+                    ? 'bg-gradient-to-r from-[#9ca3af] to-[#6b7280] cursor-not-allowed opacity-50'
+                    : validationReady
                     ? 'bg-gradient-to-r from-[#7AB5E9] to-[#5CA5E4] hover:shadow-lg hover:shadow-[#7AB5E9]/40 hover:scale-105'
                     : startRequested
                     ? 'bg-gradient-to-r from-[#3b82f6] to-[#2563eb] shadow-lg shadow-[#3b82f6]/30'
@@ -266,12 +274,20 @@ export default function RealtimePoseTest({
                 }`}
               >
                 <Play size={16} className="fill-white" />
-                {validationReady
+                {hasNoAttempts
+                  ? 'Hết lượt thử miễn phí'
+                  : validationReady
                   ? `Bắt đầu (đếm ngược ${config.countdownSec}s)`
                   : startRequested
                   ? 'Bắt đầu (đang chờ khung hình)'
                   : 'Bắt đầu'}
               </button>
+              {hasNoAttempts && (
+                <div className="flex items-center gap-2 text-red-600 text-sm font-medium mt-2">
+                  <AlertCircle size={14} />
+                  Vui lòng nâng cấp gói VIP
+                </div>
+              )}
               {startRequested && !validationReady ? (
                 <div className="flex items-center gap-2 text-[#3b82f6] text-sm font-medium mt-2">
                   <div className="w-4 h-4 border-2 border-[#3b82f6]/20 border-t-[#3b82f6] rounded-full animate-spin" />

@@ -1,10 +1,23 @@
-import React from 'react';
-import { ArrowLeft, Check } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { ArrowLeft, Check, AlertTriangle } from 'lucide-react';
 import { useNavigate, Outlet, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getInfo } from '../store/slices/authSlice';
 
 const BefastLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  
+  // Fetch user info to get free attempts count
+  useEffect(() => {
+    dispatch(getInfo());
+  }, [dispatch]);
+
+  const freeAttemptsLeft = user?.freeAttemptsBefastLeft || 0;
+  const hasNoAttempts = freeAttemptsLeft === 0;
+  const isLowAttempts = freeAttemptsLeft > 0 && freeAttemptsLeft <= 2;
 
   const steps = [
     { key: 'balance', label: 'Balance', short: 'B', desc: 'Thăng bằng' },
@@ -96,6 +109,41 @@ const BefastLayout = () => {
 
       {/* Content Container */}
       <div className="flex-1 bg-[#ffffff]">
+        {/* Free Attempts Warning Banner */}
+        {hasNoAttempts && (
+          <div className="bg-gradient-to-r from-red-50 to-red-100/50 border-b-2 border-red-300 px-6 py-4">
+            <div className="max-w-[1200px] mx-auto flex items-start gap-3">
+              <AlertTriangle size={20} className="text-red-600 flex-shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <p className="font-bold text-red-700 mb-1">Bạn đã hết lượt thử miễn phí</p>
+                <p className="text-red-600 text-[13px] font-medium">
+                  Vui lòng nâng cấp gói VIP để tiếp tục sử dụng tầm soát BEFAST. Đội ngũ chúng tôi sẵn sàng hỗ trợ bạn.
+                </p>
+              </div>
+              <button
+                onClick={() => navigate('/pricing')}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg font-bold text-[12px] hover:bg-red-700 transition-all flex-shrink-0"
+              >
+                Nâng cấp ngay
+              </button>
+            </div>
+          </div>
+        )}
+
+        {isLowAttempts && !hasNoAttempts && (
+          <div className="bg-gradient-to-r from-orange-50 to-orange-100/50 border-b-2 border-orange-300 px-6 py-4">
+            <div className="max-w-[1200px] mx-auto flex items-start gap-3">
+              <AlertTriangle size={20} className="text-orange-600 flex-shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <p className="font-bold text-orange-700 mb-1">Cảnh báo: Chỉ còn {freeAttemptsLeft} lượt thử miễn phí</p>
+                <p className="text-orange-600 text-[13px] font-medium">
+                  Sau khi hết lượt, bạn cần nâng cấp gói VIP để tiếp tục sử dụng. Hãy nâng cấp ngay để không bị gián đoạn.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="max-w-[1200px] w-full mx-auto px-6 py-12 md:py-16">
           <Outlet />
         </div>

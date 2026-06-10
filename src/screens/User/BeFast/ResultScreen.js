@@ -56,10 +56,16 @@ const ResultScreen = () => {
     };
 
     dispatch(saveHistory(historyData)).then((res) => {
-      if (res.meta.requestStatus === 'fulfilled') setSaveFinished(true);
-      else hasSaved.current = false;
+      if (res.meta.requestStatus === 'fulfilled') {
+        setSaveFinished(true);
+      } else if (res.payload?.includes?.('Session expired') || res.payload?.includes?.('Authentication failed')) {
+        // Redirect to login if session expired
+        setTimeout(() => navigate('/login'), 2000);
+      } else {
+        hasSaved.current = false;
+      }
     });
-  }, [dispatch, results.balance, bStatus, eStatus, fStatus, aStatus, sStatus, isDanger, totalAbnormal]);
+  }, [dispatch, results.balance, bStatus, eStatus, fStatus, aStatus, sStatus, isDanger, totalAbnormal, navigate]);
 
   const resultCards = [
     { id: 'B', name: 'Thăng bằng (Balance)', icon: Activity, data: bStatus, raw: results.balance },
@@ -91,8 +97,32 @@ const ResultScreen = () => {
             <CheckCircle size={13} /> ĐÃ LƯU THÀNH CÔNG
           </div>
         ) : saveError ? (
-          <div className="flex items-center gap-2 bg-red-50 text-[#d32f2f] px-4 py-1.5 rounded-full text-[11px] font-bold">
-            <AlertTriangle size={13} /> LỖI LƯU — KIỂM TRA ĐĂNG NHẬP
+          <div className="w-full">
+            <div className="flex items-center justify-center gap-2 bg-red-50 text-[#d32f2f] px-4 py-1.5 rounded-full text-[11px] font-bold mb-4 w-fit mx-auto">
+              <AlertTriangle size={13} />
+              {saveError?.includes?.('Session expired') ? (
+                <span>PHIÊN HẾT HẠN — CHUYỂN ĐẾN ĐĂNG NHẬP...</span>
+              ) : saveError?.includes?.('hết lượt thử') ? (
+                <span>HẾT LƯỢT THỬ MIỄN PHÍ</span>
+              ) : (
+                <span>LỖI LƯU — KIỂM TRA ĐĂNG NHẬP</span>
+              )}
+            </div>
+            
+            {saveError?.includes?.('hết lượt thử') && (
+              <div className="bg-gradient-to-r from-red-50 to-red-100/50 border border-red-300 rounded-[16px] p-4 max-w-2xl mx-auto">
+                <p className="text-red-700 font-bold text-[13px] mb-2">Bạn đã hết lượt thử miễn phí BeFast</p>
+                <p className="text-red-600 text-[12px] mb-4">
+                  Để lưu kết quả và tiếp tục sử dụng tầm soát BEFAST, vui lòng nâng cấp gói VIP.
+                </p>
+                <button
+                  onClick={() => navigate('/pricing')}
+                  className="px-6 py-2 bg-red-600 text-white rounded-lg font-bold text-[12px] hover:bg-red-700 transition-all"
+                >
+                  Xem gói nâng cấp
+                </button>
+              </div>
+            )}
           </div>
         ) : null}
       </div>

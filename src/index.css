@@ -302,3 +302,17 @@
     animation: wave 2.5s infinite;
   }
 }
+
+/* Responsive Video Container Fallback */
+@media (max-width: 767px) {
+  .video-responsive-container {
+    aspect-ratio: 3 / 4 !important;
+    min-height: 400px; /* Prevents container collapse */
+  }
+}
+
+@media (min-width: 768px) {
+  .video-responsive-container {
+    aspect-ratio: 16 / 9 !important;
+  }
+}

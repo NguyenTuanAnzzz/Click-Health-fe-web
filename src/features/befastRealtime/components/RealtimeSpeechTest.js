@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Mic, Square, Loader2 } from 'lucide-react';
+import { useSelector } from 'react-redux';
+import { Mic, Square, Loader2, AlertCircle } from 'lucide-react';
 import { analyzeSpeech } from '../engines/speechAnalyzer';
 import { analyzeSpeechOnServer } from '../api/befastAiApi';
 import { SPEECH_TEST } from '../testConfigs';
@@ -8,6 +9,10 @@ import ScoreBar from './ScoreBar';
 
 export default function RealtimeSpeechTest({ onComplete }) {
   const config = SPEECH_TEST;
+  const { user } = useSelector((state) => state.auth);
+  const freeAttemptsLeft = user?.freeAttemptsBefastLeft || 0;
+  const hasNoAttempts = freeAttemptsLeft === 0;
+  
   const [phase, setPhase] = useState('intro');
   const [countdown, setCountdown] = useState(null);
   const [isListening, setIsListening] = useState(false);
@@ -244,17 +249,30 @@ export default function RealtimeSpeechTest({ onComplete }) {
         <div className="flex flex-col items-center">
           <button
             type="button"
-            onClick={() => {
+            disabled={hasNoAttempts}
+            onClick={hasNoAttempts ? undefined : () => {
               setCountdown(config.countdownSec);
               setPhase('countdown');
             }}
-            className="w-20 h-20 rounded-full bg-[#7AB5E9] text-white flex items-center justify-center shadow-md"
+            className={`w-20 h-20 rounded-full flex items-center justify-center shadow-md transition-all ${
+              hasNoAttempts
+                ? 'bg-[#9ca3af] cursor-not-allowed opacity-50'
+                : 'bg-[#7AB5E9] text-white hover:scale-110'
+            }`}
           >
             <Mic size={28} />
           </button>
-          <p className="mt-4 text-sm font-bold">
-            Bắt đầu ({config.countdownSec}s → ghi {config.listenSec}s)
+          <p className={`mt-4 text-sm font-bold ${hasNoAttempts ? 'text-red-600' : 'text-black'}`}>
+            {hasNoAttempts
+              ? 'Hết lượt thử miễn phí'
+              : `Bắt đầu (${config.countdownSec}s → ghi ${config.listenSec}s)`}
           </p>
+          {hasNoAttempts && (
+            <div className="flex items-center gap-2 text-red-600 text-xs font-medium mt-2">
+              <AlertCircle size={13} />
+              Vui lòng nâng cấp gói VIP
+            </div>
+          )}
         </div>
       )}
 
