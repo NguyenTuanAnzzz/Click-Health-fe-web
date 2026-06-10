@@ -113,6 +113,8 @@ const HistoryScreen = () => {
                   const date = new Date(record.createdAt);
                   const isDanger = record.conclusion?.isDanger;
 
+                  const isMriOnly = record.conclusion?.analysisMode === "mri_only";
+
                   return (
                     <div 
                       key={record._id} 
@@ -143,28 +145,45 @@ const HistoryScreen = () => {
 
                       <div className="bg-white rounded-xl p-4 border border-[#e5e7eb] mb-2 font-inter-tight-small text-left">
                         <h4 className="text-[10px] font-extrabold uppercase text-[#1F75C1] tracking-widest mb-3">Kết quả phân tích chi tiết</h4>
-                        <div className="grid grid-cols-2 gap-3.5">
-                          <div className="flex items-center gap-2 text-[13px] font-semibold text-[#151515]">
-                            {renderStatusIcon(record.balance)}
-                            <span className="flex-1">Thăng bằng</span>
+                        {isMriOnly ? (
+                          <div className="flex flex-col gap-2">
+                            <div className="flex justify-between items-center bg-white p-3 rounded-lg border border-gray-100">
+                              <span className="text-gray-500 font-medium">Bệnh lý:</span>
+                              <span className={`font-bold ${isDanger ? 'text-red-600' : 'text-green-600'}`}>
+                                {record.mri?.diagnosis || "Chưa xác định"}
+                              </span>
+                            </div>
+                            <div className="flex justify-between items-center bg-white p-3 rounded-lg border border-gray-100">
+                              <span className="text-gray-500 font-medium">Độ tin cậy:</span>
+                              <span className="font-bold text-[#1E293B]">
+                                {record.mri?.confidence_percent ? `${record.mri.confidence_percent}%` : "N/A"}
+                              </span>
+                            </div>
                           </div>
-                          <div className="flex items-center gap-2 text-[13px] font-semibold text-[#151515]">
-                            {renderStatusIcon(record.eyes)}
-                            <span className="flex-1">Tầm nhìn</span>
+                        ) : (
+                          <div className="grid grid-cols-2 gap-3.5">
+                            <div className="flex items-center gap-2 text-[13px] font-semibold text-[#151515]">
+                              {renderStatusIcon(record.balance)}
+                              <span className="flex-1">Thăng bằng</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-[13px] font-semibold text-[#151515]">
+                              {renderStatusIcon(record.eyes)}
+                              <span className="flex-1">Tầm nhìn</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-[13px] font-semibold text-[#151515] col-span-2 border-t border-[#e5e7eb]/60 pt-2">
+                              {renderStatusIcon(record.face)}
+                              <span className="flex-1">Cơ mặt {record.face?.deviation_percentage ? `(Lệch ${record.face.deviation_percentage}%)` : ''}</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-[13px] font-semibold text-[#151515]">
+                              {renderStatusIcon(record.arm)}
+                              <span className="flex-1">Cánh tay</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-[13px] font-semibold text-[#151515]">
+                              {renderStatusIcon(record.speech)}
+                              <span className="flex-1">Giọng nói</span>
+                            </div>
                           </div>
-                          <div className="flex items-center gap-2 text-[13px] font-semibold text-[#151515] col-span-2 border-t border-[#e5e7eb]/60 pt-2">
-                            {renderStatusIcon(record.face)}
-                            <span className="flex-1">Cơ mặt {record.face?.deviation_percentage ? `(Lệch ${record.face.deviation_percentage}%)` : ''}</span>
-                          </div>
-                          <div className="flex items-center gap-2 text-[13px] font-semibold text-[#151515]">
-                            {renderStatusIcon(record.arm)}
-                            <span className="flex-1">Cánh tay</span>
-                          </div>
-                          <div className="flex items-center gap-2 text-[13px] font-semibold text-[#151515]">
-                            {renderStatusIcon(record.speech)}
-                            <span className="flex-1">Giọng nói</span>
-                          </div>
-                        </div>
+                        )}
                       </div>
                     </div>
                   );

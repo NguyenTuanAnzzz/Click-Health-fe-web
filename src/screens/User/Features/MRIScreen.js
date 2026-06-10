@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { Upload, FileImage, AlertCircle, Activity, ChevronLeft, CheckCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { saveHistory } from '../../../store/slices/historySlice';
+import { AI_API_URL } from '../../../constants/apiConfig';
 
 export default function MRIScreen() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -29,7 +33,7 @@ export default function MRIScreen() {
     formData.append('file', selectedFile);
 
     try {
-      const response = await fetch('http://localhost:8000/predict-mri', {
+      const response = await fetch(`${AI_API_URL}/predict-mri`, {
         method: 'POST',
         body: formData,
       });
@@ -41,6 +45,20 @@ export default function MRIScreen() {
       const data = await response.json();
       if (data.success) {
         setResult(data);
+        
+        // Lưu vào History Database
+        dispatch(saveHistory({
+          conclusion: {
+            isDanger: data.diagnosis !== 'Não bình thường',
+            totalScore: data.diagnosis !== 'Não bình thường' ? 100 : 0,
+            analysisMode: "mri_only"
+          },
+          mri: {
+            diagnosis: data.diagnosis,
+            confidence_percent: data.confidence_percent,
+            isDanger: data.diagnosis !== 'Não bình thường'
+          }
+        }));
       } else {
         throw new Error('Phân tích thất bại');
       }
