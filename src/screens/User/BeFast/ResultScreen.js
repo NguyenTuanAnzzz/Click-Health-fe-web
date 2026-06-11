@@ -18,6 +18,8 @@ import { resetBefast } from '../../../store/slices/befastSlice';
 import { saveHistory } from '../../../store/slices/historySlice';
 import { getBefastAbnormalStatus } from '../../../features/befastRealtime';
 import { toHistoryTestPayload } from '../../../features/befastRealtime/utils/historyPayload';
+import { useOutletContext } from 'react-router-dom';
+import axios from 'axios';
 
 const ResultScreen = () => {
   const navigate = useNavigate();
@@ -38,34 +40,69 @@ const ResultScreen = () => {
   ).length;
   const isDanger = totalAbnormal > 0;
 
+  const { videoBlob, isRecording } = useOutletContext() || {};
+  const [uploadingVideo, setUploadingVideo] = useState(false);
+  const videoKeyRef = useRef(null);
+
   useEffect(() => {
     if (hasSaved.current || !results.balance) return;
-    hasSaved.current = true;
+    
+    // Đợi quá trình quay video ngầm kết thúc (isRecording = false) và videoBlob đã có kết quả (khác undefined)
+    if (isRecording || (isRecording === false && videoBlob === undefined)) {
+      return;
+    }
 
-    const historyData = {
-      balance: toHistoryTestPayload(results.balance),
-      eyes: toHistoryTestPayload(results.eyes),
-      face: toHistoryTestPayload(results.face),
-      arm: toHistoryTestPayload(results.arm),
-      speech: toHistoryTestPayload(results.speech),
-      conclusion: {
-        isDanger,
-        totalScore: totalAbnormal,
-        analysisMode: 'hybrid',
-      },
-    };
+    const saveProcess = async () => {
+      hasSaved.current = true;
 
-    dispatch(saveHistory(historyData)).then((res) => {
+      let finalVideoKey = null;
+
+      // Nếu có video ghi được thì tiến hành upload trước
+      if (videoBlob && !videoKeyRef.current) {
+        setUploadingVideo(true);
+        try {
+          const formData = new FormData();
+          formData.append('video', videoBlob, 'befast_record.webm');
+          const res = await axios.post('http://localhost:9999/api/videos/upload', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+          });
+          finalVideoKey = res.data.videoKey;
+          videoKeyRef.current = finalVideoKey;
+        } catch(err) {
+          console.error("Lỗi upload video BEFAST ngầm:", err);
+        } finally {
+          setUploadingVideo(false);
+        }
+      } else {
+        finalVideoKey = videoKeyRef.current;
+      }
+
+      const historyData = {
+        balance: toHistoryTestPayload(results.balance),
+        eyes: toHistoryTestPayload(results.eyes),
+        face: toHistoryTestPayload(results.face),
+        arm: toHistoryTestPayload(results.arm),
+        speech: toHistoryTestPayload(results.speech),
+        conclusion: {
+          isDanger,
+          totalScore: totalAbnormal,
+          analysisMode: 'hybrid',
+        },
+        videoKey: finalVideoKey // Lưu videoKey để sang HistoryScreen xem lại
+      };
+
+      const res = await dispatch(saveHistory(historyData));
       if (res.meta.requestStatus === 'fulfilled') {
         setSaveFinished(true);
       } else if (res.payload?.includes?.('Session expired') || res.payload?.includes?.('Authentication failed')) {
-        // Redirect to login if session expired
         setTimeout(() => navigate('/login'), 2000);
       } else {
         hasSaved.current = false;
       }
-    });
-  }, [dispatch, results.balance, bStatus, eStatus, fStatus, aStatus, sStatus, isDanger, totalAbnormal, navigate]);
+    };
+
+    saveProcess();
+  }, [dispatch, results.balance, bStatus, eStatus, fStatus, aStatus, sStatus, isDanger, totalAbnormal, navigate, videoBlob, isRecording]);
 
   const resultCards = [
     { id: 'B', name: 'Thăng bằng (Balance)', icon: Activity, data: bStatus, raw: results.balance },
@@ -88,7 +125,11 @@ const ResultScreen = () => {
       </div>
 
       <div className="mb-8 flex justify-center font-inter-tight-small">
-        {saveLoading ? (
+        {uploadingVideo ? (
+          <div className="flex items-center gap-2 bg-[#f59e0b]/10 text-[#d97706] px-4 py-1.5 rounded-full text-[11px] font-bold">
+            <Loader2 size={13} className="animate-spin" /> ĐANG ĐỒNG BỘ VIDEO LÊN ĐÁM MÂY...
+          </div>
+        ) : saveLoading ? (
           <div className="flex items-center gap-2 bg-[#BEDBF4]/10 text-[#1F75C1] px-4 py-1.5 rounded-full text-[11px] font-bold">
             <Loader2 size={13} className="animate-spin" /> ĐANG LƯU HỒ SƠ...
           </div>

@@ -7,6 +7,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import UserLayout from "../../../layouts/UserLayout";
 import { fetchMyHistory, fetchMyBmiHistory } from "../../../store/slices/historySlice";
+import SecureVideoPlayer from "../../../components/SecureVideoPlayer";
 
 const HistoryScreen = () => {
   const navigate = useNavigate();
@@ -182,6 +183,16 @@ const HistoryScreen = () => {
                               {renderStatusIcon(record.speech)}
                               <span className="flex-1">Giọng nói</span>
                             </div>
+                          </div>
+                        )}
+
+                        {/* HIỂN THỊ VIDEO NẾU CÓ */}
+                        {record.videoKey && (
+                          <div className="mt-4 border-t border-[#e5e7eb]/60 pt-4">
+                            <h4 className="text-[10px] font-extrabold uppercase text-[#1F75C1] tracking-widest mb-2 flex items-center gap-1.5">
+                              <Eye size={13} className="text-[#1F75C1]" /> Xem lại quá trình kiểm tra
+                            </h4>
+                            <SecureVideoPlayer videoKey={record.videoKey} />
                           </div>
                         )}
                       </div>

@@ -4,16 +4,86 @@ import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getInfo } from '../store/slices/authSlice';
 
+// === NEW: THÊM MEDIA RECORDER NGẦM ===
+import { useState, useRef } from 'react';
+
 const BefastLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   
+  // === Tự động ghi hình ngầm ===
+  const [videoBlob, setVideoBlob] = useState(undefined);
+  const [isRecording, setIsRecording] = useState(false);
+  const mediaRecorderRef = useRef(null);
+  const streamRef = useRef(null);
+  const chunks = useRef([]);
+
   // Fetch user info to get free attempts count
   useEffect(() => {
     dispatch(getInfo());
   }, [dispatch]);
+
+  // Logic ghi hình
+  useEffect(() => {
+    const path = location.pathname.split('/').pop();
+    const isFirstStep = path === 'balance';
+    const isResultStep = path === 'result';
+
+    // Bắt đầu ghi ở bước đầu tiên
+    if (isFirstStep && !streamRef.current) {
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: true })
+        .then(stream => {
+          streamRef.current = stream;
+          chunks.current = [];
+          setIsRecording(true);
+          
+          let options = { mimeType: 'video/webm;codecs=vp8,opus' };
+          if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+            options = { mimeType: 'video/webm' };
+          }
+          if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+            options = { mimeType: 'video/mp4' }; // Fallback for iOS
+          }
+          
+          const mr = new MediaRecorder(stream, options);
+          mr.ondataavailable = e => {
+            if (e.data.size > 0) chunks.current.push(e.data);
+          };
+          mr.onstop = () => {
+            const blob = new Blob(chunks.current, { type: mr.mimeType });
+            setVideoBlob(blob);
+            setIsRecording(false);
+            stream.getTracks().forEach(t => t.stop());
+          };
+          mr.start(1000);
+          mediaRecorderRef.current = mr;
+        })
+        .catch(err => {
+          console.error("Lỗi lấy quyền camera ghi ngầm:", err);
+          setVideoBlob(null);
+          setIsRecording(false);
+        });
+    } 
+    // Dừng ghi khi tới trang kết quả
+    else if (isResultStep && mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+      mediaRecorderRef.current.stop();
+    }
+  }, [location.pathname]);
+
+  // Cleanup khi thoát ngang
+  useEffect(() => {
+    return () => {
+      if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+        mediaRecorderRef.current.stop();
+      }
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(t => t.stop());
+      }
+    };
+  }, []);
+
 
   const freeAttemptsLeft = user?.freeAttemptsBefastLeft || 0;
   const hasNoAttempts = freeAttemptsLeft === 0;
@@ -145,7 +215,7 @@ const BefastLayout = () => {
         )}
 
         <div className="max-w-[1200px] w-full mx-auto px-6 py-12 md:py-16">
-          <Outlet />
+          <Outlet context={{ videoBlob, isRecording }} />
         </div>
       </div>
     </div>
