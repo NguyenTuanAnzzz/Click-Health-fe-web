@@ -40,6 +40,7 @@ const ProfileScreen = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState("yearly");
   const [paymentLoading, setPaymentLoading] = useState(false);
+  const [avatarFile, setAvatarFile] = useState(null);
   
   const fileInputRef = useRef(null);
 
@@ -96,13 +97,25 @@ const ProfileScreen = () => {
 
   const handleSaveProfile = async (e) => {
     e.preventDefault();
-    const result = await dispatch(updateProfile(formData));
+    const data = new FormData();
+    data.append("fullName", formData.fullName);
+    if (formData.age) data.append("age", formData.age);
+    data.append("gender", formData.gender);
+    data.append("medicalHistory", JSON.stringify(formData.medicalHistory));
+    
+    if (avatarFile) {
+      data.append("avatar", avatarFile);
+    }
+
+    const result = await dispatch(updateProfile(data));
     if (result.meta.requestStatus === 'fulfilled') {
       setIsEditing(false);
+      setAvatarFile(null);
+      dispatch(getInfo());
     }
   };
 
-  const handleAvatarChange = (e) => {
+  const handleAvatarChange = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -111,22 +124,24 @@ const ProfileScreen = () => {
       return;
     }
 
-    const reader = new FileReader();
-    reader.onloadend = async () => {
-      const base64String = reader.result;
-      if (isEditing) {
-        setFormData((prev) => ({
-          ...prev,
-          avatar: base64String,
-        }));
-      } else {
-        const result = await dispatch(updateProfile({ avatar: base64String }));
-        if (result.meta.requestStatus === 'fulfilled') {
-          dispatch(getInfo());
-        }
+    setAvatarFile(file);
+    const previewUrl = URL.createObjectURL(file);
+
+    if (isEditing) {
+      setFormData((prev) => ({
+        ...prev,
+        avatar: previewUrl,
+      }));
+    } else {
+      // If not editing but just clicked camera icon to update avatar
+      const data = new FormData();
+      data.append("avatar", file);
+      const result = await dispatch(updateProfile(data));
+      if (result.meta.requestStatus === 'fulfilled') {
+        dispatch(getInfo());
+        setAvatarFile(null);
       }
-    };
-    reader.readAsDataURL(file);
+    }
   };
 
   const handleUpgrade = async () => {
