@@ -27,6 +27,44 @@ const StrokeRiskScreen = () => {
   const [heartDisease, setHeartDisease] = useState(false);
   const [glucoseLevel, setGlucoseLevel] = useState(105); // mg/dL
   const [smokingStatus, setSmokingStatus] = useState("Chưa từng hút");
+  
+  // Custom switch for Self vs Other
+  const [isForSelf, setIsForSelf] = useState(true);
+
+  // Auto-fill from user profile and recent BMI history
+  useEffect(() => {
+    if (isForSelf && user) {
+      if (user.age) setAge(user.age);
+      if (user.gender) {
+        setGender(user.gender === "MALE" ? "Nam" : user.gender === "FEMALE" ? "Nữ" : "Khác");
+      }
+      if (user.medicalHistory) {
+        setHypertension(user.medicalHistory.hypertension || false);
+        setHeartDisease(user.medicalHistory.heartDisease || false);
+        setSmokingStatus(user.medicalHistory.smoking ? "Thường xuyên hút" : "Chưa từng hút");
+      }
+      
+      // Fill height, weight, glucose from latest personal measurement
+      if (bmiData && bmiData.length > 0) {
+        const recentSelfData = bmiData.find(item => item.isForSelf !== false);
+        if (recentSelfData) {
+          if (recentSelfData.height) setHeight(recentSelfData.height);
+          if (recentSelfData.weight) setWeight(recentSelfData.weight);
+          if (recentSelfData.glucoseLevel) setGlucoseLevel(recentSelfData.glucoseLevel);
+        }
+      }
+    } else if (!isForSelf) {
+      // Reset form to defaults when turned off
+      setAge(45);
+      setGender("Nam");
+      setHeight(170);
+      setWeight(65);
+      setHypertension(false);
+      setHeartDisease(false);
+      setGlucoseLevel(105);
+      setSmokingStatus("Chưa từng hút");
+    }
+  }, [isForSelf, user, bmiData]);
 
   // API response and UI states
   const [loading, setLoading] = useState(false);
@@ -101,6 +139,8 @@ const StrokeRiskScreen = () => {
 
       // Save to MongoDB History via Redux Thunk
       const historyPayload = {
+        age: Number(age),
+        isForSelf: isForSelf,
         height: Number(height),
         weight: Number(weight),
         bmi: Number(data.bmi),
@@ -202,6 +242,23 @@ const StrokeRiskScreen = () => {
 
             <form onSubmit={handleSubmit} className="space-y-6 font-inter-tight-small text-left">
               
+              {/* Toggle Self vs Other */}
+              <div className="bg-white p-4 rounded-xl border border-[#e5e7eb] flex items-center justify-between shadow-2xs">
+                <div>
+                  <h3 className="font-bold text-[#1F75C1] text-sm">Sử dụng hồ sơ của tôi</h3>
+                  <p className="text-[#858585] text-[10px] mt-0.5">Tự động điền tuổi, giới tính và tiền sử bệnh lý</p>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input 
+                    type="checkbox" 
+                    className="sr-only peer" 
+                    checked={isForSelf}
+                    onChange={(e) => setIsForSelf(e.target.checked)}
+                  />
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#7AB5E9]"></div>
+                </label>
+              </div>
+
               {/* Row 1: Age & Gender */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
