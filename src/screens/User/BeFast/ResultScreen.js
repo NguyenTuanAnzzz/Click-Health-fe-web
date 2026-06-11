@@ -20,6 +20,7 @@ import { getBefastAbnormalStatus } from '../../../features/befastRealtime';
 import { toHistoryTestPayload } from '../../../features/befastRealtime/utils/historyPayload';
 import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
+import API_URL from '../../../constants/apiConfig';
 
 const ResultScreen = () => {
   const navigate = useNavigate();
@@ -63,7 +64,7 @@ const ResultScreen = () => {
         try {
           const formData = new FormData();
           formData.append('video', videoBlob, 'befast_record.webm');
-          const res = await axios.post('http://localhost:9999/api/videos/upload', formData, {
+          const res = await axios.post(`${API_URL}/videos/upload`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
           });
           finalVideoKey = res.data.videoKey;

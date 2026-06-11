@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import API_URL from '../constants/apiConfig';
 
 // Component này chuyên dùng để phát video an toàn trong trang "Lịch Sử"
 const SecureVideoPlayer = ({ videoKey }) => {
@@ -12,7 +13,7 @@ const SecureVideoPlayer = ({ videoKey }) => {
     // Xin Backend cấp 1 cái link tạm thời (5 phút)
     const fetchSecureUrl = async () => {
       try {
-        const res = await axios.get(`http://localhost:9999/api/videos/play/${videoKey}`);
+        const res = await axios.get(`${API_URL}/videos/play/${videoKey}`);
         setVideoUrl(res.data.secureUrl);
       } catch (err) {
         console.error('Lỗi khi lấy video:', err);

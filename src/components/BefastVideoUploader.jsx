@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_URL from '../constants/apiConfig';
 
 // Component dùng ở trang "Kiểm tra BEFAST" để người dùng tải video lên
 const BefastVideoUploader = ({ onCheckAiAndSaveHistory }) => {
@@ -15,7 +16,7 @@ const BefastVideoUploader = ({ onCheckAiAndSaveHistory }) => {
       const formData = new FormData();
       formData.append('video', file);
 
-      const uploadRes = await axios.post('http://localhost:9999/api/videos/upload', formData, {
+      const uploadRes = await axios.post(`${API_URL}/videos/upload`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       
