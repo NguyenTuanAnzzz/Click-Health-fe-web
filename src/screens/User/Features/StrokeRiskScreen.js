@@ -31,7 +31,7 @@ const StrokeRiskScreen = () => {
   // Custom switch for Self vs Other
   const [isForSelf, setIsForSelf] = useState(true);
 
-  // Auto-fill from user profile
+  // Auto-fill from user profile and recent BMI history
   useEffect(() => {
     if (isForSelf && user) {
       if (user.age) setAge(user.age);
@@ -43,8 +43,28 @@ const StrokeRiskScreen = () => {
         setHeartDisease(user.medicalHistory.heartDisease || false);
         setSmokingStatus(user.medicalHistory.smoking ? "Thường xuyên hút" : "Chưa từng hút");
       }
+      
+      // Fill height, weight, glucose from latest personal measurement
+      if (bmiData && bmiData.length > 0) {
+        const recentSelfData = bmiData.find(item => item.isForSelf !== false);
+        if (recentSelfData) {
+          if (recentSelfData.height) setHeight(recentSelfData.height);
+          if (recentSelfData.weight) setWeight(recentSelfData.weight);
+          if (recentSelfData.glucoseLevel) setGlucoseLevel(recentSelfData.glucoseLevel);
+        }
+      }
+    } else if (!isForSelf) {
+      // Reset form to defaults when turned off
+      setAge(45);
+      setGender("Nam");
+      setHeight(170);
+      setWeight(65);
+      setHypertension(false);
+      setHeartDisease(false);
+      setGlucoseLevel(105);
+      setSmokingStatus("Chưa từng hút");
     }
-  }, [isForSelf, user]);
+  }, [isForSelf, user, bmiData]);
 
   // API response and UI states
   const [loading, setLoading] = useState(false);
