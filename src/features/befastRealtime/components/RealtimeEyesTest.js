@@ -180,7 +180,7 @@ export default function RealtimeEyesTest({ onComplete }) {
   if (phase === 'COUNTDOWN') {
     const isNextRound = currentRound > 1;
     return (
-      <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-8 w-full shadow-lg border border-[#e5e7eb]/50 flex flex-col items-center justify-center min-h-96 text-center font-inter-tight-small">
+      <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-8 max-w-4xl mx-auto shadow-lg border border-[#e5e7eb]/50 flex flex-col items-center justify-center min-h-96 text-center font-inter-tight-small">
         <h2 className="text-2xl font-bold text-black mb-4">
           {isNextRound
             ? `Hãy quay trở lại vị trí cũ để chuẩn bị Vòng ${currentRound}!`
