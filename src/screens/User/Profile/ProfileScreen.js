@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ArrowLeft, Camera, Moon, Award, CheckCircle, LogOut, User, Zap, Trophy, Heart } from "lucide-react";
+import { ArrowLeft, Camera, Moon, Award, CheckCircle, LogOut, User, Zap, Trophy, Heart, Activity } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -8,25 +8,48 @@ import UserLayout from "../../../layouts/UserLayout";
 import { getInfo, logout, updateProfile } from "../../../store/slices/authSlice";
 import API_URL from "../../../constants/apiConfig";
 
-const PlanCard = ({ title, price, badge, selected, onClick }) => (
+const PlanCard = ({ title, price, badge, selected, onClick, subText }) => (
   <button
     type="button"
     onClick={onClick}
-    className={`relative flex-1 rounded-xl border p-6 text-left transition-all duration-300 shadow-2xs cursor-pointer
+    className={`relative flex-1 rounded-[32px] p-8 text-left transition-all duration-500 cursor-pointer overflow-hidden group
       ${selected 
-        ? 'border-[#7AB5E9] bg-white text-[#1F75C1] ring-2 ring-[#7AB5E9]/30 shadow-md shadow-[#7AB5E9]/10' 
-        : 'border-white/10 bg-white/5 text-white hover:bg-white/10 hover:border-white/20'}
+        ? 'bg-gradient-to-br from-white to-white/95 text-primary shadow-[0_20px_40px_rgba(0,0,0,0.2)] border-0 ring-4 ring-white/30 scale-105 z-10' 
+        : 'bg-white/5 border border-white/20 text-white hover:bg-white/10 hover:border-white/40 hover:-translate-y-2 hover:shadow-xl backdrop-blur-md'}
     `}
   >
+    {/* Background glow for selected state */}
+    {selected && (
+      <div className="absolute -top-20 -right-20 w-40 h-40 bg-secondary-container/20 rounded-full blur-[30px] pointer-events-none" />
+    )}
+    
     {badge && (
-      <div className="absolute -top-3 right-4 rounded-full bg-[#d32f2f] px-2.5 py-0.5 shadow-2xs z-20">
-        <span className="text-[9px] font-extrabold text-white uppercase tracking-wider">{badge}</span>
+      <div className="absolute top-0 right-6 rounded-b-xl bg-gradient-to-b from-error to-pink-600 px-4 py-2 shadow-lg shadow-error/30 z-20">
+        <span className="text-[10px] font-black text-white uppercase tracking-widest block transform origin-top animate-pulse">{badge}</span>
       </div>
     )}
-    <h4 className={`text-[10px] font-extrabold uppercase mb-2 tracking-widest ${selected ? 'text-[#7AB5E9]' : 'text-white/50'}`}>
-      {title}
-    </h4>
-    <p className={`text-2xl font-bold leading-none font-inter ${selected ? 'text-[#1F75C1]' : 'text-white'}`}>{price}</p>
+    
+    <div className="relative z-10">
+      <div className="flex items-center justify-between mb-4">
+        <h4 className={`text-[13px] font-extrabold uppercase tracking-widest ${selected ? 'text-primary/70' : 'text-white/70'}`}>
+          {title}
+        </h4>
+        {selected && (
+          <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
+            <CheckCircle size={14} className="text-primary" strokeWidth={3} />
+          </div>
+        )}
+      </div>
+      <div className="flex items-baseline gap-1 mt-6">
+        <p className={`text-4xl lg:text-5xl font-black leading-none font-headline tracking-tighter ${selected ? 'text-primary' : 'text-white'}`}>
+          {price.replace('₫', '')}
+        </p>
+        <span className={`text-xl font-bold ${selected ? 'text-primary/60' : 'text-white/60'}`}>₫</span>
+      </div>
+      <p className={`mt-3 text-[13px] font-semibold ${selected ? 'text-primary/60' : 'text-white/50'}`}>
+        {subText || "Thanh toán"}
+      </p>
+    </div>
   </button>
 );
 
@@ -36,7 +59,6 @@ const ProfileScreen = () => {
   const { user, loading: authLoading } = useSelector((state) => state.auth);
   const { t } = useTranslation();
 
-  const [darkMode, setDarkMode] = useState(localStorage.getItem('theme') === 'dark');
   const [isEditing, setIsEditing] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState("yearly");
   const [paymentLoading, setPaymentLoading] = useState(false);
@@ -76,17 +98,6 @@ const ProfileScreen = () => {
       });
     }
   }, [user]);
-
-  // Apply dark mode
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [darkMode]);
 
   const handleLogout = () => {
     if (window.confirm("Bạn có chắc chắn muốn đăng xuất?")) {
@@ -173,9 +184,9 @@ const ProfileScreen = () => {
 
   return (
     <UserLayout noPaddingTop>
-      <div className="bg-[#1F75C1] pt-32 pb-16 px-4 md:px-8 lg:px-12 border-b border-[#e5e7eb]/10 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-full h-full pattern-grid-lg opacity-5" />
-        <div className="max-w-[1000px] mx-auto relative z-10">
+      <div className="bg-primary pt-32 pb-16 px-4 md:px-8 lg:px-12 border-b border-white/10 relative overflow-hidden font-body">
+        <div className="absolute top-0 right-0 w-full h-full pattern-grid-lg opacity-10" />
+        <div className="max-w-[1200px] mx-auto relative z-10">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="relative group">
                <input
@@ -185,7 +196,7 @@ const ProfileScreen = () => {
                  accept="image/*"
                  onChange={handleAvatarChange}
                />
-               <div className="w-32 h-32 rounded-2xl bg-white/10 border border-white/20 overflow-hidden shadow-lg transition-transform">
+               <div className="w-32 h-32 md:w-40 md:h-40 rounded-[32px] bg-white/10 border border-white/20 overflow-hidden shadow-2xl transition-transform backdrop-blur-md">
                   {isEditing ? (
                     formData.avatar ? (
                       <img src={formData.avatar} alt="Avatar" className="w-full h-full object-cover" />
@@ -205,35 +216,35 @@ const ProfileScreen = () => {
                <button 
                  type="button"
                  onClick={() => fileInputRef.current?.click()}
-                 className="absolute -bottom-2 -right-2 bg-white text-[#1F75C1] p-2.5 rounded-full border border-[#e5e7eb] shadow-md hover:bg-[#f0f1f2] transition-colors cursor-pointer"
+                 className="absolute -bottom-3 -right-3 bg-white text-primary p-3.5 rounded-full border border-white shadow-xl hover:scale-105 transition-all cursor-pointer"
                >
-                 <Camera size={18} />
+                 <Camera size={20} />
                </button>
             </div>
             
-            <div className="text-center md:text-left flex-1">
-               <h1 className="text-4xl md:text-5xl font-semibold text-white leading-none mb-3 font-inter">
+            <div className="text-center md:text-left flex-1 mt-4 md:mt-0">
+               <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-none mb-4 font-headline tracking-tight">
                  {user?.fullName || "Người dùng"}
                </h1>
-               <p className="text-[#BEDBF4] font-bold tracking-wider uppercase text-xs mb-4">Mã số: #{user?._id?.slice(-6).toUpperCase()}</p>
+               <p className="text-white/70 font-bold tracking-widest uppercase text-xs mb-5">Mã số: #{user?._id?.slice(-6).toUpperCase()}</p>
                <div className="flex flex-wrap justify-center md:justify-start gap-3">
-                 <span className="bg-white/10 text-white px-3 py-1 rounded-sm text-[11px] font-medium border border-white/20 uppercase tracking-wider">{user?.email}</span>
-                 <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-sm text-[11px] font-medium border border-green-500/30 uppercase tracking-wider">Trạng thái: Hoạt động</span>
+                 <span className="bg-white/10 text-white px-4 py-1.5 rounded-full text-[12px] font-bold border border-white/20 uppercase tracking-wider backdrop-blur-sm">{user?.email}</span>
+                 <span className="bg-green-400/20 text-green-300 px-4 py-1.5 rounded-full text-[12px] font-bold border border-green-400/30 uppercase tracking-wider backdrop-blur-sm">Trạng thái: Hoạt động</span>
                </div>
             </div>
 
-            <div className="flex gap-4">
+            <div className="flex gap-4 mt-6 md:mt-0">
               {!isEditing ? (
                 <button 
                   onClick={() => setIsEditing(true)}
-                  className="btn-activation-filled text-sm font-semibold tracking-tight shadow-md hover:shadow-lg cursor-pointer"
+                  className="bg-white text-primary px-8 py-4 rounded-full font-bold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all cursor-pointer text-[14px]"
                 >
                   Chỉnh sửa hồ sơ
                 </button>
               ) : (
                 <button 
                   onClick={() => setIsEditing(false)}
-                  className="px-6 py-2.5 rounded-full border border-red-500 text-red-500 hover:bg-red-50 transition-all font-medium text-sm shadow-2xs cursor-pointer"
+                  className="px-8 py-4 rounded-full border-2 border-error/50 text-error hover:bg-error/10 transition-all font-bold text-[14px] cursor-pointer"
                 >
                   Hủy bỏ
                 </button>
@@ -243,36 +254,36 @@ const ProfileScreen = () => {
         </div>
       </div>
 
-      <div className="max-w-[1000px] mx-auto px-4 md:px-8 lg:px-12 py-16">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-8 lg:px-12 py-16 font-body">
         {isEditing ? (
-          <form onSubmit={handleSaveProfile} className="bg-white rounded-2xl border border-[#e5e7eb] p-8 space-y-8 shadow-sm">
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase text-[#151515] tracking-wider ml-1">Họ và Tên</label>
+          <form onSubmit={handleSaveProfile} className="bg-surface rounded-[32px] border border-outline-variant/60 p-8 md:p-12 space-y-8 shadow-xl">
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label className="text-[11px] font-extrabold uppercase text-on-surface-variant tracking-widest ml-2">Họ và Tên</label>
                   <input 
                     type="text" 
                     value={formData.fullName}
                     onChange={(e) => setFormData({...formData, fullName: e.target.value})}
-                    className="w-full bg-white border border-[#e5e7eb] rounded-full px-5 py-3 text-black text-sm font-medium focus:ring-2 focus:ring-[#7AB5E9]/20 focus:border-[#7AB5E9] outline-none transition-all placeholder-[#999999]"
+                    className="w-full bg-surface-container-lowest border border-outline-variant/60 rounded-full px-6 py-4 text-on-surface text-[15px] font-bold focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder-on-surface-variant/50"
                     placeholder="Nhập tên của bạn..."
                   />
                 </div>
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase text-[#151515] tracking-wider ml-1">Tuổi</label>
+                <div className="space-y-2">
+                  <label className="text-[11px] font-extrabold uppercase text-on-surface-variant tracking-widest ml-2">Tuổi</label>
                   <input 
                     type="number" 
                     value={formData.age}
                     onChange={(e) => setFormData({...formData, age: e.target.value})}
-                    className="w-full bg-white border border-[#e5e7eb] rounded-full px-5 py-3 text-black text-sm font-medium focus:ring-2 focus:ring-[#7AB5E9]/20 focus:border-[#7AB5E9] outline-none transition-all placeholder-[#999999]"
+                    className="w-full bg-surface-container-lowest border border-outline-variant/60 rounded-full px-6 py-4 text-on-surface text-[15px] font-bold focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder-on-surface-variant/50"
                     placeholder="Tuổi..."
                   />
                 </div>
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase text-[#151515] tracking-wider ml-1">Giới tính</label>
+                <div className="space-y-2">
+                  <label className="text-[11px] font-extrabold uppercase text-on-surface-variant tracking-widest ml-2">Giới tính</label>
                   <select 
                     value={formData.gender}
                     onChange={(e) => setFormData({...formData, gender: e.target.value})}
-                    className="w-full bg-white border border-[#e5e7eb] rounded-full px-5 py-3 text-black text-sm font-medium focus:ring-2 focus:ring-[#7AB5E9]/20 focus:border-[#7AB5E9] outline-none cursor-pointer"
+                    className="w-full bg-surface-container-lowest border border-outline-variant/60 rounded-full px-6 py-4 text-on-surface text-[15px] font-bold focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none cursor-pointer appearance-none"
                   >
                     <option value="MALE">Nam</option>
                     <option value="FEMALE">Nữ</option>
@@ -281,8 +292,8 @@ const ProfileScreen = () => {
                 </div>
              </div>
 
-             <div className="space-y-4">
-                <label className="text-xs font-semibold uppercase text-[#151515] tracking-wider ml-1">Tiền sử bệnh lý</label>
+             <div className="space-y-4 pt-4 border-t border-outline-variant/40">
+                <label className="text-[11px] font-extrabold uppercase text-on-surface-variant tracking-widest ml-2">Tiền sử bệnh lý</label>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {Object.entries(formData.medicalHistory).map(([key, value]) => (
                     <button
@@ -292,132 +303,139 @@ const ProfileScreen = () => {
                         ...formData, 
                         medicalHistory: { ...formData.medicalHistory, [key]: !value }
                       })}
-                      className={`px-5 py-3.5 rounded-full border text-xs font-semibold transition-all flex items-center justify-between cursor-pointer
+                      className={`px-6 py-4 rounded-2xl border-2 text-[14px] font-bold transition-all flex items-center justify-between cursor-pointer
                         ${value 
-                          ? 'bg-[#7AB5E9]/10 text-[#1F75C1] border-[#7AB5E9] shadow-2xs' 
-                          : 'bg-white text-[#858585] border-[#e5e7eb] hover:border-[#7AB5E9]/30'}
+                          ? 'bg-primary/10 text-primary border-primary shadow-sm' 
+                          : 'bg-surface text-on-surface-variant border-outline-variant/60 hover:border-primary/30 hover:bg-surface-container-lowest'}
                       `}
                     >
-                      <span>{key === 'hypertension' ? 'Huyết áp cao' : key === 'diabetes' ? 'Tiểu đường' : 'Bệnh tim'}</span>
-                      {value && <CheckCircle size={14} className="text-[#7AB5E9]" strokeWidth={3} />}
+                      <span>{key === 'hypertension' ? 'Huyết áp cao' : key === 'diabetes' ? 'Tiểu đường' : 'Bệnh tim mạch'}</span>
+                      {value && <CheckCircle size={18} className="text-primary" strokeWidth={3} />}
                     </button>
                   ))}
                 </div>
              </div>
 
-             <div className="pt-8 border-t border-[#e5e7eb] flex justify-center">
+             <div className="pt-8 flex justify-center">
                 <button 
                   type="submit"
                   disabled={authLoading}
-                  className="btn-activation-filled text-sm font-semibold tracking-tight min-w-[200px] py-3.5 cursor-pointer shadow-md hover:shadow-lg"
+                  className="bg-primary text-on-primary text-[15px] font-bold tracking-wide min-w-[240px] py-4 rounded-full cursor-pointer shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all disabled:opacity-50"
                 >
                   {authLoading ? "Đang lưu thông tin..." : "Lưu hồ sơ sức khỏe"}
                 </button>
              </div>
           </form>
         ) : (
-          <div className="space-y-12">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-[#f0f1f2] rounded-2xl p-6 border border-transparent hover:border-[#7AB5E9]/25 transition-all text-center shadow-2xs">
-                 <p className="text-[10px] font-extrabold text-[#858585] uppercase tracking-widest mb-2 font-inter-tight-small">Độ tuổi</p>
-                 <p className="text-3xl font-bold text-[#1F75C1] font-inter">{user?.age || "--"} tuổi</p>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            
+            {/* Left Column: Stats & Settings */}
+            <div className="lg:col-span-1 space-y-8">
+              {/* Stats Card */}
+              <div className="bg-surface rounded-[32px] border border-outline-variant/60 p-8 shadow-sm relative overflow-hidden group hover:border-primary/30 hover:shadow-lg transition-all duration-500">
+                 <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/5 rounded-full blur-[20px] pointer-events-none group-hover:bg-primary/10 transition-colors duration-500" />
+                 <h3 className="text-[18px] font-extrabold text-on-surface mb-6 border-b border-outline-variant/40 pb-5 font-headline flex items-center gap-3">
+                   <Activity size={20} className="text-primary" />
+                   Sinh trắc học
+                 </h3>
+                 <div className="space-y-6 relative z-10">
+                    <div className="flex items-center justify-between">
+                       <p className="text-[12px] font-extrabold text-on-surface-variant uppercase tracking-widest">Độ tuổi</p>
+                       <p className="text-xl font-extrabold text-primary font-headline">{user?.age || "--"} <span className="text-[14px] font-semibold text-on-surface-variant">tuổi</span></p>
+                    </div>
+                    <div className="flex items-center justify-between">
+                       <p className="text-[12px] font-extrabold text-on-surface-variant uppercase tracking-widest">Giới tính</p>
+                       <p className="text-xl font-extrabold text-primary font-headline">{user?.gender === 'MALE' ? 'Nam' : user?.gender === 'FEMALE' ? 'Nữ' : '--'}</p>
+                    </div>
+                    <div className="flex items-center justify-between pt-2 border-t border-outline-variant/30">
+                       <p className="text-[12px] font-extrabold text-on-surface-variant uppercase tracking-widest">Sức khỏe</p>
+                       <span className="inline-block text-[11px] font-extrabold bg-green-500/10 text-green-600 px-3 py-1 rounded-md uppercase tracking-wider border border-green-500/20">Bình thường</span>
+                    </div>
+                 </div>
               </div>
-              <div className="bg-[#f0f1f2] rounded-2xl p-6 border border-transparent hover:border-[#7AB5E9]/25 transition-all text-center shadow-2xs">
-                 <p className="text-[10px] font-extrabold text-[#858585] uppercase tracking-widest mb-2 font-inter-tight-small">Giới tính</p>
-                 <p className="text-3xl font-bold text-[#1F75C1] font-inter">{user?.gender === 'MALE' ? 'Nam' : user?.gender === 'FEMALE' ? 'Nữ' : '--'}</p>
-              </div>
-              <div className="bg-[#f0f1f2] rounded-2xl p-6 border border-transparent hover:border-[#7AB5E9]/25 transition-all text-center shadow-2xs">
-                 <p className="text-[10px] font-extrabold text-[#858585] uppercase tracking-widest mb-2 font-inter-tight-small">Sức khỏe</p>
-                 <p className="text-3xl font-bold text-[#7AB5E9] font-inter">Bình thường</p>
-              </div>
-            </div>
 
-            {/* VIP Upgrade Section */}
-            <div className="relative rounded-2xl bg-[#1F75C1] text-white p-10 overflow-hidden shadow-lg border border-white/5">
-                <div className="absolute top-0 right-0 w-full h-full pattern-grid-lg opacity-5" />
-                <div className="relative z-10">
-                    <div className="flex justify-between items-start mb-10">
-                        <div>
-                            <div className="inline-block bg-[#7AB5E9]/15 text-[#BEDBF4] px-3.5 py-1 rounded-full font-bold uppercase text-[9px] mb-4 border border-[#7AB5E9]/20 font-inter-tight-small">Gói dịch vụ cao cấp</div>
-                            <h3 className="text-3xl md:text-4xl font-bold leading-tight font-inter">Nâng cấp <span className="text-[#BEDBF4]">Click VIP</span></h3>
-                            <p className="text-white/60 font-medium mt-2 text-sm">Mở khóa tính năng tầm soát không giới hạn và báo cáo phân tích chi tiết.</p>
-                        </div>
-                        <div className="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center border border-white/10 shadow-sm">
-                            <Award size={28} className="text-[#BEDBF4]" />
-                        </div>
-                    </div>
-
-                    <div className="flex flex-col md:flex-row gap-6 mb-10">
-                        <PlanCard 
-                            title="Gói tháng"
-                            price="49,000₫"
-                            selected={selectedPlan === "monthly"}
-                            onClick={() => setSelectedPlan("monthly")}
-                        />
-                        <PlanCard 
-                            title="Gói năm"
-                            price="490,000₫"
-                            badge="Tiết kiệm"
-                            selected={selectedPlan === "yearly"}
-                            onClick={() => setSelectedPlan("yearly")}
-                        />
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
-                        {["Quét dấu hiệu không giới hạn", "Báo cáo phân tích chuyên sâu", "Hỗ trợ ưu tiên 24/7", "Lưu trữ lịch sử tầm soát"].map((f, i) => (
-                            <div key={i} className="flex items-center gap-3">
-                                <CheckCircle size={16} className="text-[#7AB5E9]" strokeWidth={3} />
-                                <span className="font-semibold text-white/80 text-sm">{f}</span>
-                            </div>
-                        ))}
-                    </div>
-
-                    <button 
-                        onClick={handleUpgrade}
-                        disabled={paymentLoading}
-                        className="w-full bg-[#7AB5E9] text-white py-4.5 rounded-full font-bold shadow-md hover:bg-[#5CA5E4] hover:shadow-lg transition-all flex items-center justify-center gap-2 text-md font-inter-tight-small cursor-pointer disabled:opacity-50"
-                    >
-                        {paymentLoading ? (
-                            <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        ) : (
-                            <>
-                                <span>NÂNG CẤP QUA PAYOS</span>
-                                <Zap size={18} fill="currentColor" />
-                            </>
-                        )}
-                    </button>
-                </div>
-            </div>
-
-            <div className="bg-white rounded-2xl border border-[#e5e7eb] p-8 shadow-sm">
-              <h3 className="text-xl font-bold text-[#1F75C1] mb-6 border-b border-[#e5e7eb]/60 pb-4 font-inter">Cài đặt hệ thống</h3>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 bg-[#f0f1f2] rounded-xl border border-transparent">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center border border-[#e5e7eb] shadow-2xs">
-                      <Moon size={18} className="text-[#1F75C1]" />
-                    </div>
-                    <span className="font-bold text-[#1F75C1] text-sm">Chế độ tối (Dark Mode)</span>
-                  </div>
-                  <button 
-                    onClick={() => setDarkMode(!darkMode)}
-                    className={`w-12 h-6 rounded-full transition-all relative cursor-pointer
-                      ${darkMode ? 'bg-[#7AB5E9]' : 'bg-gray-300'}
-                    `}
-                  >
-                    <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all
-                      ${darkMode ? 'left-7' : 'left-1'}
-                    `} />
-                  </button>
-                </div>
-                
+              {/* Account Management Card */}
+              <div className="bg-surface rounded-[32px] border border-outline-variant/60 p-8 shadow-sm relative overflow-hidden group hover:border-error/20 hover:shadow-lg transition-all duration-500">
+                <div className="absolute -top-10 -right-10 w-40 h-40 bg-error/5 rounded-full blur-[20px] pointer-events-none group-hover:bg-error/10 transition-colors duration-500" />
+                <h3 className="text-[18px] font-extrabold text-on-surface mb-6 border-b border-outline-variant/40 pb-5 font-headline flex items-center gap-3">
+                  <User size={20} className="text-on-surface-variant" />
+                  Tài khoản
+                </h3>
+                <p className="text-on-surface-variant text-[13px] font-medium mb-6 leading-relaxed">Bảo mật tài khoản của bạn bằng cách đăng xuất khi không sử dụng trên thiết bị công cộng.</p>
                 <button 
                   onClick={handleLogout}
-                  className="w-full flex items-center justify-center gap-2 py-4 rounded-full border border-red-500/30 text-red-500 font-bold hover:bg-red-50 transition-all shadow-2xs cursor-pointer text-sm"
+                  className="w-full flex items-center justify-between px-6 py-4 rounded-2xl border border-error/30 bg-error/5 text-error font-extrabold hover:bg-error hover:text-white hover:border-error hover:shadow-lg hover:shadow-error/30 transition-all duration-300 cursor-pointer text-[14px] group/btn"
                 >
-                  <LogOut size={16} />
-                  Đăng xuất tài khoản
+                  <span className="tracking-wide">ĐĂNG XUẤT</span>
+                  <LogOut size={18} className="transform group-hover/btn:translate-x-1 transition-transform" />
                 </button>
+              </div>
+            </div>
+
+            {/* Right Column: VIP Upgrade */}
+            <div className="lg:col-span-2 flex flex-col">
+              {/* VIP Upgrade Section */}
+              <div className="relative rounded-[40px] bg-gradient-to-br from-[#0A2540] to-primary text-white p-10 md:p-14 overflow-hidden shadow-[0_20px_50px_rgba(10,37,64,0.3)] border border-white/10 flex-1 flex flex-col justify-center group">
+                  <div className="absolute top-0 right-0 w-full h-full pattern-grid-lg opacity-[0.05] group-hover:opacity-10 transition-opacity duration-1000" />
+                  <div className="absolute top-[-150px] right-[-150px] w-[500px] h-[500px] bg-[#3B82F6]/20 rounded-full blur-[100px] pointer-events-none group-hover:bg-[#3B82F6]/30 transition-colors duration-1000" />
+                  
+                  <div className="relative z-10">
+                      <div className="flex flex-col md:flex-row justify-between items-start mb-12 gap-6">
+                          <div>
+                              <div className="inline-block bg-white/10 text-white px-4 py-1.5 rounded-full font-bold uppercase text-[10px] mb-6 border border-white/20 tracking-wider backdrop-blur-sm shadow-sm">Gói dịch vụ cao cấp</div>
+                              <h3 className="text-4xl md:text-5xl font-extrabold leading-tight font-headline">Nâng cấp <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#60A5FA] to-[#93C5FD]">Click VIP</span></h3>
+                              <p className="text-white/70 font-medium mt-4 text-[16px] max-w-lg leading-relaxed">Mở khóa tính năng tầm soát không giới hạn và báo cáo phân tích y khoa chuyên sâu từ AI ngay hôm nay.</p>
+                          </div>
+                          <div className="w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-700 relative">
+                              <div className="absolute inset-0 bg-blue-400/20 rounded-full blur-[20px] -z-10 animate-pulse"></div>
+                              <img src="/money.png" alt="Money 3D Icon" className="w-full h-full object-contain drop-shadow-2xl" />
+                          </div>
+                      </div>
+
+                      <div className="flex flex-col md:flex-row gap-6 mb-12">
+                          <PlanCard 
+                              title="Gói tháng"
+                              price="49,000₫"
+                              subText="/ 1 tháng"
+                              selected={selectedPlan === "monthly"}
+                              onClick={() => setSelectedPlan("monthly")}
+                          />
+                          <PlanCard 
+                              title="Gói năm"
+                              price="490,000₫"
+                              subText="/ 12 tháng"
+                              badge="Khuyên dùng"
+                              selected={selectedPlan === "yearly"}
+                              onClick={() => setSelectedPlan("yearly")}
+                          />
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-12">
+                          {["Quét dấu hiệu không giới hạn", "Báo cáo phân tích chuyên sâu", "Hỗ trợ ưu tiên 24/7", "Lưu trữ lịch sử tầm soát"].map((f, i) => (
+                              <div key={i} className="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                                  <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center shrink-0">
+                                    <CheckCircle size={16} className="text-green-400" strokeWidth={3} />
+                                  </div>
+                                  <span className="font-bold text-white/90 text-[14px]">{f}</span>
+                              </div>
+                          ))}
+                      </div>
+
+                      <button 
+                          onClick={handleUpgrade}
+                          disabled={paymentLoading}
+                          className="w-full bg-white text-[#0A2540] py-5 rounded-[24px] font-black shadow-[0_10px_30px_rgba(255,255,255,0.2)] hover:scale-[1.02] hover:shadow-[0_15px_40px_rgba(255,255,255,0.3)] transition-all duration-300 flex items-center justify-center gap-3 text-[16px] cursor-pointer disabled:opacity-50 group/pay"
+                      >
+                          {paymentLoading ? (
+                              <div className="w-6 h-6 border-2 border-[#0A2540]/30 border-t-[#0A2540] rounded-full animate-spin" />
+                          ) : (
+                              <>
+                                  <span className="tracking-wide">NÂNG CẤP QUA PAYOS NGAY</span>
+                                  <Zap size={20} fill="currentColor" className="text-[#3B82F6] group-hover/pay:scale-125 transition-transform" />
+                              </>
+                          )}
+                      </button>
+                  </div>
               </div>
             </div>
           </div>

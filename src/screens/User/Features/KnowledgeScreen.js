@@ -30,7 +30,7 @@ const THEORY_CARDS = [
   {
     id: 1,
     icon: BookOpen,
-    iconColor: "text-[#7AB5E9]",
+    iconColor: "text-secondary-container",
     title: "Đột quỵ là gì?",
     summary: "Cấp cứu: máu não bị gián đoạn do tắc hoặc chảy máu.",
     content:
@@ -40,7 +40,7 @@ const THEORY_CARDS = [
   {
     id: 2,
     icon: Layers,
-    iconColor: "text-[#1F75C1]",
+    iconColor: "text-primary",
     title: "Các dạng đột quỵ",
     summary: "Nhồi máu não, xuất huyết não và cơn thiếu máu não thoáng qua.",
     content:
@@ -52,7 +52,7 @@ const THEORY_CARDS = [
   {
     id: 3,
     icon: AlertTriangle,
-    iconColor: "text-[#ef4444]",
+    iconColor: "text-error",
     title: "Triệu chứng & ghi nhớ FAST/BE-FAST",
     summary: "Mặt, cánh tay, lời nói, thời gian; thêm thăng bằng và thị lực.",
     content:
@@ -67,7 +67,7 @@ const THEORY_CARDS = [
   {
     id: 4,
     icon: Clock,
-    iconColor: "text-[#dc2626]",
+    iconColor: "text-error",
     title: "Vì sao cần vào viện ngay?",
     summary: "Chẩn đoán sớm, điều trị tái thông có hạn thời gian.",
     content:
@@ -79,7 +79,7 @@ const THEORY_CARDS = [
   {
     id: 5,
     icon: ShieldCheck,
-    iconColor: "text-[#16a34a]",
+    iconColor: "text-green-600",
     title: "Yếu tố nguy cơ",
     summary: "Nguy cơ có thể can thiệp và nguy cơ không thay đổi.",
     content:
@@ -89,7 +89,7 @@ const THEORY_CARDS = [
   {
     id: 6,
     icon: HeartPulse,
-    iconColor: "text-[#db2777]",
+    iconColor: "text-pink-600",
     title: "Phòng ngừa đột quỵ",
     summary: "Kiểm soát huyết áp, bỏ thuốc lá, ăn uống và vận động.",
     content:
@@ -106,7 +106,7 @@ const THEORY_CARDS = [
   {
     id: 7,
     icon: Info,
-    iconColor: "text-[#ca8a04]",
+    iconColor: "text-yellow-600",
     title: "Biến chứng có thể gặp",
     summary: "Phù não, khó nuốt, suy giảm nhận thức và đau mạn tính.",
     content:
@@ -117,7 +117,7 @@ const THEORY_CARDS = [
   {
     id: 8,
     icon: PhoneCall,
-    iconColor: "text-[#2563eb]",
+    iconColor: "text-blue-600",
     title: "Xử trí khi nghi ngờ đột quỵ",
     summary: "Gọi cấp cứu ngay, không tự lái xe và không dùng thuốc tự ý.",
     content:
@@ -133,37 +133,39 @@ const KnowledgeScreen = () => {
 
   return (
     <UserLayout>
-      <div className="w-full max-w-[1200px] mx-auto px-6 mt-8 pb-24">
+      <div className="w-full max-w-[1200px] mx-auto px-6 mt-8 pb-24 font-body">
         <button
           onClick={() => navigate(-1)}
-          className="inline-flex items-center gap-2 text-[#858585] hover:text-black transition-colors mb-8 text-xs uppercase tracking-wider font-bold"
+          className="inline-flex items-center gap-2 text-on-surface-variant hover:text-on-surface transition-colors mb-8 text-xs uppercase tracking-wider font-extrabold cursor-pointer"
         >
           <ArrowLeft size={16} /> Quay lại
         </button>
 
-        <div className="rounded-[24px] bg-[#ffffff] border border-[#e5e7eb] p-8 shadow-sm">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-10">
-            <div>
-              <p className="text-[#7AB5E9] font-bold text-[11px] uppercase tracking-[0.3em] mb-3">
-                Kiến thức đột quỵ
+        <div className="rounded-[32px] bg-surface border border-outline-variant/60 p-8 md:p-12 shadow-sm">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 mb-12">
+            <div className="flex-1">
+              <p className="text-secondary-container font-extrabold text-[12px] uppercase tracking-[0.3em] mb-4">
+                Thư viện Y khoa
               </p>
-              <h1 className="text-[34px] md:text-[42px] font-bold text-black leading-tight tracking-tight mb-4">
+              <h1 className="text-4xl md:text-5xl font-extrabold text-on-surface leading-tight tracking-tight mb-5 font-headline">
                 Kiến thức đột quỵ
               </h1>
-              <p className="text-[#525252] text-[15px] leading-relaxed max-w-2xl">
-                Tổng hợp nội dung giáo dục sức khỏe về đột quỵ, bao gồm định nghĩa, triệu chứng, cấp cứu, phòng ngừa và phục hồi, theo các nguồn y tế tiêu chuẩn.
+              <p className="text-on-surface-variant text-[16px] leading-relaxed max-w-2xl font-medium">
+                Tổng hợp nội dung giáo dục sức khỏe về đột quỵ, bao gồm định nghĩa, triệu chứng, cấp cứu, phòng ngừa và phục hồi, theo các nguồn y tế tiêu chuẩn thế giới.
               </p>
             </div>
-            <div className="rounded-[24px] bg-[#f0f1f2] p-6 border border-[#e5e7eb] shadow-sm">
-              <div className="text-xs uppercase tracking-[0.25em] text-[#1F75C1] font-bold mb-3">Nguồn tham khảo</div>
-              <div className="space-y-3">
+            <div className="rounded-[24px] bg-surface-container-low p-8 border border-outline-variant/50 shadow-sm w-full lg:w-[350px] shrink-0">
+              <div className="text-[11px] uppercase tracking-[0.25em] text-primary font-extrabold mb-5 flex items-center gap-2">
+                <Info size={16} /> Nguồn tham khảo
+              </div>
+              <div className="space-y-4">
                 {REFERENCE_LINKS.map((item) => (
                   <a
                     key={item.id}
                     href={item.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="block text-[#1F75C1] font-semibold text-sm hover:text-[#7AB5E9] transition-colors"
+                    className="block text-primary font-bold text-[14px] hover:text-secondary-container transition-colors hover:translate-x-1 duration-300"
                   >
                     {item.label}
                   </a>
@@ -172,36 +174,38 @@ const KnowledgeScreen = () => {
             </div>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
+          <div className="grid gap-8 lg:grid-cols-[1fr_350px]">
             <div className="space-y-6">
               {THEORY_CARDS.map((card) => {
                 const Icon = card.icon;
                 const isOpen = openCard === card.id;
 
                 return (
-                  <div key={card.id} className="rounded-[24px] border border-[#e5e7eb] overflow-hidden shadow-sm">
+                  <div key={card.id} className="rounded-[24px] border border-outline-variant/60 overflow-hidden shadow-sm transition-all duration-300">
                     <button
                       type="button"
                       onClick={() => setOpenCard(isOpen ? null : card.id)}
-                      className="w-full flex items-center justify-between gap-4 px-6 py-5 bg-white hover:bg-[#f8fafc] transition-colors"
+                      className="w-full flex items-center justify-between gap-4 px-6 md:px-8 py-6 bg-surface hover:bg-surface-container-lowest transition-colors cursor-pointer"
                     >
-                      <div className="flex items-center gap-4">
-                        <div className={`w-12 h-12 rounded-2xl bg-[#eff6ff] flex items-center justify-center ${card.iconColor}`}>
-                          <Icon size={20} />
+                      <div className="flex items-center gap-5">
+                        <div className={`w-14 h-14 rounded-2xl bg-surface-container-low border border-outline-variant/50 flex items-center justify-center shadow-sm ${card.iconColor}`}>
+                          <Icon size={24} />
                         </div>
                         <div className="text-left">
-                          <h2 className="text-lg font-bold text-black">{card.title}</h2>
-                          <p className="text-sm text-[#575757] mt-1">{card.summary}</p>
+                          <h2 className="text-xl font-extrabold text-on-surface font-headline">{card.title}</h2>
+                          <p className="text-[14px] font-medium text-on-surface-variant mt-1.5">{card.summary}</p>
                         </div>
                       </div>
-                      <span className={`text-sm font-bold ${isOpen ? 'text-[#1F75C1]' : 'text-[#858585]'}`}>
+                      <span className={`text-[13px] font-extrabold uppercase tracking-widest ${isOpen ? 'text-primary' : 'text-on-surface-variant'}`}>
                         {isOpen ? 'Thu gọn' : 'Xem thêm'}
                       </span>
                     </button>
 
                     {isOpen && (
-                      <div className="px-6 pb-6 text-sm leading-relaxed text-[#424242] whitespace-pre-line bg-[#f8fafc]">
-                        {card.content}
+                      <div className="px-6 md:px-8 pb-8 pt-2 text-[15px] font-medium leading-relaxed text-on-surface-variant whitespace-pre-line bg-surface">
+                        <div className="p-6 rounded-[20px] bg-surface-container-lowest border border-outline-variant/40">
+                          {card.content}
+                        </div>
                       </div>
                     )}
                   </div>
@@ -210,21 +214,27 @@ const KnowledgeScreen = () => {
             </div>
 
             <div className="space-y-6">
-              <div className="rounded-[24px] bg-[#7AB5E9] text-white p-8 shadow-lg border border-[#7AB5E9]/20">
-                <div className="text-xs uppercase tracking-[0.3em] font-bold text-white/70 mb-4">Nội dung chính</div>
-                <ul className="space-y-3 text-sm leading-relaxed">
-                  {THEORY_CARDS.map((card) => (
-                    <li key={card.id} className="flex items-start gap-3">
-                      <span className="mt-1 inline-flex h-2.5 w-2.5 rounded-full bg-white" />
-                      <span>{card.title}</span>
-                    </li>
-                  ))}
-                </ul>
+              <div className="rounded-[32px] bg-primary text-white p-10 shadow-xl border border-primary/20 relative overflow-hidden">
+                <div className="absolute inset-0 pattern-grid-lg opacity-10" />
+                <div className="relative z-10">
+                  <div className="text-[11px] uppercase tracking-[0.3em] font-extrabold text-white/70 mb-6">Mục lục nội dung</div>
+                  <ul className="space-y-4 text-[14px] leading-relaxed font-bold">
+                    {THEORY_CARDS.map((card) => (
+                      <li key={card.id} className="flex items-start gap-4 hover:text-white/80 transition-colors cursor-pointer" onClick={() => setOpenCard(card.id)}>
+                        <span className={`mt-1.5 inline-flex h-2 w-2 rounded-full ${openCard === card.id ? 'bg-secondary-container' : 'bg-white/40'}`} />
+                        <span className={openCard === card.id ? 'text-secondary-container' : 'text-white'}>{card.title}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
 
-              <div className="rounded-[24px] bg-[#ffffff] border border-[#e5e7eb] p-8 shadow-sm">
-                <h3 className="text-xl font-bold text-black mb-4">Lưu ý quan trọng</h3>
-                <p className="text-[#585858] text-sm leading-relaxed">
+              <div className="rounded-[32px] bg-surface-container-low border border-outline-variant/50 p-8 shadow-sm">
+                <h3 className="text-xl font-extrabold text-on-surface mb-4 font-headline flex items-center gap-2">
+                  <AlertTriangle size={20} className="text-amber-500" />
+                  Lưu ý quan trọng
+                </h3>
+                <p className="text-on-surface-variant text-[14px] font-medium leading-relaxed">
                   Thông tin trong ứng dụng chỉ nhằm mục đích giáo dục sức khỏe cộng đồng. Mọi quyết định chẩn đoán, điều trị và dùng thuốc phải dựa trên khám trực tiếp và chỉ định của bác sĩ.
                 </p>
               </div>

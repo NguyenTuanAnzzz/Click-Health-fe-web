@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 const PublicRoute = () => {
   const { token } = useSelector((state) => state.auth);
 
-  return !token ? <Outlet /> : <Navigate to="/home" replace />;
+  return !token ? <Outlet /> : <Navigate to="/" replace />;
 };
 
 export default PublicRoute;

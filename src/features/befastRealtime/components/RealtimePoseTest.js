@@ -183,7 +183,7 @@ export default function RealtimePoseTest({
 
   if (phase === TEST_PHASE.RESULTS && analysisResult) {
     return (
-      <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-4 md:p-8 max-w-4xl mx-auto shadow-lg border border-[#e5e7eb]/50">
+      <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-4 md:p-8 w-full shadow-lg border border-[#e5e7eb]/50">
         <TestHeader Icon={Icon} config={config} />
         <ResultsPanel
           result={analysisResult}
@@ -195,7 +195,7 @@ export default function RealtimePoseTest({
   }
 
   return (
-    <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-4 md:p-8 max-w-4xl mx-auto shadow-lg font-inter-tight-small border border-[#e5e7eb]/50">
+    <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-4 md:p-8 w-full shadow-lg font-inter-tight-small border border-[#e5e7eb]/50">
       <TestHeader Icon={Icon} config={config} />
       <p className="text-[#6b7280] text-[15px] font-medium mb-2">{config.description}</p>
       <p className="text-[13px] text-[#9ca3af] mb-6">{config.prepHint}</p>
