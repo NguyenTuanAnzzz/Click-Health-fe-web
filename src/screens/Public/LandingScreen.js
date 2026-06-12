@@ -286,11 +286,11 @@ const LandingScreen = () => {
       <div className="py-8 bg-white border-t border-gray-100">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-block bg-[#F8FAFC] px-6 py-4 rounded-xl border border-gray-200 shadow-sm">
-             <h2 className="text-[13px] font-bold text-gray-500 mb-1.5 tracking-wider uppercase flex items-center justify-center gap-1.5">
-                <Activity size={14} className="text-gray-400" /> Lưu ý
+             <h2 className="text-[13px] uppercase tracking-wider font-bold text-red-500 mb-2 flex items-center justify-center gap-2">
+                <Activity size={14} className="text-red-500" /> Lưu ý
              </h2>
              <p className="text-gray-600 text-[14px] leading-relaxed font-medium">
-               Ứng dụng của chúng tôi chỉ hỗ trợ sàng lọc, cảnh báo sớm nguy cơ đột quỵ, <span className="font-bold text-gray-800">không thay thế bác sĩ</span>.
+               Website chỉ giúp sàng lọc, cảnh báo và phòng ngừa đột quỵ. <span className="font-bold text-gray-800">Không có tác dụng thay thế bác sĩ.</span><br />Nếu xuất hiện các triệu chứng xin vui lòng liên hệ tới <span className="font-bold text-red-500">115</span> để được hỗ trợ kịp thời.
              </p>
           </div>
         </div>
