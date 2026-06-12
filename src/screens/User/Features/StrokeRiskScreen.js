@@ -83,20 +83,20 @@ const StrokeRiskScreen = () => {
 
   // Real-time BMI category
   let bmiCategory = "Chưa xác định";
-  let bmiColor = "text-on-surface-variant bg-surface-container border-outline-variant/50";
+  let bmiColor = "text-gray-500 bg-gray-50 border-gray-200";
   if (bmi > 0) {
     if (bmi < 18.5) {
       bmiCategory = "Thiếu cân";
-      bmiColor = "text-primary bg-primary/10 border-primary/20";
+      bmiColor = "text-[#1F75C1] bg-[#1F75C1]/10 border-[#1F75C1]/20";
     } else if (bmi < 23.0) {
       bmiCategory = "Bình thường";
-      bmiColor = "text-primary bg-primary/10 border-primary/20";
+      bmiColor = "text-[#7AB5E9] bg-[#7AB5E9]/10 border-[#7AB5E9]/20";
     } else if (bmi < 25.0) {
       bmiCategory = "Thừa cân";
       bmiColor = "text-amber-600 bg-amber-50 border-amber-200";
     } else {
       bmiCategory = "Béo phì";
-      bmiColor = "text-error bg-error/10 border-error/20";
+      bmiColor = "text-red-600 bg-red-50 border-red-200";
     }
   }
 
@@ -169,9 +169,9 @@ const StrokeRiskScreen = () => {
 
   // Visual meter configurations
   const getRiskColor = (cat) => {
-    if (cat === "Thấp") return { text: "text-primary", bg: "bg-primary/10", border: "border-primary/20", stroke: "#1F75C1" };
-    if (cat === "Trung bình") return { text: "text-amber-500", bg: "bg-amber-500/10", border: "border-amber-500/20", stroke: "#f59e0b" };
-    return { text: "text-error", bg: "bg-error/10", border: "border-error/20", stroke: "#ef4444" };
+    if (cat === "Thấp") return { text: "text-[#7AB5E9]", bg: "bg-[#7AB5E9]/10", border: "border-[#7AB5E9]/20", stroke: "#7AB5E9" };
+    if (cat === "Trung bình") return { text: "text-amber-500", bg: "bg-amber-50", border: "border-amber-200", stroke: "#f59e0b" };
+    return { text: "text-red-500", bg: "bg-red-50", border: "border-red-200", stroke: "#ef4444" };
   };
 
   const currentRiskTheme = result ? getRiskColor(result.risk_category) : getRiskColor("Thấp");
@@ -182,37 +182,37 @@ const StrokeRiskScreen = () => {
 
   return (
     <UserLayout noPaddingTop={false}>
-      <div className="w-full max-w-[1200px] mx-auto px-6 mt-8 pb-24 bg-surface font-body">
+      <div className="w-full max-w-[1200px] mx-auto px-6 mt-8 pb-24 bg-[#ffffff]">
         
         {/* Breadcrumb Navigation */}
         <button 
           onClick={() => navigate(-1)}
-          className="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors mb-6 font-bold text-sm uppercase tracking-wider"
+          className="flex items-center gap-2 text-[#858585] hover:text-black transition-colors mb-6 font-bold text-xs uppercase tracking-wider font-inter-tight-small"
         >
           <ArrowLeft size={14} /> Quay lại trang chủ
         </button>
 
         {/* Clinical Overhaul Banner */}
-        <div className="relative rounded-[32px] bg-primary text-white p-8 md:p-12 mb-12 overflow-hidden shadow-xl shadow-primary/20">
+        <div className="relative rounded-[24px] bg-[#1F75C1] text-white p-8 md:p-12 mb-12 overflow-hidden shadow-lg">
           <div className="absolute inset-0 pattern-grid-lg opacity-25 pointer-events-none" />
-          <div className="absolute bottom-[-100px] left-[-100px] w-96 h-96 bg-white/10 rounded-full blur-[100px] pointer-events-none" />
+          <div className="absolute bottom-[-100px] left-[-100px] w-96 h-96 bg-[#7AB5E9]/5 rounded-full blur-[100px] pointer-events-none" />
           
           <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
-            <div className="flex-1 text-left">
-              <div className="inline-block bg-white/15 text-white border border-white/30 px-4 py-1.5 rounded-full font-bold uppercase tracking-wider text-[15px] mb-6">
+            <div className="flex-1 text-left font-inter-tight-small">
+              <div className="inline-block bg-[#7AB5E9]/15 text-[#7AB5E9] border border-[#7AB5E9]/30 px-4 py-1.5 rounded-full font-bold uppercase tracking-wider text-[10px] mb-6">
                 Chẩn đoán lâm sàng & BMI
               </div>
-              <h1 className="text-4xl md:text-5xl font-extrabold font-headline text-white tracking-tight mb-4 leading-tight">
-                Tầm soát <span className="text-secondary-container">Nguy cơ Đột quỵ</span>
+              <h1 className="text-3xl md:text-5xl font-bold font-inter text-white tracking-tight mb-4 leading-tight">
+                Tầm soát <span className="text-[#7AB5E9]">Nguy cơ Đột quỵ</span>
               </h1>
-              <p className="text-white/80 text-[15px] font-medium leading-relaxed max-w-xl">
+              <p className="text-white/70 text-[14px] font-medium leading-relaxed max-w-xl">
                 Cung cấp chỉ số cân nặng BMI, kết hợp các nguy cơ tiền sử bệnh nền huyết áp, tim mạch và thói quen sinh hoạt để phân tích nguy cơ tai biến mạch máu não tức thì.
               </p>
             </div>
             
             {/* Elegant side icon */}
-            <div className="hidden lg:flex w-24 h-24 bg-white/10 rounded-[24px] border border-white/15 items-center justify-center shadow-lg backdrop-blur-sm">
-              <Brain size={44} className="text-white" />
+            <div className="hidden lg:flex w-24 h-24 bg-white/10 rounded-[24px] border border-white/15 items-center justify-center shadow-lg">
+              <Brain size={44} className="text-[#BEDBF4]" />
             </div>
           </div>
         </div>
@@ -221,17 +221,17 @@ const StrokeRiskScreen = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* LEFT: Input Form Card */}
-          <div className="lg:col-span-7 bg-surface border border-outline-variant/60 rounded-[32px] p-6 md:p-8 shadow-sm">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-              <h2 className="text-2xl font-extrabold text-on-surface font-headline tracking-tight flex items-center gap-2">
-                <Activity size={22} className="text-primary" />
-                Nhập chỉ số sức khỏe
+          <div className="lg:col-span-7 bg-[#f0f1f2] border border-[#e5e7eb]/80 rounded-[24px] p-6 md:p-8 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+              <h2 className="text-xl font-bold text-[#1F75C1] font-inter tracking-tight flex items-center gap-2">
+                <Activity size={18} className="text-[#7AB5E9]" />
+                Nhập các chỉ số sức khỏe của bạn
               </h2>
               {user && (
-                <div className={`px-4 py-1.5 rounded-full text-[16px] font-extrabold border uppercase tracking-wider text-center shrink-0 ${
+                <div className={`px-3.5 py-1.5 rounded-full text-xs font-bold border uppercase tracking-wider text-center shrink-0 ${
                   hasActiveSub
-                    ? "bg-primary/10 border-primary/20 text-primary"
-                    : "bg-surface-container-high border-outline-variant text-on-surface-variant"
+                    ? "bg-[#7AB5E9]/15 border-[#7AB5E9]/30 text-[#7AB5E9]"
+                    : "bg-[#1F75C1]/10 border-[#1F75C1]/20 text-[#1F75C1]"
                 }`}>
                   {hasActiveSub
                     ? "Gói VIP - Vô hạn lượt"
@@ -240,13 +240,13 @@ const StrokeRiskScreen = () => {
               )}
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6 text-left">
+            <form onSubmit={handleSubmit} className="space-y-6 font-inter-tight-small text-left">
               
               {/* Toggle Self vs Other */}
-              <div className="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/50 flex items-center justify-between shadow-sm hover:border-primary/30 transition-colors">
+              <div className="bg-white p-4 rounded-xl border border-[#e5e7eb] flex items-center justify-between shadow-2xs">
                 <div>
-                  <h3 className="font-extrabold text-on-surface text-[18px]">Sử dụng hồ sơ của tôi</h3>
-                  <p className="text-on-surface-variant text-[15px] font-medium mt-1">Tự động điền tuổi, giới tính và tiền sử bệnh lý</p>
+                  <h3 className="font-bold text-[#1F75C1] text-sm">Sử dụng hồ sơ của tôi</h3>
+                  <p className="text-[#858585] text-[10px] mt-0.5">Tự động điền tuổi, giới tính và tiền sử bệnh lý</p>
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input 
@@ -255,14 +255,14 @@ const StrokeRiskScreen = () => {
                     checked={isForSelf}
                     onChange={(e) => setIsForSelf(e.target.checked)}
                   />
-                  <div className="w-12 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-outline-variant after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#7AB5E9]"></div>
                 </label>
               </div>
 
               {/* Row 1: Age & Gender */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-[16px] font-extrabold text-on-surface-variant uppercase tracking-wider mb-2">Độ tuổi</label>
+                  <label className="block text-xs font-bold text-[#1F75C1] uppercase tracking-wider mb-2">Độ tuổi</label>
                   <input
                     type="number"
                     min="1"
@@ -270,21 +270,21 @@ const StrokeRiskScreen = () => {
                     required
                     value={age}
                     onChange={(e) => setAge(e.target.value)}
-                    className="w-full bg-surface border border-outline-variant/60 rounded-xl px-4 py-4 text-on-surface font-extrabold focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors shadow-sm"
+                    className="w-full bg-white border border-[#e5e7eb] rounded-xl px-4 py-3 text-black font-bold focus:outline-none focus:border-[#7AB5E9] transition-colors shadow-2xs"
                   />
                 </div>
                 <div>
-                  <label className="block text-[16px] font-extrabold text-on-surface-variant uppercase tracking-wider mb-2">Giới tính</label>
+                  <label className="block text-xs font-bold text-[#1F75C1] uppercase tracking-wider mb-2">Giới tính</label>
                   <div className="grid grid-cols-3 gap-2">
                     {["Nam", "Nữ", "Khác"].map((item) => (
                       <button
                         key={item}
                         type="button"
                         onClick={() => setGender(item)}
-                        className={`py-4 rounded-xl font-extrabold text-[16px] transition-all duration-200 border ${
+                        className={`py-3 rounded-xl font-bold text-xs transition-all duration-200 border ${
                           gender === item
-                            ? "bg-primary border-primary text-white shadow-md shadow-primary/20"
-                            : "bg-surface border-outline-variant/60 text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface"
+                            ? "bg-[#7AB5E9] border-[#7AB5E9] text-white shadow-sm"
+                            : "bg-white border-[#e5e7eb] text-black hover:bg-[#e9eaec]"
                         }`}
                       >
                         {item}
@@ -297,7 +297,7 @@ const StrokeRiskScreen = () => {
               {/* Row 2: Height & Weight with real-time BMI indicator */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-[16px] font-extrabold text-on-surface-variant uppercase tracking-wider mb-2">Chiều cao (cm)</label>
+                  <label className="block text-xs font-bold text-[#1F75C1] uppercase tracking-wider mb-2">Chiều cao (cm)</label>
                   <input
                     type="number"
                     min="50"
@@ -305,11 +305,11 @@ const StrokeRiskScreen = () => {
                     required
                     value={height}
                     onChange={(e) => setHeight(e.target.value)}
-                    className="w-full bg-surface border border-outline-variant/60 rounded-xl px-4 py-4 text-on-surface font-extrabold focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors shadow-sm"
+                    className="w-full bg-white border border-[#e5e7eb] rounded-xl px-4 py-3 text-black font-bold focus:outline-none focus:border-[#7AB5E9] transition-colors shadow-2xs"
                   />
                 </div>
                 <div>
-                  <label className="block text-[16px] font-extrabold text-on-surface-variant uppercase tracking-wider mb-2">Cân nặng (kg)</label>
+                  <label className="block text-xs font-bold text-[#1F75C1] uppercase tracking-wider mb-2">Cân nặng (kg)</label>
                   <input
                     type="number"
                     min="10"
@@ -317,23 +317,23 @@ const StrokeRiskScreen = () => {
                     required
                     value={weight}
                     onChange={(e) => setWeight(e.target.value)}
-                    className="w-full bg-surface border border-outline-variant/60 rounded-xl px-4 py-4 text-on-surface font-extrabold focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors shadow-sm"
+                    className="w-full bg-white border border-[#e5e7eb] rounded-xl px-4 py-3 text-black font-bold focus:outline-none focus:border-[#7AB5E9] transition-colors shadow-2xs"
                   />
                 </div>
               </div>
 
               {/* Real-time BMI Display Box */}
-              <div className="bg-surface-container-lowest rounded-2xl p-5 border border-outline-variant/50 flex flex-col sm:flex-row items-center justify-between shadow-sm gap-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-primary/10 text-primary rounded-[14px] flex items-center justify-center">
-                    <Scale size={20} />
+              <div className="bg-white rounded-xl p-4 border border-[#e5e7eb] flex items-center justify-between shadow-2xs">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-[#7AB5E9]/10 text-[#7AB5E9] rounded-lg flex items-center justify-center">
+                    <Scale size={18} />
                   </div>
                   <div>
-                    <p className="text-[15px] font-extrabold text-on-surface-variant uppercase tracking-widest mb-0.5">Chỉ số BMI ước tính</p>
-                    <p className="text-xl font-extrabold font-headline text-on-surface">{bmi} <span className="text-[18px] font-medium text-on-surface-variant">kg/m²</span></p>
+                    <p className="text-[10px] font-bold text-[#858585] uppercase tracking-wider">Chỉ số BMI ước tính</p>
+                    <p className="text-lg font-bold text-black">{bmi} kg/m²</p>
                   </div>
                 </div>
-                <div className={`px-5 py-2 rounded-full border text-[15px] font-extrabold uppercase tracking-wider shadow-sm ${bmiColor}`}>
+                <div className={`px-4 py-1.5 rounded-full border text-[11px] font-bold uppercase tracking-wider ${bmiColor}`}>
                   {bmiCategory}
                 </div>
               </div>
@@ -341,10 +341,10 @@ const StrokeRiskScreen = () => {
               {/* Row 3: Hypertension & Heart Disease */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-[16px] font-extrabold text-on-surface-variant uppercase tracking-wider mb-2 flex items-center gap-1">
+                  <label className="block text-xs font-bold text-[#1F75C1] uppercase tracking-wider mb-2 flex items-center gap-1">
                     Cao huyết áp
-                    <span className="text-on-surface-variant cursor-help hover:text-primary transition-colors" title="Huyết áp lớn hơn 140/90 mmHg">
-                      <Info size={13} />
+                    <span className="text-[#858585] cursor-help" title="Huyết áp lớn hơn 140/90 mmHg">
+                      <Info size={11} />
                     </span>
                   </label>
                   <div className="grid grid-cols-2 gap-2">
@@ -356,10 +356,10 @@ const StrokeRiskScreen = () => {
                         key={opt.label}
                         type="button"
                         onClick={() => setHypertension(opt.value)}
-                        className={`py-4 rounded-xl font-extrabold text-[16px] transition-all duration-200 border ${
+                        className={`py-3 rounded-xl font-bold text-xs transition-all duration-200 border ${
                           hypertension === opt.value
-                            ? "bg-error border-error text-white shadow-md shadow-error/20"
-                            : "bg-surface border-outline-variant/60 text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface"
+                            ? "bg-[#7AB5E9] border-[#7AB5E9] text-white shadow-sm"
+                            : "bg-white border-[#e5e7eb] text-black hover:bg-[#e9eaec]"
                         }`}
                       >
                         {opt.label}
@@ -368,10 +368,10 @@ const StrokeRiskScreen = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-[16px] font-extrabold text-on-surface-variant uppercase tracking-wider mb-2 flex items-center gap-1">
+                  <label className="block text-xs font-bold text-[#1F75C1] uppercase tracking-wider mb-2 flex items-center gap-1">
                     Bệnh lý tim mạch
-                    <span className="text-on-surface-variant cursor-help hover:text-primary transition-colors" title="Tiền sử rung nhĩ, bệnh mạch vành, suy tim...">
-                      <Info size={13} />
+                    <span className="text-[#858585] cursor-help" title="Tiền sử rung nhĩ, bệnh mạch vành, suy tim...">
+                      <Info size={11} />
                     </span>
                   </label>
                   <div className="grid grid-cols-2 gap-2">
@@ -383,10 +383,10 @@ const StrokeRiskScreen = () => {
                         key={opt.label}
                         type="button"
                         onClick={() => setHeartDisease(opt.value)}
-                        className={`py-4 rounded-xl font-extrabold text-[16px] transition-all duration-200 border ${
+                        className={`py-3 rounded-xl font-bold text-xs transition-all duration-200 border ${
                           heartDisease === opt.value
-                            ? "bg-error border-error text-white shadow-md shadow-error/20"
-                            : "bg-surface border-outline-variant/60 text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface"
+                            ? "bg-[#7AB5E9] border-[#7AB5E9] text-white shadow-sm"
+                            : "bg-white border-[#e5e7eb] text-black hover:bg-[#e9eaec]"
                         }`}
                       >
                         {opt.label}
@@ -399,10 +399,10 @@ const StrokeRiskScreen = () => {
               {/* Row 4: Glucose Level & Smoking Status */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-[16px] font-extrabold text-on-surface-variant uppercase tracking-wider mb-2 flex items-center gap-1">
+                  <label className="block text-xs font-bold text-[#1F75C1] uppercase tracking-wider mb-2 flex items-center gap-1">
                     Đường huyết (mg/dL)
-                    <span className="text-on-surface-variant cursor-help hover:text-primary transition-colors" title="Chỉ số đường huyết trung bình lúc đói">
-                      <Info size={13} />
+                    <span className="text-[#858585] cursor-help" title="Chỉ số đường huyết trung bình lúc đói">
+                      <Info size={11} />
                     </span>
                   </label>
                   <input
@@ -412,15 +412,15 @@ const StrokeRiskScreen = () => {
                     required
                     value={glucoseLevel}
                     onChange={(e) => setGlucoseLevel(e.target.value)}
-                    className="w-full bg-surface border border-outline-variant/60 rounded-xl px-4 py-4 text-on-surface font-extrabold focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors shadow-sm"
+                    className="w-full bg-white border border-[#e5e7eb] rounded-xl px-4 py-3 text-black font-bold focus:outline-none focus:border-[#7AB5E9] transition-colors shadow-2xs"
                   />
                 </div>
                 <div>
-                  <label className="block text-[16px] font-extrabold text-on-surface-variant uppercase tracking-wider mb-2">Thói quen hút thuốc</label>
+                  <label className="block text-xs font-bold text-[#1F75C1] uppercase tracking-wider mb-2">Thói quen hút thuốc</label>
                   <select
                     value={smokingStatus}
                     onChange={(e) => setSmokingStatus(e.target.value)}
-                    className="w-full bg-surface border border-outline-variant/60 rounded-xl px-4 py-4 text-on-surface font-extrabold focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors shadow-sm"
+                    className="w-full bg-white border border-[#e5e7eb] rounded-xl px-4 py-3 text-black font-bold focus:outline-none focus:border-[#7AB5E9] transition-colors shadow-2xs"
                   >
                     <option value="Chưa từng hút">Chưa từng hút thuốc</option>
                     <option value="Đã từng hút">Đã từng hút (Đã bỏ)</option>
@@ -433,16 +433,16 @@ const StrokeRiskScreen = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-primary text-on-primary py-5 rounded-full font-extrabold hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-3 text-[18px] shadow-lg shadow-primary/20 disabled:opacity-50 disabled:hover:scale-100 cursor-pointer"
+                className="w-full bg-[#7AB5E9] text-white py-4 rounded-full font-bold hover:bg-[#5CA5E4] hover:scale-[1.01] transition-all duration-300 flex items-center justify-center gap-2 text-sm shadow-md shadow-[#7AB5E9]/15 disabled:opacity-50 cursor-pointer"
               >
                 {loading ? (
                   <>
-                    <RefreshCw size={18} className="animate-spin" />
+                    <RefreshCw size={16} className="animate-spin" />
                     ĐANG PHÂN TÍCH CHỈ SỐ Y KHOA...
                   </>
                 ) : (
                   <>
-                    <Sparkles size={18} className="fill-white" />
+                    <Sparkles size={16} className="fill-white" />
                     TÍNH TOÁN NGUY CƠ ĐỘT QUỴ QUA AI
                   </>
                 )}
@@ -451,7 +451,7 @@ const StrokeRiskScreen = () => {
             </form>
 
             {error && (
-              <div className="mt-4 bg-red-50 border border-red-200 text-[#d32f2f] px-4 py-4 rounded-xl font-semibold text-sm leading-relaxed">
+              <div className="mt-4 bg-red-50 border border-red-200 text-[#d32f2f] px-4 py-3 rounded-xl font-semibold text-xs leading-relaxed">
                 {error}
               </div>
             )}
@@ -461,30 +461,30 @@ const StrokeRiskScreen = () => {
           <div className="lg:col-span-5 space-y-6">
             
             {/* Results card */}
-            <div className="bg-surface border border-outline-variant/60 rounded-[32px] p-8 shadow-sm flex flex-col items-center min-h-[420px] justify-between relative overflow-hidden">
+            <div className="bg-white border border-[#e5e7eb] rounded-[24px] p-6 md:p-8 shadow-sm flex flex-col items-center min-h-[380px] justify-between relative overflow-hidden">
               
               {!result ? (
                 // Blank State
-                <div className="flex-1 flex flex-col items-center justify-center text-center py-10">
-                  <div className="w-16 h-16 bg-surface-container text-primary rounded-2xl flex items-center justify-center mb-6">
-                    <Brain size={32} />
+                <div className="flex-1 flex flex-col items-center justify-center text-center py-10 font-inter-tight-small">
+                  <div className="w-14 h-14 bg-[#1F75C1]/5 text-[#1F75C1]/30 rounded-full flex items-center justify-center mb-4">
+                    <Brain size={28} />
                   </div>
-                  <h3 className="text-xl font-extrabold text-on-surface font-headline tracking-tight mb-3">Chờ phân tích kết quả</h3>
-                  <p className="text-on-surface-variant text-[18px] font-medium max-w-xs leading-relaxed">
+                  <h3 className="text-lg font-bold text-black font-inter tracking-tight mb-2">Chờ phân tích kết quả</h3>
+                  <p className="text-[#858585] text-xs font-semibold max-w-xs leading-relaxed">
                     Vui lòng hoàn tất biểu mẫu y tế ở bên trái và bấm nút "Tính toán" để nhận kết quả phân tích rủi ro chi tiết.
                   </p>
                 </div>
               ) : (
                 // Result State
-                <div className="w-full flex-1 flex flex-col items-center justify-between">
+                <div className="w-full flex-1 flex flex-col items-center justify-between font-inter-tight-small">
                   
                   {/* Category Pill */}
-                  <span className={`px-5 py-1.5 rounded-full text-[16px] font-extrabold uppercase tracking-wider border mb-6 ${currentRiskTheme.bg} ${currentRiskTheme.text} ${currentRiskTheme.border}`}>
+                  <span className={`px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border mb-4 ${currentRiskTheme.bg} ${currentRiskTheme.text} ${currentRiskTheme.border}`}>
                     Mức độ nguy cơ: {result.risk_category}
                   </span>
 
                   {/* Circular Arc SVG Gauge */}
-                  <div className="relative w-48 h-48 flex items-center justify-center">
+                  <div className="relative w-44 h-44 flex items-center justify-center">
                     <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
                       {/* Grey Track */}
                       <circle
@@ -516,55 +516,55 @@ const StrokeRiskScreen = () => {
                     
                     {/* Inner Content */}
                     <div className="absolute flex flex-col items-center justify-center">
-                      <span className="text-4xl font-extrabold text-on-surface font-headline tracking-tight">
+                      <span className="text-3xl md:text-4xl font-extrabold text-black font-inter tracking-tight">
                         {result.risk_percentage}%
                       </span>
-                      <span className="text-[16px] font-extrabold text-on-surface-variant uppercase tracking-widest mt-1">Chỉ số</span>
+                      <span className="text-[10px] font-bold text-[#858585] uppercase tracking-widest mt-1">Chỉ số</span>
                     </div>
                   </div>
 
                   {/* Diagnosis detail list */}
-                  <div className="w-full bg-surface-container-low border border-outline-variant/50 rounded-2xl p-5 my-8 text-left space-y-3 shadow-sm">
-                    <div className="flex justify-between text-[16px] font-medium">
-                      <span className="text-on-surface-variant">Chỉ số cơ thể (BMI):</span>
-                      <span className="text-on-surface font-extrabold">{result.bmi} ({result.bmi_category})</span>
+                  <div className="w-full bg-[#f8f9fa] border border-[#e5e7eb] rounded-2xl p-4 my-6 text-left space-y-2">
+                    <div className="flex justify-between text-xs font-semibold">
+                      <span className="text-[#858585]">Chỉ số cơ thể (BMI):</span>
+                      <span className="text-black font-bold">{result.bmi} ({result.bmi_category})</span>
                     </div>
-                    <div className="flex justify-between text-[16px] font-medium border-t border-outline-variant/40 pt-3">
-                      <span className="text-on-surface-variant">Tiền sử bệnh nền:</span>
-                      <span className="text-on-surface font-extrabold">
+                    <div className="flex justify-between text-xs font-semibold border-t border-[#e5e7eb]/60 pt-2">
+                      <span className="text-[#858585]">Tiền sử bệnh nền:</span>
+                      <span className="text-black font-bold">
                         {[
                           hypertension ? "Huyết áp" : null,
                           heartDisease ? "Tim mạch" : null
                         ].filter(Boolean).join(", ") || "Không có"}
                       </span>
                     </div>
-                    <div className="flex justify-between text-[16px] font-medium border-t border-outline-variant/40 pt-3">
-                      <span className="text-on-surface-variant">Mức đường huyết:</span>
-                      <span className="text-on-surface font-extrabold">{glucoseLevel} mg/dL</span>
+                    <div className="flex justify-between text-xs font-semibold border-t border-[#e5e7eb]/60 pt-2">
+                      <span className="text-[#858585]">Mức đường huyết:</span>
+                      <span className="text-black font-bold">{glucoseLevel} mg/dL</span>
                     </div>
                   </div>
 
                   {/* Recommendations */}
-                  <div className={`rounded-2xl p-5 border text-[16px] font-medium leading-relaxed text-left w-full shadow-sm ${currentRiskTheme.bg} ${currentRiskTheme.text} ${currentRiskTheme.border}`}>
-                    <p className="font-extrabold flex items-center gap-2 mb-2 uppercase text-[16px] tracking-widest">
-                      <ShieldAlert size={16} /> Khuyến nghị Y tế:
+                  <div className={`rounded-xl p-4 border text-xs font-semibold leading-relaxed text-left w-full ${currentRiskTheme.bg} ${currentRiskTheme.text} ${currentRiskTheme.border}`}>
+                    <p className="font-bold flex items-center gap-1.5 mb-1.5 uppercase text-[10px] tracking-wider">
+                      <ShieldAlert size={14} /> Khuyến nghị Y tế:
                     </p>
                     {result.recommendation}
                   </div>
 
                   {/* Action link triggers */}
-                  <div className="w-full grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-outline-variant/40">
+                  <div className="w-full grid grid-cols-2 gap-3 mt-6 pt-4 border-t border-[#e5e7eb]">
                     <button 
                       onClick={() => navigate("/befast")}
-                      className="bg-primary text-on-primary py-5 rounded-full font-extrabold text-[15px] uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-primary/90 hover:scale-105 transition-all shadow-md shadow-primary/20"
+                      className="bg-[#1F75C1] text-white py-2.5 rounded-full font-bold text-[11px] flex items-center justify-center gap-1.5 hover:bg-[#1d3d43] transition-colors cursor-pointer"
                     >
-                      <Play size={14} className="fill-white" /> Check BEFAST
+                      <Play size={10} className="fill-white" /> Check BEFAST
                     </button>
                     <button 
-                      onClick={() => navigate("/hospital")}
-                      className="bg-surface border border-outline-variant/60 text-on-surface py-5 rounded-full font-extrabold text-[15px] uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-surface-container-low hover:scale-105 transition-all shadow-sm"
+                      onClick={() => navigate("/nearby-hospital")}
+                      className="bg-white border border-[#e5e7eb] text-black py-2.5 rounded-full font-bold text-[11px] flex items-center justify-center gap-1.5 hover:bg-[#f5f5f5] transition-colors cursor-pointer"
                     >
-                      <Navigation size={14} /> Tìm bệnh viện
+                      <Navigation size={10} /> Tìm bệnh viện
                     </button>
                   </div>
 
@@ -573,36 +573,34 @@ const StrokeRiskScreen = () => {
             </div>
 
             {/* MongoDB History log panel */}
-            <div className="bg-surface-container-low border border-outline-variant/60 rounded-[32px] p-8 shadow-sm">
-              <h3 className="text-[16px] font-extrabold uppercase text-primary tracking-widest mb-6 flex items-center gap-2 border-b border-outline-variant/40 pb-4">
-                <Heart size={16} className="text-error fill-error" /> Lịch sử đo gần đây
+            <div className="bg-[#f0f1f2] border border-[#e5e7eb]/80 rounded-[24px] p-6 shadow-sm font-inter-tight-small">
+              <h3 className="text-xs font-extrabold uppercase text-[#1F75C1] tracking-widest mb-4 flex items-center gap-1.5">
+                <Heart size={13} className="text-[#d32f2f] fill-[#d32f2f]" /> Lịch sử đo gần đây
               </h3>
 
               {bmiData.length === 0 ? (
-                <div className="text-center py-8 text-on-surface-variant text-[18px] font-medium">
+                <div className="text-center py-6 text-[#858585] text-xs font-semibold">
                   Chưa ghi nhận kết quả đo nào.
                 </div>
               ) : (
-                <div className="space-y-4 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                <div className="space-y-3 max-h-[220px] overflow-y-auto pr-1">
                   {bmiData.slice(0, 5).map((item) => (
                     <div 
                       key={item._id || item.id} 
-                      className="bg-surface rounded-2xl p-4.5 border border-outline-variant/50 flex flex-col hover:border-primary/30 transition-colors shadow-sm text-left group"
+                      className="bg-white rounded-xl p-3.5 border border-[#e5e7eb] flex items-center justify-between hover:border-[#7AB5E9]/30 transition-colors shadow-2xs text-left"
                     >
-                      <div className="flex justify-between items-start mb-2">
-                        <p className="text-on-surface font-extrabold text-[18px]">
+                      <div>
+                        <p className="text-[10px] font-bold text-[#858585]">
+                          {new Date(item.createdAt).toLocaleDateString("vi-VN")} {new Date(item.createdAt).toLocaleTimeString("vi-VN", {hour: "2-digit", minute: "2-digit"})}
+                        </p>
+                        <p className="text-xs font-extrabold text-black mt-1">
                           Nguy cơ: <span className={
-                            item.riskCategory === "Thấp" ? "text-primary" : 
-                            item.riskCategory === "Trung bình" ? "text-amber-500" : "text-error"
+                            item.riskCategory === "Thấp" ? "text-[#7AB5E9]" : 
+                            item.riskCategory === "Trung bình" ? "text-amber-500" : "text-red-500"
                           }>{item.riskPercentage}% ({item.riskCategory})</span>
                         </p>
-                        <p className="text-[15px] font-extrabold text-on-surface-variant bg-surface-container px-2.5 py-1 rounded-full uppercase tracking-wider">
-                          {new Date(item.createdAt).toLocaleDateString("vi-VN")}
-                        </p>
+                        <p className="text-[10px] text-[#858585] mt-0.5">BMI: {item.bmi} ({item.bmiCategory})</p>
                       </div>
-                      <p className="text-[15px] font-medium text-on-surface-variant flex items-center gap-1.5">
-                        <Scale size={12} /> BMI: {item.bmi} ({item.bmiCategory})
-                      </p>
                     </div>
                   ))}
                 </div>
