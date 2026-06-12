@@ -9,57 +9,66 @@ const RecentCheckCard = ({
   userName = "Người dùng"
 }) => {
   return (
-    <div className="bg-[#f5f5f5] rounded-xl p-6 h-full flex flex-col justify-between group cursor-pointer relative overflow-hidden border border-[#e5e7eb] transition-all duration-300 hover:bg-[#ececec] hover:border-[#1F75C1]/20 hover:shadow-sm">
-      <div className="absolute top-0 left-0 w-1 h-full bg-[#1F75C1]/30 group-hover:bg-[#7AB5E9] transition-colors duration-300" />
+    <div className="bg-white rounded-[32px] p-7 md:p-8 h-full flex flex-col justify-between group cursor-pointer relative overflow-hidden border border-outline-variant/40 shadow-[0_4px_20px_rgba(0,0,0,0.03)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(31,117,193,0.1)] hover:-translate-y-2 hover:border-primary/30">
+      {/* Decorative background glows */}
+      <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 rounded-full blur-[40px] group-hover:bg-primary/20 transition-colors duration-700 pointer-events-none" />
+      <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-primary/30 to-secondary-container group-hover:from-primary group-hover:to-primary transition-all duration-500" />
       
-      <div>
-        <div className="flex flex-row justify-between items-start mb-5">
-          <div className="flex-1 pr-3">
-            <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#1F75C1]/10 text-[#1F75C1] text-[10px] font-bold uppercase tracking-wider mb-2 font-inter-tight-small">
+      <div className="relative z-10">
+        <div className="flex flex-row justify-between items-start mb-8">
+          <div className="flex-1 pl-4">
+            <span className="inline-block px-3.5 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest mb-3 font-body shadow-sm">
               {title}
             </span>
-            <h2 className="text-xl font-bold text-black font-inter-heading tracking-tight mt-1">{code}</h2>
+            <h2 className="text-3xl font-black text-[#1E293B] font-headline tracking-tight">{code}</h2>
           </div>
 
-          <div className="w-10 h-10 rounded-[10px] bg-white border border-[#e5e7eb] group-hover:bg-[#1F75C1]/10 group-hover:border-[#1F75C1]/10 flex items-center justify-center transition-all duration-300 shadow-sm">
-            <Activity size={18} className="text-[#7AB5E9]" />
+          <div className="w-16 h-16 rounded-[22px] bg-primary/5 border border-primary/20 group-hover:bg-primary group-hover:border-primary flex items-center justify-center transition-all duration-500 shadow-sm group-hover:shadow-primary/30 group-hover:rotate-12 group-hover:scale-110">
+            <Activity size={28} className="text-primary group-hover:text-white transition-colors duration-500" />
           </div>
         </div>
 
-        <div className="space-y-2.5">
-          <div className="flex flex-row items-center space-x-3">
-            <div className="w-7 h-7 rounded bg-white flex items-center justify-center border border-[#e5e7eb]"><User size={13} className="text-[#1F75C1]" /></div>
-            <span className="flex-1 text-[13px] font-semibold text-[#151515] font-inter-tight-small">{userName}</span>
+        <div className="space-y-4 pl-4">
+          <div className="flex flex-row items-center space-x-4">
+            <div className="w-10 h-10 rounded-xl bg-[#F8FAFC] flex items-center justify-center border border-slate-200 group-hover:bg-white group-hover:shadow-sm transition-all duration-300">
+              <User size={18} className="text-slate-500" />
+            </div>
+            <span className="flex-1 text-[15px] font-bold text-[#1E293B]">{userName}</span>
           </div>
 
-          <div className="flex flex-row items-center space-x-3">
-            <div className="w-7 h-7 rounded bg-white flex items-center justify-center border border-[#e5e7eb]"><Calendar size={13} className="text-[#1F75C1]" /></div>
-            <span className="flex-1 text-[13px] font-semibold text-[#151515] font-inter-tight-small">{date}</span>
+          <div className="flex flex-row items-center space-x-4">
+            <div className="w-10 h-10 rounded-xl bg-[#F8FAFC] flex items-center justify-center border border-slate-200 group-hover:bg-white group-hover:shadow-sm transition-all duration-300">
+              <Calendar size={18} className="text-slate-500" />
+            </div>
+            <span className="flex-1 text-[15px] font-bold text-[#1E293B]">{date}</span>
           </div>
 
-          <div className="flex flex-row items-center space-x-3">
-            <div className="w-7 h-7 rounded bg-[#7AB5E9]/10 flex items-center justify-center border border-[#7AB5E9]/20"><CheckCircle size={13} className="text-[#7AB5E9]" /></div>
-            <span className="flex-1 text-[13px] font-bold text-[#7AB5E9] font-inter-tight-small">Đã hoàn thành</span>
+          <div className="flex flex-row items-center space-x-4">
+            <div className="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center border border-green-200">
+              <CheckCircle size={18} className="text-green-500" />
+            </div>
+            <span className="flex-1 text-[15px] font-bold text-green-600">Đã hoàn thành</span>
           </div>
         </div>
       </div>
 
-      <div className="mt-6 pt-4 border-t border-[#e5e7eb]/80 flex flex-row items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <div className="relative w-8 h-8 flex items-center justify-center">
-             <div className="absolute inset-0 bg-white rounded-full border border-[#e5e7eb] shadow-sm" />
-             <span className="relative text-[10px] font-extrabold text-[#7AB5E9] font-inter-tight-small">
+      <div className="mt-10 pt-6 border-t border-slate-100 flex flex-row items-center justify-between pl-4 relative z-10">
+        <div className="flex items-center gap-4">
+          <div className="relative w-14 h-14 flex items-center justify-center">
+             <div className="absolute inset-0 bg-blue-50 rounded-full border border-blue-100 shadow-inner" />
+             <div className="absolute inset-0 rounded-full border-[3px] border-primary border-t-transparent -rotate-45" />
+             <span className="relative text-[13px] font-black text-primary">
                100%
              </span>
           </div>
           <div>
-            <p className="text-[9px] text-[#858585] font-bold uppercase tracking-wider font-inter-tight-small">Tiến trình</p>
-            <p className="text-[12px] font-bold text-black font-inter-tight-small">Hoàn tất</p>
+            <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest mb-1 font-body">Tiến trình</p>
+            <p className="text-[16px] font-extrabold text-[#1E293B] font-headline">Hoàn tất</p>
           </div>
         </div>
 
-        <div className="w-7 h-7 rounded-full bg-white text-[#1F75C1] group-hover:bg-[#7AB5E9] group-hover:text-white flex items-center justify-center transition-all duration-300 border border-[#e5e7eb] shadow-sm">
-          <ChevronRight size={14} />
+        <div className="w-12 h-12 rounded-full bg-[#F8FAFC] text-primary group-hover:bg-primary group-hover:text-white flex items-center justify-center transition-all duration-500 shadow-sm group-hover:shadow-primary/40 group-hover:scale-110 border border-slate-200 group-hover:border-primary">
+          <ChevronRight size={20} strokeWidth={3} />
         </div>
       </div>
     </div>

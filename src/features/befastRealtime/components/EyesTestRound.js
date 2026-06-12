@@ -49,7 +49,7 @@ export default function EyesTestRound({
   };
 
   return (
-    <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-8 max-w-4xl mx-auto shadow-lg border border-[#e5e7eb]/50">
+    <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-8 w-full shadow-lg border border-[#e5e7eb]/50">
       {/* Progress */}
       <div className="flex items-center justify-between mb-8">
         <span className="text-[#6b7280] font-semibold text-[14px]">

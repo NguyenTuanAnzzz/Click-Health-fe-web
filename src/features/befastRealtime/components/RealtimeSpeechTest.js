@@ -184,7 +184,7 @@ export default function RealtimeSpeechTest({ onComplete }) {
 
   if (phase === 'results' && result) {
     return (
-      <div className="bg-white border border-[#e5e7eb] rounded-[24px] p-6 md:p-8 max-w-2xl mx-auto shadow-sm">
+      <div className="bg-white border border-[#e5e7eb] rounded-[24px] p-6 md:p-8 w-full shadow-sm">
         <Header />
         <TestResultsShell
           result={result}
@@ -207,7 +207,7 @@ export default function RealtimeSpeechTest({ onComplete }) {
   }
 
   return (
-    <div className="bg-white border border-[#e5e7eb] rounded-[24px] p-6 md:p-8 max-w-2xl mx-auto shadow-sm font-inter-tight-small">
+    <div className="bg-white border border-[#e5e7eb] rounded-[24px] p-6 md:p-8 w-full shadow-sm font-inter-tight-small">
       <Header />
       <p className="text-[#858585] text-[14px] font-semibold mb-6">
         Đọc to, rõ câu mẫu sau khi đếm ngược. Hệ thống phân tích độ khớp và độ rõ.

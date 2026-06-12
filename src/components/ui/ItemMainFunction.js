@@ -22,27 +22,52 @@ export default function ItemMainFunction(props) {
     <button
       onClick={handlePress}
       type="button"
-      className={`group w-full h-[180px] rounded-[20px] border flex flex-col justify-between text-left p-6 transition-all duration-300 shadow-sm hover:shadow-md
+      className={`group w-full h-[240px] rounded-[32px] flex flex-col justify-between text-left p-7 transition-all duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-2 relative overflow-hidden
         ${isDanger 
-          ? 'bg-red-50/50 border-red-200/50 hover:bg-red-50 hover:border-red-300 text-black' 
-          : 'bg-[#f0f1f2] border-transparent hover:border-[#1F75C1]/20 hover:bg-[#e9eaec] text-black'}
+          ? 'bg-gradient-to-br from-error/5 to-error/10 border border-error/20 hover:border-error/40' 
+          : 'bg-white border border-outline-variant/40 hover:border-primary/40'}
       `}
     >
-      <div className={`w-12 h-12 rounded-[12px] flex items-center justify-center transition-all duration-300 shadow-sm border
-        ${isDanger 
-          ? 'bg-[#d32f2f] text-white border-[#d32f2f]' 
-          : 'bg-[#1F75C1] text-white border-[#1F75C1] group-hover:bg-[#7AB5E9] group-hover:border-[#7AB5E9] group-hover:scale-105'}
-      `}>
-        <IconComponent size={22} strokeWidth={2} />
-      </div>
+      {/* Decorative large blurred icon/image in background */}
+      {props.imgSrc ? (
+        <img 
+          src={props.imgSrc} 
+          alt="" 
+          className="absolute -bottom-10 -right-10 w-48 h-48 opacity-[0.03] group-hover:opacity-10 group-hover:scale-110 transition-all duration-700 pointer-events-none object-contain"
+        />
+      ) : (
+        <IconComponent 
+          size={180} 
+          strokeWidth={1} 
+          className={`absolute -bottom-10 -right-10 opacity-[0.03] group-hover:scale-110 transition-transform duration-700 pointer-events-none
+            ${isDanger ? 'text-error' : 'text-primary'}`} 
+        />
+      )}
 
-      <div>
-        <span className="text-[16px] font-semibold font-inter-tight-small block mb-1 tracking-tight leading-snug text-black group-hover:text-[#1F75C1] transition-colors">
+      {/* Top Icon / Image */}
+      {props.imgSrc ? (
+        <div className="relative z-10 w-24 h-24 mb-2 flex items-center justify-center transition-all duration-500 group-hover:-translate-y-2 group-hover:scale-110">
+          <img src={props.imgSrc} alt="" className="w-full h-full object-contain drop-shadow-xl" />
+        </div>
+      ) : (
+        <div className={`w-16 h-16 mb-4 rounded-[20px] flex items-center justify-center transition-all duration-500 shadow-md relative z-10
+          ${isDanger 
+            ? 'bg-error/10 text-error shadow-error/10 group-hover:scale-110 group-hover:rotate-12 group-hover:bg-error/20' 
+            : 'bg-primary/5 text-primary border border-primary/10 shadow-primary/5 group-hover:bg-primary/10 group-hover:scale-110 group-hover:rotate-12 group-hover:shadow-primary/20'}
+        `}>
+          <IconComponent size={32} strokeWidth={2.5} />
+        </div>
+      )}
+
+      {/* Bottom Text */}
+      <div className="relative z-10 mt-auto">
+        <span className="text-[18px] font-extrabold font-headline block mb-3 tracking-tight leading-snug text-[#1E293B] group-hover:text-primary transition-colors">
           {props.title}
         </span>
-        <div className={`w-8 h-0.5 rounded-full transition-all duration-300 group-hover:w-1/2
-          ${isDanger ? 'bg-red-500' : 'bg-[#7AB5E9]'}`} 
-        />
+        <div className="flex items-center gap-2">
+          <span className={`text-[12px] font-black uppercase tracking-widest ${isDanger ? 'text-error' : 'text-primary/70 group-hover:text-primary transition-colors'}`}>Khám phá</span>
+          <LucideIcons.ArrowRight size={14} className={`transform group-hover:translate-x-2 transition-transform duration-300 ${isDanger ? 'text-error' : 'text-primary/70 group-hover:text-primary'}`} strokeWidth={3} />
+        </div>
       </div>
     </button>
   );

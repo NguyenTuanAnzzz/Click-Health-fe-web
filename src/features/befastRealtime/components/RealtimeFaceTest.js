@@ -154,7 +154,7 @@ export default function RealtimeFaceTest({ onComplete }) {
 
   if (phase === TEST_PHASE.RESULTS && analysisResult) {
     return (
-      <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-4 md:p-8 max-w-4xl mx-auto shadow-lg border border-[#e5e7eb]/50">
+      <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-4 md:p-8 w-full shadow-lg border border-[#e5e7eb]/50">
         <Header />
         <FaceResultsPanel
           result={analysisResult}
@@ -171,7 +171,7 @@ export default function RealtimeFaceTest({ onComplete }) {
     phase === TEST_PHASE.RECORDING;
 
   return (
-    <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-4 md:p-8 max-w-4xl mx-auto shadow-lg font-inter-tight-small border border-[#e5e7eb]/50">
+    <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-4 md:p-8 w-full shadow-lg font-inter-tight-small border border-[#e5e7eb]/50">
       <Header />
       <p className="text-[#858585] text-[14px] font-semibold mb-4">{config.description}</p>
 

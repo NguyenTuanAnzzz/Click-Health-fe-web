@@ -35,7 +35,7 @@ export default function EyesTestDeviceSelect({ onDeviceSelected, config }) {
   ];
 
   return (
-    <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-8 max-w-4xl mx-auto shadow-lg border border-[#e5e7eb]/50 font-inter-tight-small">
+    <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-8 w-full shadow-lg border border-[#e5e7eb]/50 font-inter-tight-small">
       {/* Header */}
       <div className="mb-8">
         <span className="bg-[#1F75C1]/10 text-[#1F75C1] border border-[#1F75C1]/10 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider inline-block mb-4">
