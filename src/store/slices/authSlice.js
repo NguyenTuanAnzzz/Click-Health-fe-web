@@ -41,32 +41,12 @@ export const login = createAsyncThunk(
       const token = res.data?.token;
 
       if (token) {
-        let userEmail = "";
-        let userRole = "";
-        try {
-          const payload = JSON.parse(atob(token.split(".")[1]));
-          userEmail = payload.email;
-          userRole = payload.role;
-        } catch (e) {
-          console.error("Failed to decode token payload");
-        }
-
         if (rememberMe) {
           localStorage.setItem("token", token);
-          if (userEmail) localStorage.setItem("email", userEmail);
-          if (userRole) localStorage.setItem("role", userRole);
-          
           sessionStorage.removeItem("token");
-          sessionStorage.removeItem("email");
-          sessionStorage.removeItem("role");
         } else {
           sessionStorage.setItem("token", token);
-          if (userEmail) sessionStorage.setItem("email", userEmail);
-          if (userRole) sessionStorage.setItem("role", userRole);
-          
           localStorage.removeItem("token");
-          localStorage.removeItem("email");
-          localStorage.removeItem("role");
         }
       }
 
@@ -103,11 +83,7 @@ export const initializeAuth = createAsyncThunk(
 
 export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
   localStorage.removeItem("token");
-  localStorage.removeItem("email");
-  localStorage.removeItem("role");
   sessionStorage.removeItem("token");
-  sessionStorage.removeItem("email");
-  sessionStorage.removeItem("role");
 });
 
 export const verifyOtp = createAsyncThunk(
@@ -233,11 +209,7 @@ const authSlice = createSlice({
       state.loading = false;
       state.isOtpVerified = false;
       localStorage.removeItem("token");
-      localStorage.removeItem("email");
-      localStorage.removeItem("role");
       sessionStorage.removeItem("token");
-      sessionStorage.removeItem("email");
-      sessionStorage.removeItem("role");
     }
   },
   extraReducers: (builder) => {
