@@ -64,7 +64,7 @@ const IndexScreen = () => {
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
                 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-on-surface leading-[1.1] tracking-tight mb-6 font-headline"
               >
-                Bảo vệ <span className="text-primary relative inline-block">Trái Tim
+                Bảo vệ <span className="text-primary relative inline-block">Não Bộ
                   <svg className="absolute -bottom-1 left-0 w-full h-3 text-primary/30" viewBox="0 0 100 10" preserveAspectRatio="none">
                     <path d="M0,5 Q50,10 100,5" stroke="currentColor" strokeWidth="4" fill="none" strokeLinecap="round"/>
                   </svg>
@@ -73,8 +73,8 @@ const IndexScreen = () => {
                   animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
                   transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
                 >
-                  Trí Tuệ
-                </motion.span> Người Thân
+                  Sức Khỏe
+                </motion.span>
               </motion.h1>
               
               <motion.p 

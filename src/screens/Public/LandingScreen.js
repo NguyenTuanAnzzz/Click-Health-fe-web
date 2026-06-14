@@ -44,7 +44,7 @@ const LandingScreen = () => {
                 Cảnh báo đột quỵ 24/7
               </div>
               <h1 className="text-5xl md:text-7xl font-extrabold text-on-surface leading-[1.1] tracking-tight mb-6">
-                Bảo vệ <span className="text-primary">Trái Tim</span> &amp; Trí Tuệ Người Thân
+                Bảo vệ <span className="text-primary">Não Bộ</span> &amp; Sức Khỏe
               </h1>
               <p className="text-on-surface-variant text-lg md:text-xl leading-relaxed mb-10 max-w-lg">
                 Nền tảng AI tiên phong giúp phát hiện sớm dấu hiệu đột quỵ và hỗ trợ cấp cứu tức thì. Vì mỗi giây đều là kim cương.
