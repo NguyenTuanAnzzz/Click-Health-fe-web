@@ -25,8 +25,12 @@ const PaymentResultScreen = () => {
 
                 if (response.data.code === '00') {
                     setStatus('success');
-                    // Fetch fresh user info to update Redux state with VIP status
+
                     dispatch(getInfo());
+
+                    setTimeout(() => {
+                        navigate('/profile', { replace: true });
+                    }, 3000);
                 } else {
                     setStatus('fail');
                 }
@@ -46,7 +50,7 @@ const PaymentResultScreen = () => {
             <div className="min-h-[80vh] flex items-center justify-center px-4 bg-[#f0f1f2]/30">
                 <div className="max-w-md w-full bg-white rounded-2xl border border-[#e5e7eb] p-10 text-center relative shadow-md overflow-hidden">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-[#7AB5E9]/5 rounded-full -mr-16 -mt-16 blur-2xl pointer-events-none" />
-                    
+
                     {loading ? (
                         <div className="space-y-6 py-6">
                             <div className="w-16 h-16 bg-[#7AB5E9]/10 rounded-full flex items-center justify-center mx-auto border border-[#7AB5E9]/25 shadow-2xs">
@@ -84,13 +88,13 @@ const PaymentResultScreen = () => {
                             )}
 
                             <div className="pt-6 border-t border-[#e5e7eb] flex flex-col gap-3">
-                                <button 
+                                <button
                                     onClick={() => navigate('/')}
                                     className="btn-activation-filled w-full py-3.5 flex items-center justify-center gap-2 text-sm font-semibold tracking-tight shadow-md hover:shadow-lg transition-all cursor-pointer"
                                 >
                                     <Home size={16} /> Về trang chủ
                                 </button>
-                                <button 
+                                <button
                                     onClick={() => navigate('/profile')}
                                     className="btn-ghost-outline-dark w-full py-3 flex items-center justify-center gap-2 text-sm font-semibold tracking-tight transition-all cursor-pointer"
                                 >
