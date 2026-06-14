@@ -374,8 +374,34 @@ const ProfileScreen = () => {
 
             {/* Right Column: VIP Upgrade */}
             <div className="lg:col-span-2 flex flex-col">
-              {/* VIP Upgrade Section */}
-              <div className="relative rounded-[40px] bg-gradient-to-br from-[#0A2540] to-primary text-white p-10 md:p-14 overflow-hidden shadow-[0_20px_50px_rgba(10,37,64,0.3)] border border-white/10 flex-1 flex flex-col justify-center group">
+              {user?.subscriptionStatus === 'MONTH' || user?.subscriptionStatus === 'YEAR' ? (
+                <div className="relative rounded-[40px] bg-gradient-to-br from-[#0A2540] to-primary text-white p-10 md:p-14 overflow-hidden shadow-[0_20px_50px_rgba(10,37,64,0.3)] border border-white/10 flex-1 flex flex-col justify-center items-center text-center group">
+                  <div className="absolute top-0 right-0 w-full h-full pattern-grid-lg opacity-[0.05]" />
+                  <div className="absolute top-[-150px] right-[-150px] w-[500px] h-[500px] bg-[#3B82F6]/20 rounded-full blur-[100px] pointer-events-none" />
+                  
+                  <div className="relative z-10 flex flex-col items-center">
+                    <div className="w-24 h-24 bg-green-400/20 rounded-full flex items-center justify-center mb-6">
+                      <CheckCircle size={48} className="text-green-400" />
+                    </div>
+                    <div className="inline-block bg-white/10 text-white px-4 py-1.5 rounded-full font-bold uppercase text-[10px] mb-6 border border-white/20 tracking-wider backdrop-blur-sm shadow-sm">Gói dịch vụ hiện tại</div>
+                    <h3 className="text-4xl md:text-5xl font-extrabold leading-tight font-headline mb-4">
+                      Click <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#60A5FA] to-[#93C5FD]">VIP</span>
+                    </h3>
+                    <p className="text-white/80 font-medium text-[16px] mb-8">
+                      Trạng thái: Đang hoạt động ({user.subscriptionStatus === 'YEAR' ? 'Gói Năm' : 'Gói Tháng'})
+                    </p>
+                    
+                    <div className="bg-white/10 px-8 py-5 rounded-2xl border border-white/20">
+                      <p className="text-white/60 text-xs font-bold uppercase tracking-widest mb-1">Ngày hết hạn</p>
+                      <p className="text-2xl font-bold text-white">
+                        {user.subscriptionExpiry ? new Date(user.subscriptionExpiry).toLocaleDateString('vi-VN') : '--/--/----'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                /* VIP Upgrade Section */
+                <div className="relative rounded-[40px] bg-gradient-to-br from-[#0A2540] to-primary text-white p-10 md:p-14 overflow-hidden shadow-[0_20px_50px_rgba(10,37,64,0.3)] border border-white/10 flex-1 flex flex-col justify-center group">
                   <div className="absolute top-0 right-0 w-full h-full pattern-grid-lg opacity-[0.05] group-hover:opacity-10 transition-opacity duration-1000" />
                   <div className="absolute top-[-150px] right-[-150px] w-[500px] h-[500px] bg-[#3B82F6]/20 rounded-full blur-[100px] pointer-events-none group-hover:bg-[#3B82F6]/30 transition-colors duration-1000" />
                   
@@ -436,7 +462,8 @@ const ProfileScreen = () => {
                           )}
                       </button>
                   </div>
-              </div>
+                </div>
+              )}
             </div>
           </div>
         )}
