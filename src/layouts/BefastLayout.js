@@ -188,7 +188,7 @@ const BefastLayout = () => {
                   </p>
                 </div>
                 <button
-                  onClick={() => navigate('/pricing')}
+                  onClick={() => navigate('/profile')}
                   className="px-4 py-2 bg-red-600 text-white rounded-lg font-bold text-[12px] hover:bg-red-700 transition-all flex-shrink-0"
                 >
                   Nâng cấp ngay

@@ -158,7 +158,7 @@ const ResultScreen = () => {
                   Để lưu kết quả và tiếp tục sử dụng tầm soát BEFAST, vui lòng nâng cấp gói VIP.
                 </p>
                 <button
-                  onClick={() => navigate('/pricing')}
+                  onClick={() => navigate('/profile')}
                   className="px-6 py-2 bg-red-600 text-white rounded-lg font-bold text-[12px] hover:bg-red-700 transition-all"
                 >
                   Xem gói nâng cấp
