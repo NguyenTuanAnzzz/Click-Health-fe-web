@@ -430,7 +430,7 @@ const ProfileScreen = () => {
                               <div className="w-6 h-6 border-2 border-[#0A2540]/30 border-t-[#0A2540] rounded-full animate-spin" />
                           ) : (
                               <>
-                                  <span className="tracking-wide">NÂNG CẤP QUA PAYOS NGAY</span>
+                                  <span className="tracking-wide">NÂNG CẤP NGAY</span>
                                   <Zap size={20} fill="currentColor" className="text-[#3B82F6] group-hover/pay:scale-125 transition-transform" />
                               </>
                           )}
