@@ -10,6 +10,20 @@ import ItemMainFunction from '../components/ui/ItemMainFunction';
 import features from '../constants/homeFeatures';
 import UserLayout from '../layouts/UserLayout';
 
+const FacebookIcon = ({ size = 24, className = "" }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="currentColor" 
+    stroke="none"
+    className={className}
+  >
+    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V7.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+  </svg>
+);
+
 const IndexScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -464,6 +478,47 @@ const IndexScreen = () => {
             </section>
           </>
         )}
+
+        {/* Community Tracking Section */}
+        <section className="w-full bg-surface-container-lowest py-24 border-t border-outline-variant/30 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -ml-40 -mt-40 pointer-events-none" />
+          <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10">
+            <div className="text-center mb-16">
+              <div className="inline-block bg-[#1877F2]/10 text-[#1877F2] border border-[#1877F2]/20 px-5 py-2 rounded-full font-extrabold uppercase tracking-widest text-[11px] mb-5">
+                Kết nối & Chia sẻ
+              </div>
+              <h2 className="text-4xl md:text-5xl font-extrabold text-on-surface mb-5 font-headline tracking-tight">
+                Theo dõi <span className="text-[#1877F2]">Cộng đồng</span>
+              </h2>
+              <p className="text-on-surface-variant max-w-2xl mx-auto font-medium text-[16px] leading-relaxed">
+                Tham gia cộng đồng trên Facebook để cập nhật thông tin y tế, chia sẻ kinh nghiệm sống khỏe.
+              </p>
+            </div>
+
+            <div className="max-w-3xl mx-auto">
+              <div className="bg-surface rounded-[32px] overflow-hidden border border-outline-variant/40 hover:border-[#1877F2]/30 shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col md:flex-row items-center p-8 md:p-12 gap-8 group">
+                <div className="w-28 h-28 bg-[#1877F2]/10 text-[#1877F2] rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#1877F2] group-hover:text-white transition-all duration-500 shadow-lg border border-[#1877F2]/20">
+                  <FacebookIcon size={56} />
+                </div>
+                <div className="flex-1 text-center md:text-left">
+                  <h3 className="text-2xl md:text-3xl font-extrabold text-on-surface mb-3 font-headline">Cộng đồng Click Health</h3>
+                  <p className="text-on-surface-variant text-[15px] md:text-[16px] font-medium leading-relaxed mb-8">
+                    Cùng hàng ngàn thành viên khác lan tỏa kiến thức phòng chống đột quỵ, xây dựng lối sống khoa học và bảo vệ sức khỏe não bộ mỗi ngày.
+                  </p>
+                  <a
+                    href="https://www.facebook.com/profile.php?id=61590549686463"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-3 bg-[#1877F2] text-white px-8 py-4 rounded-full font-bold text-[16px] shadow-lg shadow-[#1877F2]/30 hover:bg-[#166FE5] hover:-translate-y-1 hover:shadow-xl hover:shadow-[#1877F2]/40 transition-all duration-300 w-full md:w-auto"
+                  >
+                    <FacebookIcon size={24} />
+                    Theo dõi
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
       </div>
     </UserLayout>
