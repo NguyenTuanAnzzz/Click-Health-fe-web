@@ -3,6 +3,8 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
+import AdminRoute from './AdminRoute';
+import PatientRoute from './PatientRoute';
 
 import LoginScreen from '../screens/Auth/LoginScreen';
 import RegisterScreen from '../screens/Auth/RegisterScreen';
@@ -25,6 +27,10 @@ import FaceScreen from '../screens/User/BeFast/FaceScreen';
 import ArmScreen from '../screens/User/BeFast/ArmScreen';
 import SpeechScreen from '../screens/User/BeFast/SpeechScreen';
 import ResultScreen from '../screens/User/BeFast/ResultScreen';
+import AdminLayout from '../layouts/AdminLayout';
+import AdminDashboardScreen from '../screens/Admin/AdminDashboardScreen';
+import AdminUsersScreen from '../screens/Admin/AdminUsersScreen';
+import AdminPackagesScreen from '../screens/Admin/AdminPackagesScreen';
 
 const AppRouter = () => {
   return (
@@ -42,7 +48,7 @@ const AppRouter = () => {
       </Route>
 
       {/* Main Routes (Private Routes - Only accessible when logged in) */}
-      <Route element={<PrivateRoute />}>
+      <Route element={<PatientRoute />}>
         <Route path="/profile" element={<ProfileScreen />} />
         <Route path="/history" element={<HistoryScreen />} />
         <Route path="/payment-result" element={<PaymentResultScreen />} />
@@ -60,6 +66,16 @@ const AppRouter = () => {
           <Route path="arm" element={<ArmScreen />} />
           <Route path="speech" element={<SpeechScreen />} />
           <Route path="result" element={<ResultScreen />} />
+        </Route>
+      </Route>
+
+      {/* Admin Route */}
+      <Route path="/admin" element={<AdminRoute />}>
+        <Route element={<AdminLayout />}>
+          <Route index element={<Navigate to="dashboard" replace />} />
+          <Route path="dashboard" element={<AdminDashboardScreen />} />
+          <Route path="users" element={<AdminUsersScreen />} />
+          <Route path="packages" element={<AdminPackagesScreen />} />
         </Route>
       </Route>
       
