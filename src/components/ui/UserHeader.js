@@ -11,8 +11,10 @@ const UserHeader = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   const roleObj = user?.role;
-  const roleName = typeof roleObj === 'object' ? roleObj?.name : roleObj;
-  const isAdmin = roleName === 'ADMIN' || roleName === '698f5a89fe5addce4f8e3b52';
+  const roleName = (typeof roleObj === 'object' && roleObj !== null) ? roleObj?.name : roleObj;
+  const ADMIN_ID = '698f5a89fe5addce4f8e3b52';
+  const safeRoleName = String(roleName || '').toUpperCase().trim();
+  const isAdmin = safeRoleName === 'ADMIN' || safeRoleName === ADMIN_ID.toUpperCase();
   
   const getShortName = (fullName) => {
     if (!fullName) return "Người dùng";

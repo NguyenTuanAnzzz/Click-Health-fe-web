@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ArrowLeft, Camera, Moon, Award, CheckCircle, LogOut, User, Zap, Trophy, Heart, Activity } from "lucide-react";
+import { ArrowLeft, Camera, Moon, Award, CheckCircle, LogOut, User, Zap, Trophy, Heart, Activity, LayoutDashboard, Shield, AlertCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -57,6 +57,12 @@ const ProfileScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user, loading: authLoading } = useSelector((state) => state.auth);
+  
+  const roleObj = user?.role;
+  const roleName = (typeof roleObj === 'object' && roleObj !== null) ? roleObj?.name : roleObj;
+  const ADMIN_ID = '698f5a89fe5addce4f8e3b52';
+  const safeRoleName = String(roleName || '').toUpperCase().trim();
+  const isAdmin = safeRoleName === 'ADMIN' || safeRoleName === ADMIN_ID.toUpperCase();
   const { t } = useTranslation();
 
   const [isEditing, setIsEditing] = useState(false);
@@ -131,7 +137,7 @@ const ProfileScreen = () => {
     if (!file) return;
 
     if (file.size > 2 * 1024 * 1024) {
-      alert("Ảnh của bạn quá lớn! Vui lòng chọn tệp tin có dung lượng dưới 2MB.");
+      alert("Ảnh của bạn quá lớn! V vui lòng chọn tệp tin có dung lượng dưới 2MB.");
       return;
     }
 
@@ -229,7 +235,21 @@ const ProfileScreen = () => {
                <p className="text-white/70 font-bold tracking-widest uppercase text-xs mb-5">Mã số: #{user?._id?.slice(-6).toUpperCase()}</p>
                <div className="flex flex-wrap justify-center md:justify-start gap-3">
                  <span className="bg-white/10 text-white px-4 py-1.5 rounded-full text-[12px] font-bold border border-white/20 uppercase tracking-wider backdrop-blur-sm">{user?.email}</span>
-                 <span className="bg-green-400/20 text-green-300 px-4 py-1.5 rounded-full text-[12px] font-bold border border-green-400/30 uppercase tracking-wider backdrop-blur-sm">Trạng thái: Hoạt động</span>
+                 <div className="flex items-center justify-center gap-2">
+                   <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] font-bold ${
+                     user?.isActive 
+                       ? 'bg-green-100/20 text-green-300 border border-green-500/20' 
+                       : 'bg-yellow-100/20 text-yellow-300 border border-yellow-500/20'
+                   }`}>
+                     {user?.isActive ? <CheckCircle size={14} /> : <AlertCircle size={14} />}
+                     {user?.isActive ? "Hoạt động" : "Chờ xác thực"}
+                   </span>
+                   {isAdmin && (
+                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] font-bold bg-red-500/20 text-red-300 border border-red-500/20">
+                       <Shield size={14} /> Admin
+                     </span>
+                   )}
+                 </div>
                </div>
             </div>
 
@@ -370,6 +390,22 @@ const ProfileScreen = () => {
                   <LogOut size={18} className="transform group-hover/btn:translate-x-1 transition-transform" />
                 </button>
               </div>
+
+              {isAdmin && (
+                <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-[32px] p-8 text-white shadow-lg relative overflow-hidden flex flex-col items-center justify-center text-center">
+                  <div className="absolute top-0 right-0 p-4 opacity-20">
+                    <LayoutDashboard size={64} />
+                  </div>
+                  <h3 className="text-[20px] font-headline font-bold mb-2 relative z-10">Khu vực Quản trị</h3>
+                  <p className="text-red-100 text-[14px] mb-6 relative z-10">Truy cập Dashboard để quản lý người dùng và hệ thống.</p>
+                  <button 
+                    onClick={() => navigate('/admin')}
+                    className="bg-white text-red-600 px-6 py-3 rounded-full font-bold text-[14px] shadow-md hover:scale-105 transition-all flex items-center gap-2 relative z-10"
+                  >
+                    <LayoutDashboard size={18} /> Đi tới Dashboard
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Right Column: VIP Upgrade */}
