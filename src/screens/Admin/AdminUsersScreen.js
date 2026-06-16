@@ -43,6 +43,19 @@ const AdminUsersScreen = () => {
     }
   };
 
+  const verifyUser = async (userId) => {
+    if (!window.confirm('Bạn có chắc muốn xác thực (Active) người dùng này ngay lập tức không?')) return;
+    try {
+      await axios.patch(`${API_URL}/users/admin/users/${userId}/verify`, 
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      fetchUsers();
+    } catch (err) {
+      alert('Lỗi xác thực người dùng');
+    }
+  };
+
   const updateSubscription = async (userId, newStatus, durationMonths = 1) => {
     if (!window.confirm(`Bạn có chắc muốn cấp gói ${newStatus} cho người dùng này?`)) return;
     try {
@@ -104,7 +117,7 @@ const AdminUsersScreen = () => {
                 <th className="px-6 py-4">Tài khoản</th>
                 <th className="px-6 py-4">Trạng thái</th>
                 <th className="px-6 py-4">Gói dịch vụ</th>
-                <th className="px-6 py-4">Khóa/Mở</th>
+                <th className="px-6 py-4">Hành động</th>
                 <th className="px-6 py-4 text-right">Chữa cháy thanh toán</th>
               </tr>
             </thead>
@@ -167,16 +180,28 @@ const AdminUsersScreen = () => {
                       )}
                     </td>
                     <td className="px-6 py-4">
-                      <button
-                        onClick={() => toggleUserStatus(user._id, user.isBlocked)}
-                        className={`text-xs font-bold px-4 py-2 rounded-lg border shadow-sm transition-all ${
-                          user.isBlocked 
-                          ? 'bg-white border-green-200 text-green-700 hover:bg-green-50 hover:border-green-300'
-                          : 'bg-white border-red-200 text-red-700 hover:bg-red-50 hover:border-red-300'
-                        }`}
-                      >
-                        {user.isBlocked ? 'Mở Khóa' : 'Khóa User'}
-                      </button>
+                      {user.isBlocked ? (
+                        <button
+                          onClick={() => toggleUserStatus(user._id, user.isBlocked)}
+                          className="text-xs font-bold px-4 py-2 rounded-lg border shadow-sm transition-all bg-white border-green-200 text-green-700 hover:bg-green-50 hover:border-green-300"
+                        >
+                          Mở Khóa
+                        </button>
+                      ) : !user.isActive ? (
+                        <button
+                          onClick={() => verifyUser(user._id)}
+                          className="text-xs font-bold px-4 py-2 rounded-lg border shadow-sm transition-all bg-blue-600 border-blue-600 text-white hover:bg-blue-700 hover:border-blue-700 shadow-blue-600/30"
+                        >
+                          Duyệt Ngay
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => toggleUserStatus(user._id, user.isBlocked)}
+                          className="text-xs font-bold px-4 py-2 rounded-lg border shadow-sm transition-all bg-white border-red-200 text-red-700 hover:bg-red-50 hover:border-red-300"
+                        >
+                          Khóa User
+                        </button>
+                      )}
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
