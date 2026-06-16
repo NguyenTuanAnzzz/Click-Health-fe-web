@@ -1,27 +1,13 @@
-import React, { useState } from 'react';
-import { Package, CheckCircle, Save, X, Edit3, Tag } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Package, CheckCircle, Save, X, Edit3, Tag, Loader } from 'lucide-react';
+import axios from 'axios';
+import API_URL from '../../constants/apiConfig';
+import { useSelector } from 'react-redux';
 
 const AdminPackagesScreen = () => {
-  const [plans, setPlans] = useState({
-    monthly: {
-      id: 'MONTH',
-      name: 'Gói Tháng (Basic)',
-      price: 49000,
-      oldPrice: 99000,
-      features: ['Quét dấu hiệu BEFAST', 'Báo cáo phân tích cơ bản', 'Lưu trữ lịch sử 30 ngày'],
-      isActive: true,
-      color: 'blue'
-    },
-    yearly: {
-      id: 'YEAR',
-      name: 'Gói Năm (Premium)',
-      price: 490000,
-      oldPrice: 1188000,
-      features: ['Mọi tính năng gói Tháng', 'Lưu trữ lịch sử trọn đời', 'Hỗ trợ ưu tiên 24/7', 'Phân tích y khoa chuyên sâu AI'],
-      isActive: true,
-      color: 'orange'
-    }
-  });
+  const { token } = useSelector(state => state.auth);
+  const [plans, setPlans] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const [editingPlan, setEditingPlan] = useState(null);
   const [editForm, setEditForm] = useState({ price: '', oldPrice: '' });
@@ -34,19 +20,61 @@ const AdminPackagesScreen = () => {
     });
   };
 
-  const handleSave = (planKey) => {
-    // In a real app, you would make an API call here to update the prices in DB
-    setPlans(prev => ({
-      ...prev,
-      [planKey]: {
-        ...prev[planKey],
+  useEffect(() => {
+    fetchPackages();
+  }, []);
+
+  const fetchPackages = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/packages`);
+      const pkgs = res.data.packages;
+      const formatted = {};
+      pkgs.forEach(p => {
+        formatted[p.code === 'MONTH' ? 'monthly' : 'yearly'] = {
+          id: p.code,
+          name: p.name,
+          price: p.price,
+          oldPrice: p.oldPrice,
+          features: p.features,
+          color: p.color
+        };
+      });
+      setPlans(formatted);
+      setLoading(false);
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+    }
+  };
+
+  const handleSave = async (planKey) => {
+    try {
+      const code = plans[planKey].id;
+      const res = await axios.patch(`${API_URL}/packages/${code}`, {
         price: Number(editForm.price),
         oldPrice: Number(editForm.oldPrice) || null
-      }
-    }));
-    setEditingPlan(null);
-    alert('Đã cập nhật giá gói cước thành công! (Mock)');
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      setPlans(prev => ({
+        ...prev,
+        [planKey]: {
+          ...prev[planKey],
+          price: res.data.package.price,
+          oldPrice: res.data.package.oldPrice
+        }
+      }));
+      setEditingPlan(null);
+      alert('Đã cập nhật giá gói cước thành công trên hệ thống!');
+    } catch (err) {
+      alert('Cập nhật thất bại!');
+    }
   };
+
+  if (loading) {
+    return <div className="flex justify-center p-12"><Loader className="animate-spin text-blue-500" size={32} /></div>;
+  }
 
   return (
     <div className="max-w-7xl mx-auto">

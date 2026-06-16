@@ -65,6 +65,8 @@ const ProfileScreen = () => {
   const isAdmin = safeRoleName === 'ADMIN' || safeRoleName === ADMIN_ID.toUpperCase();
   const { t } = useTranslation();
 
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [packages, setPackages] = useState({ month: null, year: null });
   const [isEditing, setIsEditing] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState("yearly");
   const [paymentLoading, setPaymentLoading] = useState(false);
@@ -104,6 +106,21 @@ const ProfileScreen = () => {
       });
     }
   }, [user]);
+
+  useEffect(() => {
+    const fetchPackages = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/packages`);
+        const pkgs = res.data.packages;
+        const monthPkg = pkgs.find(p => p.code === 'MONTH');
+        const yearPkg = pkgs.find(p => p.code === 'YEAR');
+        setPackages({ month: monthPkg, year: yearPkg });
+      } catch(err) {
+        console.error("Fetch packages error:", err);
+      }
+    };
+    fetchPackages();
+  }, []);
 
   const handleLogout = () => {
     if (window.confirm("Bạn có chắc chắn muốn đăng xuất?")) {
@@ -165,7 +182,7 @@ const ProfileScreen = () => {
     setPaymentLoading(true);
     try {
         const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-        const amount = selectedPlan === "monthly" ? 49000 : 490000;
+        const amount = selectedPlan === "monthly" ? (packages.month?.price || 49000) : (packages.year?.price || 490000);
         
         const response = await axios.post(`${API_URL}/payment/create_payment_url`, {
             amount: amount,
@@ -457,14 +474,14 @@ const ProfileScreen = () => {
                       <div className="flex flex-col md:flex-row gap-6 mb-12">
                           <PlanCard 
                               title="Gói tháng"
-                              price="49,000₫"
+                              price={(packages.month?.price || 49000).toLocaleString()}
                               subText="/ 1 tháng"
                               selected={selectedPlan === "monthly"}
                               onClick={() => setSelectedPlan("monthly")}
                           />
                           <PlanCard 
                               title="Gói năm"
-                              price="490,000₫"
+                              price={(packages.year?.price || 490000).toLocaleString()}
                               subText="/ 12 tháng"
                               badge="Khuyên dùng"
                               selected={selectedPlan === "yearly"}
