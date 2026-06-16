@@ -3,7 +3,11 @@ import axios from 'axios';
 import { 
   Users, DollarSign, Activity, BarChart, RefreshCw, TrendingUp
 } from 'lucide-react';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
+import { Doughnut, Bar } from 'react-chartjs-2';
 import API_URL from '../../constants/apiConfig';
+
+ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
 const AdminDashboardScreen = () => {
   const [stats, setStats] = useState(null);
@@ -113,20 +117,30 @@ const AdminDashboardScreen = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-               <h3 className="text-lg font-bold text-gray-900 mb-4">Biểu đồ tăng trưởng (Minh họa)</h3>
-               <div className="h-64 flex items-end justify-between gap-2 px-2">
-                  {[40, 70, 45, 90, 65, 85, 120].map((val, i) => (
-                    <div key={i} className="w-full bg-blue-100 rounded-t-lg relative group">
-                      <div 
-                        className="absolute bottom-0 w-full bg-blue-500 rounded-t-lg transition-all duration-1000"
-                        style={{ height: `${(val / 120) * 100}%` }}
-                      ></div>
-                    </div>
-                  ))}
-               </div>
-               <div className="flex justify-between mt-4 text-xs font-bold text-gray-400 uppercase">
-                 <span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span>
+            <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center">
+               <h3 className="text-lg font-bold text-gray-900 mb-4 self-start">Tỉ lệ phân bổ Gói đăng ký</h3>
+               <div className="h-64 w-full flex items-center justify-center">
+                  <Doughnut 
+                    data={{
+                      labels: ['NONE (Miễn phí)', 'MONTH (Gói Tháng)', 'YEAR (Gói Năm)'],
+                      datasets: [{
+                        data: [
+                          stats.subscriptionStats.NONE, 
+                          stats.subscriptionStats.MONTH, 
+                          stats.subscriptionStats.YEAR
+                        ],
+                        backgroundColor: ['#94a3b8', '#a855f7', '#f97316'],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                      }]
+                    }}
+                    options={{
+                      maintainAspectRatio: false,
+                      plugins: {
+                        legend: { position: 'bottom' }
+                      }
+                    }}
+                  />
                </div>
             </div>
             
