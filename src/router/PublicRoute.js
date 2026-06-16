@@ -7,10 +7,11 @@ const PublicRoute = () => {
 
   if (token) {
     const roleObj = user?.role;
-    const roleName = typeof roleObj === 'object' ? roleObj.name : roleObj;
+    const roleName = (typeof roleObj === 'object' && roleObj !== null) ? roleObj.name : roleObj;
     const ADMIN_ID = '698f5a89fe5addce4f8e3b52';
     
-    if (roleName === 'ADMIN' || roleName === ADMIN_ID) {
+    const safeRoleName = String(roleName || '').toUpperCase().trim();
+    if (safeRoleName === 'ADMIN' || safeRoleName === ADMIN_ID.toUpperCase()) {
       return <Navigate to="/admin" replace />;
     }
     return <Navigate to="/" replace />;
