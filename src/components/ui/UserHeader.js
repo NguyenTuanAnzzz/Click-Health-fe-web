@@ -10,6 +10,10 @@ const UserHeader = () => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
+  const roleObj = user?.role;
+  const roleName = typeof roleObj === 'object' ? roleObj?.name : roleObj;
+  const isAdmin = roleName === 'ADMIN' || roleName === '698f5a89fe5addce4f8e3b52';
+  
   const getShortName = (fullName) => {
     if (!fullName) return "Người dùng";
     const parts = fullName.split(" ");
@@ -166,6 +170,14 @@ const UserHeader = () => {
         </div>
 
         <div className="flex items-center gap-4">
+          {isAdmin && (
+            <button 
+              onClick={() => navigate('/admin')}
+              className="hidden sm:flex bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 rounded-full font-bold text-[13px] shadow-lg shadow-red-500/30 hover:scale-105 transition-all duration-300 items-center gap-2"
+            >
+              <Activity size={16} /> Admin Panel
+            </button>
+          )}
           {token ? (
             <Link 
               to="/profile" 
@@ -222,6 +234,9 @@ const UserHeader = () => {
               <Link to="/recovery-exercise" onClick={() => setIsMobileMenuOpen(false)} className={`px-6 py-3 text-[14px] font-bold uppercase tracking-wider transition-colors duration-300 ${isActive('/recovery-exercise') ? 'bg-primary/5 text-primary border-l-4 border-primary' : 'text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface border-l-4 border-transparent'}`}>Bài tập Phục hồi</Link>
               <Link to="/knowledge" onClick={() => setIsMobileMenuOpen(false)} className={`px-6 py-3 text-[14px] font-bold uppercase tracking-wider transition-colors duration-300 ${isActive('/knowledge') ? 'bg-primary/5 text-primary border-l-4 border-primary' : 'text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface border-l-4 border-transparent'}`}>Kiến thức đột quỵ</Link>
               <Link to="/history" onClick={() => setIsMobileMenuOpen(false)} className={`px-6 py-3 text-[14px] font-bold uppercase tracking-wider transition-colors duration-300 ${isActive('/history') ? 'bg-primary/5 text-primary border-l-4 border-primary' : 'text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface border-l-4 border-transparent'}`}>Lịch sử</Link>
+              {isAdmin && (
+                <Link to="/admin" onClick={() => setIsMobileMenuOpen(false)} className="px-6 py-3 text-[14px] font-bold uppercase tracking-wider transition-colors duration-300 text-red-600 hover:bg-red-50 border-l-4 border-transparent hover:border-red-600">Admin Panel</Link>
+              )}
             </>
           ) : (
             <>

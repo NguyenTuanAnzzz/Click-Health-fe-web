@@ -33,9 +33,17 @@ const IndexScreen = () => {
 
   useEffect(() => {
     if (token) {
-      dispatch(fetchMyHistory());
+      const roleObj = user?.role;
+      const roleName = typeof roleObj === 'object' ? roleObj.name : roleObj;
+      const ADMIN_ID = '698f5a89fe5addce4f8e3b52';
+      
+      if (roleName === 'ADMIN' || roleName === ADMIN_ID) {
+        navigate('/admin');
+      } else {
+        dispatch(fetchMyHistory());
+      }
     }
-  }, [dispatch, token]);
+  }, [dispatch, token, user, navigate]);
 
   const getShortName = (fullName) => {
     if (!fullName) return "Người dùng";
