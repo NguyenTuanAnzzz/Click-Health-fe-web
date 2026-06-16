@@ -11,7 +11,7 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const { token, loading, error } = useSelector((state) => state.auth);
+  const { token, user, loading, error } = useSelector((state) => state.auth);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,9 +27,17 @@ const LoginScreen = () => {
 
   useEffect(() => {
     if (token) {
-      navigate("/");
+      const roleObj = user?.role;
+      const roleName = typeof roleObj === 'object' ? roleObj?.name : roleObj;
+      const ADMIN_ID = '698f5a89fe5addce4f8e3b52';
+      
+      if (roleName === 'ADMIN' || roleName === ADMIN_ID) {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
     }
-  }, [token, navigate]);
+  }, [token, user, navigate]);
 
   return (
     <AuthLayout tagline="Hệ thống cảnh báo đột quỵ thông minh">
