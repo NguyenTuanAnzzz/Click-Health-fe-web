@@ -13,12 +13,12 @@ import { bindStreamToVideo } from '../utils/videoStream';
 import ValidationPanelV2 from './ValidationPanelV2';
 import FaceResultsPanel from './results/FaceResultsPanel';
 import { FACE_TEST } from '../testConfigs';
+import { getBefastAccess } from '../../../constants/subscription';
 
 export default function RealtimeFaceTest({ onComplete }) {
   const config = FACE_TEST;
   const { user } = useSelector((state) => state.auth);
-  const freeAttemptsLeft = user?.freeAttemptsBefastLeft || 0;
-  const hasNoAttempts = freeAttemptsLeft === 0;
+  const { hasNoAttempts } = getBefastAccess(user);
   
   const videoRef = useRef(null);
   const containerRef = useRef(null);

@@ -10,6 +10,7 @@ import UserLayout from "../../../layouts/UserLayout";
 import { AI_API_URL } from "../../../constants/apiConfig";
 import { fetchMyBmiHistory, saveBmiHistory } from "../../../store/slices/historySlice";
 import { getInfo } from "../../../store/slices/authSlice";
+import { hasActiveSubscription } from "../../../constants/subscription";
 
 const StrokeRiskScreen = () => {
   const navigate = useNavigate();
@@ -108,12 +109,12 @@ const StrokeRiskScreen = () => {
 
     // Check VIP subscription
     const now = new Date();
-    const hasActiveSubscription = user?.subscriptionStatus !== 'NONE' && user?.subscriptionExpiry && new Date(user.subscriptionExpiry) > now;
+    const hasActiveSub = hasActiveSubscription(user, now);
     
     // Check trial attempts
     const bmiAttempts = user?.freeAttemptsBmiLeft !== undefined ? user.freeAttemptsBmiLeft : 3;
     
-    if (!hasActiveSubscription && bmiAttempts <= 0) {
+    if (!hasActiveSub && bmiAttempts <= 0) {
       setError("Bạn đã hết lượt thử BMI/Đột quỵ miễn phí. Vui lòng nâng cấp gói VIP để tiếp tục sử dụng.");
       setLoading(false);
       return;
@@ -177,7 +178,7 @@ const StrokeRiskScreen = () => {
   const currentRiskTheme = result ? getRiskColor(result.risk_category) : getRiskColor("Thấp");
 
   // VIP Subscription Status Helper
-  const hasActiveSub = user?.subscriptionStatus !== 'NONE' && user?.subscriptionExpiry && new Date(user.subscriptionExpiry) > new Date();
+  const hasActiveSub = hasActiveSubscription(user);
   const bmiAttemptsLeft = user?.freeAttemptsBmiLeft !== undefined ? user.freeAttemptsBmiLeft : 3;
 
   return (

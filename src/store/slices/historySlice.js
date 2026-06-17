@@ -45,13 +45,8 @@ export const saveHistory = createAsyncThunk(
 
       return res.data;
     } catch (error) {
-      // Handle specific HTTP status codes
       if (error.response?.status === 403) {
-        // 403 Forbidden - likely token expired or insufficient permissions
-        console.error('403 Forbidden: Your session may have expired. Please log in again.');
-        localStorage.removeItem("token");
-        sessionStorage.removeItem("token");
-        return thunkAPI.rejectWithValue("Session expired. Please log in again.");
+        return thunkAPI.rejectWithValue(getErrorMessage(error, "You do not have permission to save history"));
       }
       
       if (error.response?.status === 401) {
@@ -105,12 +100,8 @@ export const saveBmiHistory = createAsyncThunk(
 
       return res.data;
     } catch (error) {
-      // Handle specific HTTP status codes
       if (error.response?.status === 403) {
-        console.error('403 Forbidden: Your session may have expired. Please log in again.');
-        localStorage.removeItem("token");
-        sessionStorage.removeItem("token");
-        return thunkAPI.rejectWithValue("Session expired. Please log in again.");
+        return thunkAPI.rejectWithValue(getErrorMessage(error, "You do not have permission to save BMI history"));
       }
       
       if (error.response?.status === 401) {

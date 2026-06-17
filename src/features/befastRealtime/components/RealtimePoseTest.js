@@ -10,6 +10,7 @@ import { useVideoStreamAttach } from '../hooks/useVideoStreamAttach';
 import { bindStreamToVideo } from '../utils/videoStream';
 import ValidationPanelV2 from './ValidationPanelV2';
 import PoseCanvasOverlay from './PoseCanvasOverlay';
+import { getBefastAccess } from '../../../constants/subscription';
 
 export default function RealtimePoseTest({
   config,
@@ -21,8 +22,7 @@ export default function RealtimePoseTest({
   onComplete,
 }) {
   const { user } = useSelector((state) => state.auth);
-  const freeAttemptsLeft = user?.freeAttemptsBefastLeft || 0;
-  const hasNoAttempts = freeAttemptsLeft === 0;
+  const { hasNoAttempts } = getBefastAccess(user);
   
   const videoRef = useRef(null);
   const containerRef = useRef(null);

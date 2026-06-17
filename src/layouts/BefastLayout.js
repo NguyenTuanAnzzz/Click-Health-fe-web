@@ -3,6 +3,7 @@ import { ArrowLeft, Check, AlertTriangle } from 'lucide-react';
 import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getInfo } from '../store/slices/authSlice';
+import { getBefastAccess } from '../constants/subscription';
 
 const BefastLayout = () => {
   const navigate = useNavigate();
@@ -10,14 +11,30 @@ const BefastLayout = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
-  // Fetch user info to get free attempts count
+  // Refresh user info so admin subscription changes are picked up when the user returns to BEFAST.
   useEffect(() => {
-    dispatch(getInfo());
+    const refreshUser = () => {
+      dispatch(getInfo());
+    };
+    const refreshWhenVisible = () => {
+      if (!document.hidden) refreshUser();
+    };
+
+    refreshUser();
+    window.addEventListener('focus', refreshUser);
+    document.addEventListener('visibilitychange', refreshWhenVisible);
+
+    return () => {
+      window.removeEventListener('focus', refreshUser);
+      document.removeEventListener('visibilitychange', refreshWhenVisible);
+    };
   }, [dispatch]);
 
-  const freeAttemptsLeft = user?.freeAttemptsBefastLeft || 0;
-  const hasNoAttempts = freeAttemptsLeft === 0;
-  const isLowAttempts = freeAttemptsLeft > 0 && freeAttemptsLeft <= 2;
+  const {
+    attemptsLeft: freeAttemptsLeft,
+    hasNoAttempts,
+    isLowAttempts,
+  } = getBefastAccess(user);
 
   const steps = [
     { key: 'balance', label: 'Balance', short: 'B', desc: 'Thăng bằng' },

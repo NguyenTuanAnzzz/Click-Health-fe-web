@@ -6,12 +6,12 @@ import { analyzeSpeechOnServer } from '../api/befastAiApi';
 import { SPEECH_TEST } from '../testConfigs';
 import TestResultsShell from './TestResultsShell';
 import ScoreBar from './ScoreBar';
+import { getBefastAccess } from '../../../constants/subscription';
 
 export default function RealtimeSpeechTest({ onComplete }) {
   const config = SPEECH_TEST;
   const { user } = useSelector((state) => state.auth);
-  const freeAttemptsLeft = user?.freeAttemptsBefastLeft || 0;
-  const hasNoAttempts = freeAttemptsLeft === 0;
+  const { hasNoAttempts } = getBefastAccess(user);
   
   const [phase, setPhase] = useState('intro');
   const [countdown, setCountdown] = useState(null);
