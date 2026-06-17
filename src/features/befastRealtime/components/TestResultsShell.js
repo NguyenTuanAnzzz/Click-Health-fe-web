@@ -22,11 +22,11 @@ function isAbnormalResult(result) {
 function hasHighRiskMetric(result) {
   if (!result) return false;
   return Boolean(
-    (result.stabilityScore != null && result.stabilityScore < 65) ||
+      (result.stabilityScore != null && result.stabilityScore < 65) ||
       (result.stabilityLeft != null && result.stabilityLeft < 65) ||
       (result.stabilityRight != null && result.stabilityRight < 65) ||
       (result.overallBalance != null && result.overallBalance < 65) ||
-      (result.deviation_percentage != null && result.deviation_percentage > 3.5) ||
+      (result.deviation_percentage != null && result.deviation_percentage > 6.5) ||
       (result.correct_count != null && result.correct_count < 2)
   );
 }

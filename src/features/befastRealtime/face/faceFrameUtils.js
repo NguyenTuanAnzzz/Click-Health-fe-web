@@ -102,10 +102,10 @@ export function extractFaceSymmetryFrame(landmarks, timestampMs) {
     asymmetryScorePct,
     faceWidth,
     isAbnormal:
-      asymmetryScorePct > 3.2 ||
-      mouthCornerDevPct > 2.6 ||
-      mouthCenterOffsetPct > 3.4 ||
-      mouthSideBalancePct > 3.2,
+      asymmetryScorePct > 4.8 ||
+      mouthCornerDevPct > 3.6 ||
+      mouthCenterOffsetPct > 5.0 ||
+      mouthSideBalancePct > 5.0,
   };
 }
 

@@ -174,6 +174,9 @@ export default function RealtimeFaceTest({ onComplete }) {
     <div className="bg-gradient-to-br from-white to-[#f8f9fa] rounded-[28px] p-4 md:p-8 max-w-4xl mx-auto shadow-lg font-inter-tight-small border border-[#e5e7eb]/50">
       <Header />
       <p className="text-[#858585] text-[14px] font-semibold mb-4">{config.description}</p>
+      {config.guideImage && (
+        <FaceInstructionGuide config={config} />
+      )}
 
       {(phase === TEST_PHASE.LOADING || phase === TEST_PHASE.PERMISSION) && (
         <div className="flex flex-col items-center py-16 text-[#858585]">
@@ -306,6 +309,38 @@ function Header() {
         <Smile size={22} className="text-[#7AB5E9]" /> {FACE_TEST.title}
         <span className="text-[11px] text-[#7AB5E9]">REALTIME</span>
       </h2>
+    </div>
+  );
+}
+
+function FaceInstructionGuide({ config }) {
+  return (
+    <div className="grid md:grid-cols-[260px,1fr] gap-5 items-center pb-6 mb-6 border-b border-[#e5e7eb]">
+      <img
+        src={config.guideImage}
+        alt={config.guideTitle || config.title}
+        className="w-full max-w-[260px] mx-auto md:mx-0 max-h-[320px] object-contain"
+      />
+      <div>
+        <p className="text-[12px] font-black uppercase tracking-wider text-[#1F75C1] mb-2">
+          {config.guideTitle}
+        </p>
+        <h3 className="text-[28px] md:text-[34px] leading-tight font-black text-black mb-4">
+          {config.guideMain}
+        </h3>
+        <div className="space-y-3">
+          {config.guideSteps?.map((step, index) => (
+            <div key={step} className="flex gap-3 items-start">
+              <span className="w-8 h-8 rounded-full bg-[#7AB5E9] text-white font-black text-[14px] flex items-center justify-center shrink-0">
+                {index + 1}
+              </span>
+              <p className="text-[16px] md:text-[18px] leading-snug font-bold text-[#374151]">
+                {step}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

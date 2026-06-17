@@ -199,6 +199,9 @@ export default function RealtimePoseTest({
       <TestHeader Icon={Icon} config={config} />
       <p className="text-[#6b7280] text-[15px] font-medium mb-2">{config.description}</p>
       <p className="text-[13px] text-[#9ca3af] mb-6">{config.prepHint}</p>
+      {config.guideImage && (
+        <PoseInstructionGuide config={config} />
+      )}
 
       {(phase === TEST_PHASE.LOADING || phase === TEST_PHASE.PERMISSION) && (
         <LoadingBlock phase={phase} />
@@ -315,6 +318,38 @@ function TestHeader({ Icon, config }) {
         {config.title}
         <span className="text-[11px] font-bold text-[#7AB5E9] ml-1">REALTIME</span>
       </h2>
+    </div>
+  );
+}
+
+function PoseInstructionGuide({ config }) {
+  return (
+    <div className="grid md:grid-cols-[260px,1fr] gap-5 items-center pb-6 mb-6 border-b border-[#e5e7eb]">
+      <img
+        src={config.guideImage}
+        alt={config.guideTitle || config.title}
+        className="w-full max-w-[260px] mx-auto md:mx-0 max-h-[340px] object-contain"
+      />
+      <div>
+        <p className="text-[12px] font-black uppercase tracking-wider text-[#1F75C1] mb-2">
+          {config.guideTitle}
+        </p>
+        <h3 className="text-[28px] md:text-[34px] leading-tight font-black text-black mb-4">
+          {config.guideMain}
+        </h3>
+        <div className="space-y-3">
+          {config.guideSteps?.map((step, index) => (
+            <div key={step} className="flex gap-3 items-start">
+              <span className="w-8 h-8 rounded-full bg-[#7AB5E9] text-white font-black text-[14px] flex items-center justify-center shrink-0">
+                {index + 1}
+              </span>
+              <p className="text-[16px] md:text-[18px] leading-snug font-bold text-[#374151]">
+                {step}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

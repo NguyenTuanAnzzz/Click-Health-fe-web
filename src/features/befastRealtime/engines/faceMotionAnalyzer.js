@@ -59,10 +59,10 @@ export function analyzeFaceMotion(frames, minFrames = 30) {
   const abnormalFrames = valid.filter(
     (f) =>
       f.isAbnormal ||
-      (f.asymmetryScorePct ?? f.deviationPct ?? 0) > 3.2 ||
-      (f.mouthCornerDevPct ?? f.mouthDevPct ?? 0) > 2.6 ||
-      (f.mouthCenterOffsetPct ?? 0) > 3.4 ||
-      (f.mouthSideBalancePct ?? 0) > 3.2
+      (f.asymmetryScorePct ?? f.deviationPct ?? 0) > 4.8 ||
+      (f.mouthCornerDevPct ?? f.mouthDevPct ?? 0) > 3.6 ||
+      (f.mouthCenterOffsetPct ?? 0) > 5.0 ||
+      (f.mouthSideBalancePct ?? 0) > 5.0
   ).length;
   const abnormalPct = (abnormalFrames / valid.length) * 100;
 
@@ -74,13 +74,13 @@ export function analyzeFaceMotion(frames, minFrames = 30) {
     p90Center * 0.95,
     p90Side * 0.9
   );
-  const sustainedMouthDroop = medianMouth > 1.8 && p90Mouth > 2.5;
-  const centerShift = medianCenter > 2.2 && p90Center > 3.0;
-  const sideAsymmetry = medianSide > 2.1 && p90Side > 3.0;
-  const peakAsymmetry = p95Dev > 3.4 || maxDev > 4.5;
+  const sustainedMouthDroop = medianMouth > 2.4 && p90Mouth > 3.4;
+  const centerShift = medianCenter > 3.0 && p90Center > 4.2;
+  const sideAsymmetry = medianSide > 3.0 && p90Side > 4.2;
+  const peakAsymmetry = p95Dev > 5.2 && abnormalPct > 20;
 
-  const symmetryScore = clamp(100 - compositeDeviation * 12 - abnormalPct * 0.25, 0, 100);
-  const stabilityScore = clamp(100 - clamp(p95Dev - medianDev, 0, 10) * 8 - abnormalPct * 0.1, 0, 100);
+  const symmetryScore = clamp(100 - compositeDeviation * 8 - abnormalPct * 0.18, 0, 100);
+  const stabilityScore = clamp(100 - clamp(p95Dev - medianDev, 0, 10) * 5 - abnormalPct * 0.08, 0, 100);
   const movementVariance = clamp(abnormalPct, 0, 100);
   const composite = clamp(symmetryScore * 0.6 + stabilityScore * 0.4, 0, 100);
 
@@ -90,7 +90,7 @@ export function analyzeFaceMotion(frames, minFrames = 30) {
     centerShift ||
     sideAsymmetry ||
     peakAsymmetry ||
-    abnormalPct > 30;
+    abnormalPct > 45;
   const riskLevel = isAbnormal && rawRiskLevel === 'low' ? 'medium' : rawRiskLevel;
 
   const parts = [];
@@ -98,7 +98,7 @@ export function analyzeFaceMotion(frames, minFrames = 30) {
   if (centerShift) parts.push(`Tâm miệng lệch khỏi trục mặt ${p90Center.toFixed(1)}%`);
   if (sideAsymmetry) parts.push(`Vùng miệng/má mất cân đối ${p90Side.toFixed(1)}%`);
   if (peakAsymmetry) parts.push(`Bất đối xứng khuôn mặt ${p95Dev.toFixed(1)}%`);
-  if (abnormalPct > 30) parts.push(`Bất đối xứng kéo dài ${Math.round(abnormalPct)}% thời lượng`);
+  if (abnormalPct > 45) parts.push(`Bất đối xứng kéo dài ${Math.round(abnormalPct)}% thời lượng`);
   if (!parts.length) parts.push('Khuôn mặt cân đối theo thời gian');
 
   return {

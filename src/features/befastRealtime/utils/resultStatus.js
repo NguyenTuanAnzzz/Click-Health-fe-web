@@ -23,7 +23,7 @@ export function getBefastAbnormalStatus(data, isEyes = false) {
       (data.stabilityLeft != null && data.stabilityLeft < 65) ||
       (data.stabilityRight != null && data.stabilityRight < 65) ||
       (data.overallBalance != null && data.overallBalance < 65) ||
-      (data.deviation_percentage != null && data.deviation_percentage > 3.5);
+      (data.deviation_percentage != null && data.deviation_percentage > 6.5);
 
     return abnormal
       ? { status: 'abnormal', text: 'Phát hiện bất thường' }
