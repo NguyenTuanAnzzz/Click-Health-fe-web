@@ -45,12 +45,13 @@ export function analyzeArmMotion(frames, minFrames = 45) {
   const composite = clamp(overallBalance * 0.7 + leftRightBalance * 0.3, 0, 100);
   const abnormalMotionPct = clamp((armDriftPct + movementVariance) / 2, 0, 100);
 
-  const riskLevel = riskFromScore(composite);
+  const rawRiskLevel = riskFromScore(composite);
   const armWeakness =
     composite < RISK_THRESHOLDS.WATCH_MIN ||
     stabilityLeft < 65 ||
     stabilityRight < 65 ||
     raisePct < 60;
+  const riskLevel = armWeakness && rawRiskLevel === 'low' ? 'medium' : rawRiskLevel;
 
   const parts = [];
   if (raisePct < 60) parts.push('Hai tay chưa giơ đủ cao');
@@ -73,6 +74,7 @@ export function analyzeArmMotion(frames, minFrames = 45) {
     raisePct: Math.round(raisePct),
     riskLevel,
     armWeakness,
+    arm_weakness: armWeakness,
     label: armWeakness ? 'arm_weakness' : 'normal',
     message: parts.join('. ') + '.',
   };

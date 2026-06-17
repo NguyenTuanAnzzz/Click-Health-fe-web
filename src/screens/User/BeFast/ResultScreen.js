@@ -205,7 +205,9 @@ function ResultCard({ item }) {
         )}
         {raw?.realtime && item.id === 'F' && (
           <Metrics lines={[
-            ['Lệch tối đa', `${raw.metrics?.deviation_percentage ?? raw.deviation_percentage ?? '-'}%`],
+            ['Lệch tổng hợp', `${raw.metrics?.deviation_percentage ?? raw.deviation_percentage ?? '-'}%`],
+            ['Khóe miệng', `${raw.metrics?.mouth_corner_deviation ?? raw.mouth_corner_deviation ?? '-'}%`],
+            ['Tâm miệng', `${raw.metrics?.mouth_center_offset ?? raw.mouth_center_offset ?? '-'}%`],
             ['Điểm tổng', `${raw.metrics?.overallBalance ?? raw.overallBalance ?? '-'}%`],
           ]} />
         )}
@@ -213,6 +215,8 @@ function ResultCard({ item }) {
           <Metrics lines={[
             ['Tay trái', `${raw.metrics?.stabilityLeft ?? raw.stabilityLeft ?? '-'}%`],
             ['Tay phải', `${raw.metrics?.stabilityRight ?? raw.stabilityRight ?? '-'}%`],
+            ['Giơ đủ cao', `${raw.metrics?.raisePct ?? raw.raisePct ?? '-'}%`],
+            ['Tay hạ dần', `${raw.metrics?.armDriftPct ?? raw.armDriftPct ?? '-'}%`],
           ]} />
         )}
         {raw?.realtime && item.id === 'S' && (

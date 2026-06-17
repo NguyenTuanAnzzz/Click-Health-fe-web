@@ -3,11 +3,43 @@ import { AlertTriangle, CheckCircle, ChevronRight, RefreshCw } from 'lucide-reac
 const RISK = {
   low: { title: 'Nguy cơ thấp', box: 'bg-green-50 border-green-200 text-green-800', Icon: CheckCircle, ic: 'text-[#7AB5E9]' },
   medium: { title: 'Cần theo dõi', box: 'bg-amber-50 border-amber-200 text-amber-900', Icon: AlertTriangle, ic: 'text-amber-500' },
-  high: { title: 'Nguy cơ cao', box: 'bg-red-50 border-red-200 text-red-800', Icon: AlertTriangle, ic: 'text-[#d32f2f]' },
+  high: { title: 'Phát hiện bất thường', box: 'bg-red-50 border-red-200 text-red-800', Icon: AlertTriangle, ic: 'text-[#d32f2f]' },
 };
 
+function isAbnormalResult(result) {
+  if (!result) return false;
+  return Boolean(
+    (result.label && result.label !== 'normal') ||
+      result.armWeakness ||
+      result.arm_weakness ||
+      result.balance_issue ||
+      result.speech_issue ||
+      result.is_abnormal ||
+      result.should_see_doctor
+  );
+}
+
+function hasHighRiskMetric(result) {
+  if (!result) return false;
+  return Boolean(
+    (result.stabilityScore != null && result.stabilityScore < 65) ||
+      (result.stabilityLeft != null && result.stabilityLeft < 65) ||
+      (result.stabilityRight != null && result.stabilityRight < 65) ||
+      (result.overallBalance != null && result.overallBalance < 65) ||
+      (result.deviation_percentage != null && result.deviation_percentage > 3.5) ||
+      (result.correct_count != null && result.correct_count < 2)
+  );
+}
+
+function getDisplayRiskLevel(result) {
+  if (result?.riskLevel === 'high' || hasHighRiskMetric(result)) return 'high';
+  if (result?.riskLevel === 'medium' || isAbnormalResult(result)) return 'medium';
+  return 'low';
+}
+
 export default function TestResultsShell({ result, onRetry, onContinue, continueLabel, children }) {
-  const r = RISK[result.riskLevel] || RISK.low;
+  const displayRiskLevel = getDisplayRiskLevel(result);
+  const r = RISK[displayRiskLevel] || RISK.low;
   const Icon = r.Icon;
 
   return (

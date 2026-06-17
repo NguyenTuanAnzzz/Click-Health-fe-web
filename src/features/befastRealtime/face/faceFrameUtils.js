@@ -2,6 +2,9 @@ import { FACE_LANDMARK, VALIDATION_THRESHOLDS } from '../constants';
 
 const { FACE_WIDTH_MIN, FACE_WIDTH_MAX } = VALIDATION_THRESHOLDS;
 
+const pct = (value, base) => (Math.abs(value) / Math.max(base, 0.001)) * 100;
+const distance = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+
 export function extractFaceSymmetryFrame(landmarks, timestampMs) {
   if (!landmarks?.length) return null;
 
@@ -14,18 +17,74 @@ export function extractFaceSymmetryFrame(landmarks, timestampMs) {
   const mr = pick(FACE_LANDMARK.MOUTH_RIGHT);
   const forehead = pick(FACE_LANDMARK.FOREHEAD);
   const chin = pick(FACE_LANDMARK.CHIN);
+  const nose = pick(FACE_LANDMARK.NOSE_TIP);
+  const mouthTop = pick(FACE_LANDMARK.MOUTH_TOP);
+  const mouthBottom = pick(FACE_LANDMARK.MOUTH_BOTTOM);
+  const leftCheek = pick(FACE_LANDMARK.LEFT_CHEEK);
+  const rightCheek = pick(FACE_LANDMARK.RIGHT_CHEEK);
 
-  if (![leO, leI, reO, reI, ml, mr, forehead, chin].every(Boolean)) return null;
+  if (
+    ![
+      leO,
+      leI,
+      reO,
+      reI,
+      ml,
+      mr,
+      forehead,
+      chin,
+      nose,
+      mouthTop,
+      mouthBottom,
+      leftCheek,
+      rightCheek,
+    ].every(Boolean)
+  ) {
+    return null;
+  }
 
   const lEyeY = (leO.y + leI.y) / 2;
   const rEyeY = (reO.y + reI.y) / 2;
   const eyeDiff = Math.abs(lEyeY - rEyeY);
-  const mouthDiff = Math.abs(ml.y - mr.y);
   const faceHeight = Math.abs(forehead.y - chin.y) || 0.001;
+  const cheekWidth = Math.abs(leftCheek.x - rightCheek.x) || 0.001;
 
-  const eyeDevPct = (eyeDiff / faceHeight) * 100;
-  const mouthDevPct = (mouthDiff / faceHeight) * 100;
-  const deviationPct = Math.max(eyeDevPct, mouthDevPct);
+  const leftEyeCenter = {
+    x: (leO.x + leI.x) / 2,
+    y: lEyeY,
+  };
+  const rightEyeCenter = {
+    x: (reO.x + reI.x) / 2,
+    y: rEyeY,
+  };
+  const eyeCenterX = (leftEyeCenter.x + rightEyeCenter.x) / 2;
+  const faceCenterX =
+    (eyeCenterX + nose.x + (forehead.x + chin.x) / 2 + (leftCheek.x + rightCheek.x) / 2) / 4;
+  const mouthCenter = {
+    x: (ml.x + mr.x + mouthTop.x + mouthBottom.x) / 4,
+    y: (ml.y + mr.y + mouthTop.y + mouthBottom.y) / 4,
+  };
+
+  const rawMouthDevPct = pct(ml.y - mr.y, faceHeight);
+  const eyeDevPct = pct(eyeDiff, faceHeight);
+  const mouthCornerDevPct = pct((ml.y - lEyeY) - (mr.y - rEyeY), faceHeight);
+  const mouthCenterOffsetPct = pct(mouthCenter.x - faceCenterX, cheekWidth);
+
+  const leftMouthToCheek = distance(ml, leftCheek);
+  const rightMouthToCheek = distance(mr, rightCheek);
+  const mouthSideBalancePct = pct(leftMouthToCheek - rightMouthToCheek, cheekWidth);
+  const cheekAsymmetryPct = pct(leftCheek.y - rightCheek.y, faceHeight);
+  const mouthVerticalCenterPct = pct(mouthCenter.y - (ml.y + mr.y) / 2, faceHeight);
+
+  const asymmetryScorePct = Math.max(
+    mouthCornerDevPct * 1.15,
+    mouthCenterOffsetPct,
+    mouthSideBalancePct * 0.9,
+    rawMouthDevPct * 0.85,
+    eyeDevPct * 0.45,
+    cheekAsymmetryPct * 0.35
+  );
+  const deviationPct = asymmetryScorePct;
 
   const xs = landmarks.map((l) => l.x);
   const faceWidth = Math.max(...xs) - Math.min(...xs);
@@ -34,9 +93,19 @@ export function extractFaceSymmetryFrame(landmarks, timestampMs) {
     t: timestampMs,
     deviationPct,
     eyeDevPct,
-    mouthDevPct,
+    mouthDevPct: rawMouthDevPct,
+    mouthCornerDevPct,
+    mouthCenterOffsetPct,
+    mouthSideBalancePct,
+    cheekAsymmetryPct,
+    mouthVerticalCenterPct,
+    asymmetryScorePct,
     faceWidth,
-    isAbnormal: deviationPct > 3.5,
+    isAbnormal:
+      asymmetryScorePct > 3.2 ||
+      mouthCornerDevPct > 2.6 ||
+      mouthCenterOffsetPct > 3.4 ||
+      mouthSideBalancePct > 3.2,
   };
 }
 

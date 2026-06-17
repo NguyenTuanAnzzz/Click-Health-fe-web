@@ -9,8 +9,10 @@ export default function ArmResultsPanel({ result, onRetry, onContinue }) {
       <ScoreBar label="Cân bằng trái / phải" value={result.leftRightBalance} />
       <ScoreBar label="Ổn định tổng thể" value={result.overallBalance} />
       <div className="grid grid-cols-2 gap-3 mt-4">
-        <MetricCard label="Arm drift" value={`${result.armDriftPct}%`} />
-        <MetricCard label="Variance" value={`${result.movementVariance}%`} />
+        <MetricCard label="Giơ đủ cao" value={`${result.raisePct ?? '-'}%`} />
+        <MetricCard label="Tay hạ dần" value={`${result.armDriftPct ?? '-'}%`} />
+        <MetricCard label="Dao động" value={`${result.movementVariance ?? '-'}%`} />
+        <MetricCard label="Bất thường" value={`${result.abnormalMotionPct ?? '-'}%`} />
       </div>
     </TestResultsShell>
   );
