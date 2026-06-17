@@ -36,7 +36,7 @@ const AppFooter = () => {
         <div>
           <h4 className="font-extrabold text-[15px] mb-6 text-on-surface uppercase tracking-wider">Liên hệ</h4>
           <ul className="space-y-4">
-            <li><a href="tel:19008888" className="text-[14px] font-medium text-on-surface-variant hover:text-primary transition-colors">Hotline: 1900 8888</a></li>
+            <li><a href="tel:0375705654" className="text-[14px] font-medium text-on-surface-variant hover:text-primary transition-colors">Hotline: 0375705654</a></li>
             <li><a href="mailto:hi@click-health.app" className="text-[14px] font-medium text-on-surface-variant hover:text-primary transition-colors">Email: hi@click-health.app</a></li>
           </ul>
         </div>
