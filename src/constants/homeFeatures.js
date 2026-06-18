@@ -16,10 +16,10 @@ const features = [
   },
   {
     id: 3,
-    title: "Bài luyện tập khắc phục",
+    title: "Bài tập hằng ngày",
     icon: "Activity",
     imgSrc: "/practice.png",
-    link: "/recovery-exercise",
+    link: "/daily-exercise",
   },
   {
     id: 4,

@@ -2,27 +2,35 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { 
   ArrowLeft, Activity, Eye, Smile, UserCircle2, Mic, Clock, 
-  ShieldAlert, CheckCircle, Brain, Scale, Heart, Navigation, Info
+  ShieldAlert, CheckCircle, Brain, Scale, Heart, Navigation, Info, Dumbbell
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import UserLayout from "../../../layouts/UserLayout";
-import { fetchMyHistory, fetchMyBmiHistory } from "../../../store/slices/historySlice";
+import { fetchMyHistory, fetchMyBmiHistory, fetchMyExerciseHistory } from "../../../store/slices/historySlice";
 
 const HistoryScreen = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   
-  const { data: history, loading, bmiData, bmiLoading } = useSelector((state) => state.history);
-  const [activeTab, setActiveTab] = useState("befast");
+  const { data: history, loading, bmiData, bmiLoading, exerciseData, exerciseLoading } = useSelector((state) => state.history);
+  const [activeTab, setActiveTab] = useState(location.state?.activeTab || "befast");
 
   useEffect(() => {
     dispatch(fetchMyHistory());
     dispatch(fetchMyBmiHistory());
+    dispatch(fetchMyExerciseHistory());
   }, [dispatch]);
 
   const renderStatusIcon = (status) => {
     if (status?.is_abnormal) return <ShieldAlert size={14} className="text-[#d32f2f]" />;
     return <CheckCircle size={14} className="text-[#7AB5E9]" />;
+  };
+
+  const formatDuration = (seconds = 0) => {
+    if (!seconds) return "--";
+    const minutes = Math.max(1, Math.round(seconds / 60));
+    return `${minutes} phút`;
   };
 
   return (
@@ -61,7 +69,7 @@ const HistoryScreen = () => {
         </div>
 
         {/* Dynamic Capsule Tab Selector */}
-        <div className="flex gap-2 p-1.5 bg-[#f0f1f2] border border-[#e5e7eb] rounded-2xl mb-10 max-w-md mx-auto">
+        <div className="flex flex-col md:flex-row gap-2 p-1.5 bg-[#f0f1f2] border border-[#e5e7eb] rounded-2xl mb-10 max-w-3xl mx-auto">
           <button
             onClick={() => setActiveTab("befast")}
             className={`flex-1 flex items-center justify-center gap-2.5 py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
@@ -81,6 +89,16 @@ const HistoryScreen = () => {
             }`}
           >
             <Scale size={15} /> BMI & Đột quỵ
+          </button>
+          <button
+            onClick={() => setActiveTab("exercise")}
+            className={`flex-1 flex items-center justify-center gap-2.5 py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+              activeTab === "exercise"
+                ? "bg-[#1F75C1] text-white shadow-md"
+                : "text-[#1F75C1] hover:bg-white/50"
+            }`}
+          >
+            <Dumbbell size={15} /> Bài tập hằng ngày
           </button>
         </div>
 
@@ -192,7 +210,7 @@ const HistoryScreen = () => {
                 })}
               </div>
             )
-          ) : (
+          ) : activeTab === "bmi" ? (
             /* TAB 2: BMI & STROKE RISK HISTORY */
             bmiLoading ? (
               <div className="flex flex-col items-center justify-center py-20">
@@ -346,7 +364,86 @@ const HistoryScreen = () => {
                   );
                 })}
               </div>
-          ))}
+            )
+          ) : (
+            /* TAB 3: DAILY EXERCISE HISTORY */
+            exerciseLoading ? (
+              <div className="flex flex-col items-center justify-center py-20">
+                <div className="w-10 h-10 border-2 border-[#7AB5E9]/25 border-t-[#7AB5E9] rounded-full animate-spin mb-4" />
+                <p className="text-[#858585] font-semibold text-[13px] font-inter-tight-small">Đang tải lịch sử bài tập...</p>
+              </div>
+            ) : exerciseData.length === 0 ? (
+              <div className="text-center py-16 bg-[#f0f1f2] rounded-[24px] border border-[#e5e7eb]/80 max-w-2xl mx-auto px-8">
+                <Dumbbell size={48} className="text-[#1F75C1]/20 mx-auto mb-5" />
+                <h3 className="text-xl font-bold text-black font-inter tracking-tight mb-2">Chưa có lịch sử bài tập</h3>
+                <p className="text-[#858585] text-[13px] font-semibold font-inter-tight-small mb-8">
+                  Bạn chưa hoàn thành buổi tập hằng ngày nào.
+                </p>
+                <button
+                  onClick={() => navigate('/daily-exercise')}
+                  className="bg-[#7AB5E9] text-white px-8 py-3 rounded-full font-bold hover:bg-[#5CA5E4] hover:scale-[1.01] transition-all duration-300 text-[13px] font-inter-tight-small shadow-sm shadow-[#7AB5E9]/15 cursor-pointer"
+                >
+                  Tập ngay
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {exerciseData.map((record) => {
+                  const date = new Date(record.completedAt || record.createdAt);
+                  const isRecovery = record.programType === "RECOVERY";
+                  const completionText = `${record.completedVideos || 0}/${record.totalVideos || 0} video`;
+
+                  return (
+                    <div
+                      key={record._id || record.id}
+                      className="rounded-[20px] bg-[#f5f5f5] border border-[#e5e7eb] p-6 flex flex-col justify-between hover:bg-[#ececec] hover:border-[#1F75C1]/20 hover:shadow-xs transition-all duration-300 relative overflow-hidden text-left"
+                    >
+                      <div className="absolute top-0 left-0 w-1.5 h-full bg-[#7AB5E9]" />
+
+                      <div className="mb-6">
+                        <div className="flex items-center justify-between mb-4 font-inter-tight-small">
+                          <div className="flex items-center gap-2.5">
+                            <span className="bg-[#1F75C1]/10 text-[#1F75C1] px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                              {isRecovery ? "Phục hồi" : "Phòng ngừa"}
+                            </span>
+                            <span className="text-[#858585] text-[12px] font-semibold">
+                              {date.toLocaleDateString('vi-VN')} {date.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}
+                            </span>
+                          </div>
+                          <div className="w-9 h-9 rounded-[8px] flex items-center justify-center border border-[#BEDBF4] bg-[#7AB5E9]/10 text-[#1F75C1] shadow-2xs">
+                            <Dumbbell size={17} />
+                          </div>
+                        </div>
+
+                        <h3 className="text-xl font-bold font-inter leading-snug mt-2 text-black">
+                          {record.programTitle}
+                        </h3>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-3 mb-5">
+                        <div className="bg-white rounded-xl p-4 border border-[#e5e7eb]">
+                          <p className="text-[#858585] text-[9px] uppercase font-bold tracking-wider mb-1">Hoàn thành</p>
+                          <p className="text-black font-extrabold text-lg">{completionText}</p>
+                        </div>
+                        <div className="bg-white rounded-xl p-4 border border-[#e5e7eb]">
+                          <p className="text-[#858585] text-[9px] uppercase font-bold tracking-wider mb-1">Thời lượng</p>
+                          <p className="text-black font-extrabold text-lg">{formatDuration(record.totalDurationSeconds)}</p>
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => navigate(`/daily-exercise/${record.programId}`)}
+                        className="w-full bg-[#7AB5E9] text-white py-3 rounded-full font-bold hover:bg-[#5CA5E4] transition-all duration-300 text-[13px] font-inter-tight-small"
+                      >
+                        Tập lại chương trình
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            )
+          )}
         </div>
       </div>
     </UserLayout>

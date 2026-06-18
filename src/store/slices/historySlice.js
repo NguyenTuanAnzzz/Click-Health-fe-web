@@ -83,6 +83,28 @@ export const fetchMyBmiHistory = createAsyncThunk(
   }
 );
 
+export const fetchMyExerciseHistory = createAsyncThunk(
+  "history/fetchMyExerciseHistory",
+  async (_, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+      if (!token) {
+        return thunkAPI.rejectWithValue("No authentication token found");
+      }
+
+      const res = await axios.get(`${API_URL}/exercises/history/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(getErrorMessage(error, "Fetch exercise history failed"));
+    }
+  }
+);
+
 export const saveBmiHistory = createAsyncThunk(
   "history/saveBmiHistory",
   async (bmiData, thunkAPI) => {
@@ -130,6 +152,11 @@ const historySlice = createSlice({
     bmiSaveLoading: false,
     bmiError: null,
     bmiSaveError: null,
+
+    // Daily Exercise History States
+    exerciseData: [],
+    exerciseLoading: false,
+    exerciseError: null,
   },
   reducers: {
     clearHistoryError: (state) => {
@@ -137,6 +164,7 @@ const historySlice = createSlice({
       state.saveError = null;
       state.bmiError = null;
       state.bmiSaveError = null;
+      state.exerciseError = null;
     },
   },
   extraReducers: (builder) => {
@@ -185,6 +213,20 @@ const historySlice = createSlice({
       .addCase(fetchMyBmiHistory.rejected, (state, action) => {
         state.bmiLoading = false;
         state.bmiError = action.payload;
+      })
+      // Fetch Daily Exercise History
+      .addCase(fetchMyExerciseHistory.pending, (state) => {
+        state.exerciseLoading = true;
+        state.exerciseError = null;
+      })
+      .addCase(fetchMyExerciseHistory.fulfilled, (state, action) => {
+        state.exerciseLoading = false;
+        state.exerciseData = action.payload?.history || [];
+        state.exerciseError = null;
+      })
+      .addCase(fetchMyExerciseHistory.rejected, (state, action) => {
+        state.exerciseLoading = false;
+        state.exerciseError = action.payload;
       })
       // Save BMI History
       .addCase(saveBmiHistory.pending, (state) => {

@@ -122,13 +122,13 @@ const UserHeader = () => {
                   />
                 </Link>
                 <Link 
-                  to="/recovery-exercise" 
+                  to="/daily-exercise" 
                   className={`text-[13px] font-extrabold uppercase tracking-wider transition-colors duration-300 relative py-1 group
-                    ${isActive('/recovery-exercise') ? 'text-primary' : 'text-on-surface-variant hover:text-primary'}`}
+                    ${isActive('/daily-exercise') ? 'text-primary' : 'text-on-surface-variant hover:text-primary'}`}
                 >
-                  Bài tập Phục hồi
+                  Bài tập hằng ngày
                   <span className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300
-                    ${isActive('/recovery-exercise') ? 'w-full' : 'w-0 group-hover:w-full'}`} 
+                    ${isActive('/daily-exercise') ? 'w-full' : 'w-0 group-hover:w-full'}`} 
                   />
                 </Link>
                 <Link 
@@ -233,7 +233,7 @@ const UserHeader = () => {
             <>
               <Link to="/befast" onClick={() => setIsMobileMenuOpen(false)} className={`px-6 py-3 text-[14px] font-bold uppercase tracking-wider transition-colors duration-300 ${isActive('/befast') ? 'bg-primary/5 text-primary border-l-4 border-primary' : 'text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface border-l-4 border-transparent'}`}>BeFast AI</Link>
               <Link to="/stroke-risk-score" onClick={() => setIsMobileMenuOpen(false)} className={`px-6 py-3 text-[14px] font-bold uppercase tracking-wider transition-colors duration-300 ${isActive('/stroke-risk-score') ? 'bg-primary/5 text-primary border-l-4 border-primary' : 'text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface border-l-4 border-transparent'}`}>Tầm soát BMI</Link>
-              <Link to="/recovery-exercise" onClick={() => setIsMobileMenuOpen(false)} className={`px-6 py-3 text-[14px] font-bold uppercase tracking-wider transition-colors duration-300 ${isActive('/recovery-exercise') ? 'bg-primary/5 text-primary border-l-4 border-primary' : 'text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface border-l-4 border-transparent'}`}>Bài tập Phục hồi</Link>
+              <Link to="/daily-exercise" onClick={() => setIsMobileMenuOpen(false)} className={`px-6 py-3 text-[14px] font-bold uppercase tracking-wider transition-colors duration-300 ${isActive('/daily-exercise') ? 'bg-primary/5 text-primary border-l-4 border-primary' : 'text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface border-l-4 border-transparent'}`}>Bài tập hằng ngày</Link>
               <Link to="/knowledge" onClick={() => setIsMobileMenuOpen(false)} className={`px-6 py-3 text-[14px] font-bold uppercase tracking-wider transition-colors duration-300 ${isActive('/knowledge') ? 'bg-primary/5 text-primary border-l-4 border-primary' : 'text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface border-l-4 border-transparent'}`}>Kiến thức đột quỵ</Link>
               <Link to="/history" onClick={() => setIsMobileMenuOpen(false)} className={`px-6 py-3 text-[14px] font-bold uppercase tracking-wider transition-colors duration-300 ${isActive('/history') ? 'bg-primary/5 text-primary border-l-4 border-primary' : 'text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface border-l-4 border-transparent'}`}>Lịch sử</Link>
               {isAdmin && (

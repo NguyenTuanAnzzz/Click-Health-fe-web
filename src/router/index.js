@@ -16,6 +16,9 @@ import ProfileScreen from '../screens/User/Profile/ProfileScreen';
 import HistoryScreen from '../screens/User/Profile/HistoryScreen';
 import PaymentResultScreen from '../screens/User/Profile/PaymentResultScreen';
 import RecoveryExerciseScreen from '../screens/User/Features/RecoveryExerciseScreen';
+import ExerciseProgramDetailScreen from '../screens/User/Features/ExerciseProgramDetailScreen';
+import ExerciseSessionScreen from '../screens/User/Features/ExerciseSessionScreen';
+import ExerciseCompleteScreen from '../screens/User/Features/ExerciseCompleteScreen';
 import StrokeRiskScreen from '../screens/User/Features/StrokeRiskScreen';
 import KnowledgeScreen from '../screens/User/Features/KnowledgeScreen';
 import MRIScreen from '../screens/User/Features/MRIScreen';
@@ -52,7 +55,11 @@ const AppRouter = () => {
         <Route path="/profile" element={<ProfileScreen />} />
         <Route path="/history" element={<HistoryScreen />} />
         <Route path="/payment-result" element={<PaymentResultScreen />} />
-        <Route path="/recovery-exercise" element={<RecoveryExerciseScreen />} />
+        <Route path="/daily-exercise" element={<RecoveryExerciseScreen />} />
+        <Route path="/daily-exercise/:programId" element={<ExerciseProgramDetailScreen />} />
+        <Route path="/daily-exercise/:programId/session" element={<ExerciseSessionScreen />} />
+        <Route path="/daily-exercise/:programId/complete" element={<ExerciseCompleteScreen />} />
+        <Route path="/recovery-exercise" element={<Navigate to="/daily-exercise" replace />} />
         <Route path="/knowledge" element={<KnowledgeScreen />} />
         <Route path="/stroke-risk-score" element={<StrokeRiskScreen />} />
         <Route path="/mri" element={<MRIScreen />} />
