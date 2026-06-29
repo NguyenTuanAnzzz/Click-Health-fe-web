@@ -24,7 +24,7 @@ const programVisuals = {
     icon: HeartPulse,
     iconStyle: "bg-error-container text-error border-error/20",
     accentStyle: "bg-error text-on-error",
-    bullets: ["Phục hồi chức năng", "Theo nhịp tập an toàn", "Sẽ bổ sung video sau"],
+    bullets: ["Phục hồi chức năng", "Theo nhịp tập an toàn", "Rèn vận động và thăng bằng"],
   },
 };
 

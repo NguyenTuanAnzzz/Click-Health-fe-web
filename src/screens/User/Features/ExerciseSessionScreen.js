@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
-import { ArrowLeft, CheckCircle2, ChevronRight, Pause, Play } from "lucide-react";
+import { ArrowLeft, CheckCircle2, ChevronRight, Pause, Play, RotateCcw } from "lucide-react";
 import { Navigate, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import UserLayout from "../../../layouts/UserLayout";
 import API_URL from "../../../constants/apiConfig";
@@ -172,6 +172,25 @@ const ExerciseSessionScreen = () => {
     setIsPlaying(false);
   };
 
+  const replayCurrentVideo = async () => {
+    const video = videoRef.current;
+    setIsResting(false);
+    setRestCountdown(REST_SECONDS);
+
+    if (!video) {
+      setIsPlaying(false);
+      return;
+    }
+
+    try {
+      video.currentTime = 0;
+      await video.play();
+      setIsPlaying(true);
+    } catch {
+      setIsPlaying(false);
+    }
+  };
+
   const togglePlay = async () => {
     const video = videoRef.current;
     if (!video) return;
@@ -236,13 +255,23 @@ const ExerciseSessionScreen = () => {
                   <p className="text-white/70 text-[14px] font-medium mb-6">
                     Bài tiếp theo: {videos[currentIndex + 1]?.title}
                   </p>
-                  <button
-                    type="button"
-                    onClick={skipRest}
-                    className="px-6 py-3 rounded-full bg-primary text-on-primary font-extrabold hover:bg-[#5CA5E4] transition-colors"
-                  >
-                    Bỏ qua nghỉ
-                  </button>
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <button
+                      type="button"
+                      onClick={replayCurrentVideo}
+                      className="px-6 py-3 rounded-full border border-white/30 text-white font-extrabold hover:bg-white/10 transition-colors inline-flex items-center gap-2"
+                    >
+                      <RotateCcw size={16} />
+                      Tập lại bài này
+                    </button>
+                    <button
+                      type="button"
+                      onClick={skipRest}
+                      className="px-6 py-3 rounded-full bg-primary text-on-primary font-extrabold hover:bg-[#5CA5E4] transition-colors"
+                    >
+                      Bỏ qua nghỉ
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
@@ -266,6 +295,16 @@ const ExerciseSessionScreen = () => {
                   >
                     {isPlaying ? <Pause size={16} /> : <Play size={16} className="fill-current" />}
                     {isPlaying ? "Tạm dừng" : "Phát"}
+                  </button>
+                )}
+                {isResting && (
+                  <button
+                    type="button"
+                    onClick={replayCurrentVideo}
+                    className="px-5 py-3 rounded-full border border-primary text-primary font-extrabold inline-flex items-center gap-2 hover:bg-primary/10 transition-colors"
+                  >
+                    <RotateCcw size={16} />
+                    Tập lại bài này
                   </button>
                 )}
                 <button
